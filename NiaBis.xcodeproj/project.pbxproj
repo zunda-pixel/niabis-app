@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2E44B7E12B864DE600C1968F /* NiaBisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44B7E02B864DE600C1968F /* NiaBisApp.swift */; };
 		2E44B7E32B864DE600C1968F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44B7E22B864DE600C1968F /* ContentView.swift */; };
-		2E44B7E52B864DE600C1968F /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44B7E42B864DE600C1968F /* Item.swift */; };
 		2E44B7E72B864DEA00C1968F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E44B7E62B864DEA00C1968F /* Assets.xcassets */; };
 		2E44B7EB2B864DEA00C1968F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E44B7EA2B864DEA00C1968F /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -18,7 +17,6 @@
 		2E44B7DD2B864DE600C1968F /* NiaBis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NiaBis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E44B7E02B864DE600C1968F /* NiaBisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiaBisApp.swift; sourceTree = "<group>"; };
 		2E44B7E22B864DE600C1968F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		2E44B7E42B864DE600C1968F /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		2E44B7E62B864DEA00C1968F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2E44B7E82B864DEA00C1968F /* NiaBis.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NiaBis.entitlements; sourceTree = "<group>"; };
 		2E44B7EA2B864DEA00C1968F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -56,7 +54,6 @@
 			children = (
 				2E44B7E02B864DE600C1968F /* NiaBisApp.swift */,
 				2E44B7E22B864DE600C1968F /* ContentView.swift */,
-				2E44B7E42B864DE600C1968F /* Item.swift */,
 				2E44B7E62B864DEA00C1968F /* Assets.xcassets */,
 				2E44B7E82B864DEA00C1968F /* NiaBis.entitlements */,
 				2E44B7E92B864DEA00C1968F /* Preview Content */,
@@ -143,7 +140,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2E44B7E32B864DE600C1968F /* ContentView.swift in Sources */,
-				2E44B7E52B864DE600C1968F /* Item.swift in Sources */,
 				2E44B7E12B864DE600C1968F /* NiaBisApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
