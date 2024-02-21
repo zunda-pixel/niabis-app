@@ -1,5 +1,5 @@
 import XCTest
 @testable import NiaBisKit
 
-final class NiaBisKitTests: XCTestCase {
+final class NiaBisDataTests: XCTestCase {
 }

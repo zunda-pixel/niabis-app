@@ -4,19 +4,35 @@ import PackageDescription
 
 let package = Package(
   name: "NiaBisKit",
+  platforms: [
+    .iOS(.v17),
+    .macOS(.v14),
+  ],
   products: [
     .library(
-      name: "NiaBisKit",
-      targets: ["NiaBisKit"]
+      name: "NiaBisData",
+      targets: ["NiaBisData"]
+    ),
+    .library(
+      name: "NiaBisUI",
+      targets: ["NiaBisUI"]
     ),
   ],
   targets: [
     .target(
-      name: "NiaBisKit"
+      name: "NiaBisData"
+    ),
+    .target(
+      name: "NiaBisUI",
+      dependencies: [
+        .target(name: "NiaBisData"),
+      ]
     ),
     .testTarget(
-      name: "NiaBisKitTests",
-      dependencies: ["NiaBisKit"]
+      name: "NiaBisDataTests",
+      dependencies: [
+        .target(name: "NiaBisData"),
+      ]
     ),
   ]
 )
