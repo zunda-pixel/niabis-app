@@ -20,6 +20,7 @@
 		2E44B7E62B864DEA00C1968F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2E44B7E82B864DEA00C1968F /* NiaBis.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NiaBis.entitlements; sourceTree = "<group>"; };
 		2E44B7EA2B864DEA00C1968F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		2E7A20D82B86522500E77DBB /* NiaBisKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NiaBisKit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +37,7 @@
 		2E44B7D42B864DE600C1968F = {
 			isa = PBXGroup;
 			children = (
+				2E7A20D82B86522500E77DBB /* NiaBisKit */,
 				2E44B7DF2B864DE600C1968F /* NiaBis */,
 				2E44B7DE2B864DE600C1968F /* Products */,
 			);
