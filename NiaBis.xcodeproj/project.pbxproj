@@ -14,6 +14,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E13A8962B87A39000B991B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2E44B7DD2B864DE600C1968F /* NiaBis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NiaBis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E44B7E02B864DE600C1968F /* NiaBisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiaBisApp.swift; sourceTree = "<group>"; };
 		2E44B7E62B864DEA00C1968F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -55,6 +56,7 @@
 		2E44B7DF2B864DE600C1968F /* NiaBis */ = {
 			isa = PBXGroup;
 			children = (
+				2E13A8962B87A39000B991B1 /* Info.plist */,
 				2E44B7E02B864DE600C1968F /* NiaBisApp.swift */,
 				2E44B7E62B864DEA00C1968F /* Assets.xcassets */,
 				2E44B7E82B864DEA00C1968F /* NiaBis.entitlements */,
@@ -285,6 +287,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NiaBis/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -324,6 +327,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NiaBis/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
