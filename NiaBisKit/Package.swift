@@ -18,6 +18,9 @@ let package = Package(
       targets: ["NiaBisUI"]
     ),
   ],
+  dependencies: [
+    .package(url: "https://github.com/supabase-community/supabase-swift", from: "2.1.3"),
+  ],
   targets: [
     .target(
       name: "NiaBisData"
@@ -26,6 +29,8 @@ let package = Package(
       name: "NiaBisUI",
       dependencies: [
         .target(name: "NiaBisData"),
+        .product(name: "Supabase", package: "supabase-swift"),
+        .product(name: "Auth", package: "supabase-swift"),
       ]
     ),
     .testTarget(
