@@ -2,7 +2,7 @@ import Observation
 import Supabase
 
 @Observable
-final class AuthenticationController {
+final class AuthController {
   var session: Session?
   
   @ObservationIgnored
