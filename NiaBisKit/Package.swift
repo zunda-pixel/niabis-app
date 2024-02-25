@@ -20,10 +20,16 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/supabase-community/supabase-swift", from: "2.1.3"),
+    .package(url: "https://github.com/pointfreeco/swift-identified-collections", from: "1.0.0"),
+    .package(url: "https://github.com/pointfreeco/swift-case-paths", from: "1.2.4"),
+    .package(url: "https://github.com/pointfreeco/swift-tagged", from: "0.10.0"),
   ],
   targets: [
     .target(
-      name: "NiaBisData"
+      name: "NiaBisData",
+      dependencies: [
+        .product(name: "Tagged", package: "swift-tagged"),
+      ]
     ),
     .target(
       name: "NiaBisUI",
@@ -31,6 +37,9 @@ let package = Package(
         .target(name: "NiaBisData"),
         .product(name: "Supabase", package: "supabase-swift"),
         .product(name: "Auth", package: "supabase-swift"),
+        .product(name: "IdentifiedCollections", package: "swift-identified-collections"),
+        .product(name: "CasePaths", package: "swift-case-paths"),
+        .product(name: "Tagged", package: "swift-tagged"),
       ]
     ),
     .testTarget(
