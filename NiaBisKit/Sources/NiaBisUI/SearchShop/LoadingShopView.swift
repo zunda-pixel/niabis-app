@@ -11,8 +11,12 @@ struct LoadingShopView: View {
   func search() async {
     let request = MKLocalSearch.Request(completion: completion)
     let search = MKLocalSearch(request: request)
+
     do {
-      guard let mapItem = try await search.start().mapItems.first else { throw FetchError.notFount }
+      guard let mapItem = try await search.start().mapItems.first else {
+        throw AbortError.notFount
+      }
+      
       let shop = Shop(completion: completion, mapItem: mapItem)
       modelContext.insert(shop)
       self.shop = shop
