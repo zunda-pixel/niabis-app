@@ -1,24 +1,22 @@
-import Combine
 import MapKit
+import Observation
 
-final class SearchShopViewModel: NSObject, MKLocalSearchCompleterDelegate, ObservableObject {
+@Observable
+final class SearchShopViewModel: NSObject, MKLocalSearchCompleterDelegate {
   private let completer: MKLocalSearchCompleter
-  private var cancellable: Set<AnyCancellable> = []
 
-  @Published var results: [MKLocalSearchCompletion] = []
-  @Published var query: String = ""
+  var results: [MKLocalSearchCompletion] = []
+  var query: String = "" {
+    didSet {
+      completer.queryFragment = query
+    }
+  }
   
   override init() {
     completer = .init()
     super.init()
     completer.delegate = self
     completer.resultTypes = .pointOfInterest // TODO What to set?
-    $query
-      .sink { [weak self]  query in
-        guard let self else { return }
-        completer.queryFragment = query
-      }
-      .store(in: &cancellable)
   }
   
   /// MKLocalSearchCompleterDelegate
