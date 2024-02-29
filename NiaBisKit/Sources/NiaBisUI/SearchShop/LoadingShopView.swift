@@ -4,7 +4,7 @@ import MapKit
 
 struct LoadingShopView: View {
   let completion: MKLocalSearchCompletion
-  @State var shop: Shop?
+  @State var location: Location?
   @Environment(ErrorController.self) var errorController
   @Environment(\.modelContext) var modelContext
   
@@ -17,17 +17,17 @@ struct LoadingShopView: View {
         throw AbortError.notFount
       }
       
-      let shop = Shop(completion: completion, mapItem: mapItem)
-      modelContext.insert(shop)
-      self.shop = shop
+      let location = Location(completion: completion, mapItem: mapItem)
+      modelContext.insert(location)
+      self.location = location
     } catch {
       self.errorController.error = error
     }
   }
   
   var body: some View {
-    if let shop {
-      ShopDetailView(shop: shop)
+    if let location {
+      LocationDetailView(location: location)
     } else {
       VStack {
         Text(completion.title)
@@ -40,7 +40,7 @@ struct LoadingShopView: View {
   }
 }
 
-private extension Shop {
+private extension Location {
   convenience init(completion: MKLocalSearchCompletion, mapItem: MKMapItem) {
     self.init(
       id: .init(),

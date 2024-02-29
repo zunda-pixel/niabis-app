@@ -3,8 +3,8 @@ import Tagged
 import Foundation
 
 @Model
-public final class Shop: Identifiable {
-  public typealias ID = Tagged<Shop, UUID>
+public final class Location: Identifiable {
+  public typealias ID = Tagged<Location, UUID>
 
   public var id: ID
   public var name: String

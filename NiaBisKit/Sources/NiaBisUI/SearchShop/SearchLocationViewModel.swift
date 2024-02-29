@@ -2,7 +2,7 @@ import MapKit
 import Observation
 
 @Observable
-final class SearchShopViewModel: NSObject, MKLocalSearchCompleterDelegate {
+final class SearchLocationViewModel: NSObject, MKLocalSearchCompleterDelegate {
   private let completer: MKLocalSearchCompleter
 
   var results: [MKLocalSearchCompletion] = []

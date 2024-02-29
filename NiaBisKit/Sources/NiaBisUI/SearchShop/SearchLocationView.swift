@@ -1,13 +1,13 @@
 import SwiftUI
 import MapKit
 
-struct SearchShopView: View {
-  @State var viewModel = SearchShopViewModel()
+struct SearchLocationView: View {
+  @State var viewModel = SearchLocationViewModel()
   @State var selectedCompletion: MKLocalSearchCompletion?
   
   var body: some View {
     List {
-      TextField("Search Shop", text: $viewModel.query)
+      TextField("Search Location", text: $viewModel.query)
       
       ForEach(viewModel.results) { completion in
         Button {
@@ -28,7 +28,7 @@ struct SearchShopView: View {
     }
     .overlay {
       if viewModel.results.isEmpty {
-        ContentUnavailableView("Search Shop", systemImage: "fork.knife")
+        ContentUnavailableView("Search Location", systemImage: "fork.knife")
       }
     }
     .sheet(item: $selectedCompletion) { completion in
@@ -43,7 +43,7 @@ extension MKLocalSearchCompletion: Identifiable {
 
 #Preview {
   NavigationStack {
-    SearchShopView()
+    SearchLocationView()
   }
   .previewModelContainer()
   .environment(ErrorController())

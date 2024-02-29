@@ -2,7 +2,7 @@ import AsyncLocationKit
 import MapKit
 import SwiftUI
 
-extension SearchShopAndMapView {
+extension SearchLocationAndMapView {
   @Observable
   final class ViewState {
     var position: MapCameraPosition

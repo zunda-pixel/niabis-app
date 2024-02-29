@@ -6,7 +6,7 @@ import CoreLocationUI
 import AsyncLocationKit
 
 @MainActor
-struct SearchShopAndMapView: View {
+struct SearchLocationAndMapView: View {
   @State var state: ViewState = .init()
 
   var locationButton: some View {
@@ -30,7 +30,7 @@ struct SearchShopAndMapView: View {
         locationButton
       }
       .sheet(isPresented: .constant(true)) {
-        SearchShopView()
+        SearchLocationView()
           .interactiveDismissDisabled()
           .presentationDetents([.fraction(0.1), .fraction(0.3), .large])
           .presentationBackgroundInteraction(.enabled)
@@ -39,5 +39,5 @@ struct SearchShopAndMapView: View {
 }
 
 #Preview {
-  SearchShopAndMapView()
+  SearchLocationAndMapView()
 }

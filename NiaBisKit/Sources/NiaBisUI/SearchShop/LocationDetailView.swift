@@ -3,19 +3,19 @@ import Contacts
 import NiaBisData
 import SwiftData
 
-struct ShopDetailView: View {
+struct LocationDetailView: View {
   @Environment(\.openURL) var openURL
   
-  var shop: Shop
+  var location: Location
   
   var postalAddress: CNMutablePostalAddress {
     let postalAddress = CNMutablePostalAddress()
-    shop.postalCode.map { postalAddress.postalCode = $0 }
-    shop.state.map { postalAddress.state = $0 }
-    shop.city.map { postalAddress.city = $0 }
-    shop.subAdministrativeArea.map { postalAddress.subAdministrativeArea = $0 }
-    shop.subLocality.map { postalAddress.subLocality = $0 }
-    shop.street.map { postalAddress.street = $0 }
+    location.postalCode.map { postalAddress.postalCode = $0 }
+    location.state.map { postalAddress.state = $0 }
+    location.city.map { postalAddress.city = $0 }
+    location.subAdministrativeArea.map { postalAddress.subAdministrativeArea = $0 }
+    location.subLocality.map { postalAddress.subLocality = $0 }
+    location.street.map { postalAddress.street = $0 }
     
     return postalAddress
   }
@@ -29,8 +29,8 @@ struct ShopDetailView: View {
   var subAddress: String {
     var postalAddress: CNPostalAddress {
       let postalAddress = CNMutablePostalAddress()
-      shop.state.map { postalAddress.state = $0 }
-      shop.city.map { postalAddress.city = $0 }
+      location.state.map { postalAddress.state = $0 }
+      location.city.map { postalAddress.city = $0 }
       return postalAddress
     }
     
@@ -94,7 +94,7 @@ struct ShopDetailView: View {
       Section {
         VStack(alignment: .leading) {
           HStack(alignment: .center) {
-            Text(shop.name)
+            Text(location.name)
               .bold()
               .font(.title)
               .lineLimit(1)
@@ -121,7 +121,7 @@ struct ShopDetailView: View {
       }
       
       Section {
-        Text(shop.content)
+        Text(location.content)
           .lineLimit(5)
       } header: {
         Text("Information")
@@ -129,7 +129,7 @@ struct ShopDetailView: View {
       }
       
       Section {
-        if let phoneNumber = shop.phoneNumber {
+        if let phoneNumber = location.phoneNumber {
           VStack(alignment: .leading, spacing: 7) {
             Text("Phone Number")
               .foregroundStyle(.secondary)
@@ -146,7 +146,7 @@ struct ShopDetailView: View {
           }
         }
         
-        if let url = shop.url,
+        if let url = location.url,
            let host = url.host() {
           VStack(alignment: .leading) {
             Text("Web Site")
@@ -191,10 +191,10 @@ private extension View {
 
 
 struct Preview: View {
-  @Query var shops: [Shop]
+  @Query var locations: [Location]
   
   var body: some View {
-    ShopDetailView(shop: shops.first!)
+    LocationDetailView(location: locations.first!)
   }
 }
 
@@ -207,14 +207,14 @@ extension View {
   @MainActor
   func previewModelContainer() -> some View {
     let container = try! ModelContainer(
-      for: Shop.self,
+      for: Location.self,
       configurations: .init(
         isStoredInMemoryOnly: true
       )
     )
     
     for i in (0..<10) {
-      let shop = Shop(
+      let location = Location(
         id: .init(),
         name: "Shop Name \(i)",
         content: """
@@ -237,7 +237,7 @@ extension View {
         imageDatas: []
       )
       
-      container.mainContext.insert(shop)
+      container.mainContext.insert(location)
     }
     
     return self.modelContainer(container)
