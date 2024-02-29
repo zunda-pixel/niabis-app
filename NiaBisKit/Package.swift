@@ -23,6 +23,7 @@ let package = Package(
     .package(url: "https://github.com/pointfreeco/swift-identified-collections", from: "1.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-case-paths", from: "1.2.4"),
     .package(url: "https://github.com/pointfreeco/swift-tagged", from: "0.10.0"),
+    .package(url: "https://github.com/AsyncSwift/AsyncLocationKit", from: "1.6.4"),
   ],
   targets: [
     .target(
@@ -40,6 +41,7 @@ let package = Package(
         .product(name: "IdentifiedCollections", package: "swift-identified-collections"),
         .product(name: "CasePaths", package: "swift-case-paths"),
         .product(name: "Tagged", package: "swift-tagged"),
+        .product(name: "AsyncLocationKit", package: "AsyncLocationKit"),
       ]
     ),
     .testTarget(
