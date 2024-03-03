@@ -1,10 +1,11 @@
 import SwiftData
 import Tagged
 import Foundation
+import Contacts
 
 @Model
 public final class Location: Identifiable {
-  public typealias ID = Tagged<Location, UUID>
+  public typealias ID = UUID /// TODO Tagged<Location, UUID>
 
   public var id: ID
   public var name: String
@@ -68,3 +69,32 @@ public final class Location: Identifiable {
     self.imageDatas = imageDatas
   }
 }
+
+extension Location {
+  public func postalAddress(style: CNPostalAddressFormatter.Style) -> CNPostalAddress {
+    let postalAddress = CNMutablePostalAddress()
+    
+    switch style {
+    case .full:
+      postalCode.map { postalAddress.postalCode = $0 }
+      state.map { postalAddress.state = $0 }
+      city.map { postalAddress.city = $0 }
+      subAdministrativeArea.map { postalAddress.subAdministrativeArea = $0 }
+      subLocality.map { postalAddress.subLocality = $0 }
+      street.map { postalAddress.street = $0 }
+    case .medium:
+      state.map { postalAddress.state = $0 }
+      city.map { postalAddress.city = $0 }
+      subAdministrativeArea.map { postalAddress.subAdministrativeArea = $0 }
+      subLocality.map { postalAddress.subLocality = $0 }
+      street.map { postalAddress.street = $0 }
+    case .short:
+      state.map { postalAddress.state = $0 }
+      city.map { postalAddress.city = $0 }
+    }
+    
+    return postalAddress
+  }
+}
+
+

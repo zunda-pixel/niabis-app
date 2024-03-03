@@ -29,9 +29,12 @@ struct LoadingShopView: View {
     if let location {
       LocationDetailView(location: location)
     } else {
-      VStack {
-        Text(completion.title)
-        Text(completion.subtitle)
+      NavigationStack {
+        VStack {
+          Text(completion.title)
+          Text(completion.subtitle)
+        }
+        .navigationTitle(completion.title)
       }
       .task {
         await search()
@@ -64,4 +67,3 @@ private extension Location {
     )
   }
 }
-

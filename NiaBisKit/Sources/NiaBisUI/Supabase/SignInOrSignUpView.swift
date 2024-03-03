@@ -101,14 +101,18 @@ struct SignInOrSignUpView: View {
       Section {
         TextField("Email", text: $email)
           .textContentType(.emailAddress)
-          .keyboardType(.emailAddress)
           .autocorrectionDisabled()
+          #if !os(macOS)
+          .keyboardType(.emailAddress)
           .textInputAutocapitalization(.never)
+          #endif
 
         SecureField("Password", text: $password)
           .textContentType(mode == .signIn ? .password : .newPassword)
           .autocorrectionDisabled()
+          #if !os(macOS)
           .textInputAutocapitalization(.never)
+          #endif
                 
         switch mode {
         case.signIn:

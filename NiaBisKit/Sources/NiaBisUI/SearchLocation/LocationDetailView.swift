@@ -7,38 +7,18 @@ struct LocationDetailView: View {
   @Environment(\.openURL) var openURL
   
   var location: Location
-  
-  var postalAddress: CNMutablePostalAddress {
-    let postalAddress = CNMutablePostalAddress()
-    location.postalCode.map { postalAddress.postalCode = $0 }
-    location.state.map { postalAddress.state = $0 }
-    location.city.map { postalAddress.city = $0 }
-    location.subAdministrativeArea.map { postalAddress.subAdministrativeArea = $0 }
-    location.subLocality.map { postalAddress.subLocality = $0 }
-    location.street.map { postalAddress.street = $0 }
-    
-    return postalAddress
-  }
+  let formatter = CNPostalAddressFormatter()
   
   var formattedPostalAddress: String {
-    let formatter = CNPostalAddressFormatter()
-    let formattedAddress = formatter.string(from: postalAddress)
+    let address = location.postalAddress(style: .full)
+    let formattedAddress = formatter.string(from: address)
     return formattedAddress
   }
   
   var subAddress: String {
-    var postalAddress: CNPostalAddress {
-      let postalAddress = CNMutablePostalAddress()
-      location.state.map { postalAddress.state = $0 }
-      location.city.map { postalAddress.city = $0 }
-      return postalAddress
-    }
-    
-    let formatter = CNPostalAddressFormatter()
-    let formattedAddress = formatter.string(from: postalAddress)
-    
+    let address = location.postalAddress(style: .short)
+    let formattedAddress = formatter.string(from: address)
     let onelineAddress = formattedAddress.split(whereSeparator: \.isNewline).joined(separator: " ")
-    
     return onelineAddress
   }
   
@@ -90,90 +70,92 @@ struct LocationDetailView: View {
   }
 
   var body: some View {
-    List {
-      Section {
-        VStack(alignment: .leading) {
-          HStack(alignment: .center) {
-            Text(location.name)
-              .bold()
-              .font(.title)
-              .lineLimit(1)
-              .frame(maxWidth: .infinity, alignment: .leading)
-
-            ShareLink(item: URL(string: "https://google.com")!) {
-              Image(systemName: "square.and.arrow.up.circle.fill")
-                .bold()
-                .font(.largeTitle)
-                .tint(.secondary)
-                .foregroundStyle(.secondary, .thickMaterial)
-            }
-          }
-
+    NavigationStack {
+      List {
+        Section {          
           Text(subAddress)
             .lineLimit(1)
-        }
-          .listRowBackground(Color.clear)
-          .listRowSeparator(.hidden)
-
-        scrollPhotosView
-          .frame(height: 250)
-          .listRowBackground(Color.clear)
-      }
-      
-      Section {
-        Text(location.content)
-          .lineLimit(5)
-      } header: {
-        Text("Information")
-          .sectionHeader()
-      }
-      
-      Section {
-        if let phoneNumber = location.phoneNumber {
-          VStack(alignment: .leading, spacing: 7) {
-            Text("Phone Number")
-              .foregroundStyle(.secondary)
-            Button {
-              
-            } label: {
-              Text(phoneNumber)
-                .lineLimit(1)
-            }
-          }
-        } else {
-          Button("Add Phone Number") {
-            
-          }
-        }
-        
-        if let url = location.url,
-           let host = url.host() {
-          VStack(alignment: .leading) {
-            Text("Web Site")
-              .foregroundStyle(.secondary)
-
-            Button {
-              openURL(url)
-            } label: {
-              Text(host)
-                .lineLimit(1)
-            }
-          }
-        } else {
-          Button("Add Web Site") {
-            
-          }
-        }
-        
-        VStack(alignment: .leading) {
-          Text("Address")
-            .foregroundStyle(.secondary)
+            .listRowBackground(Color.clear)
+            .listRowSeparator(.hidden)
           
-          Text(formattedPostalAddress)
+          scrollPhotosView
+            .frame(height: 250)
+            .listRowBackground(Color.clear)
         }
-      } header: {
-        Text("Detail")
-          .sectionHeader()
+        
+        Section {
+          Text(location.content)
+            .lineLimit(5)
+        } header: {
+          Text("Information")
+            .sectionHeader()
+        }
+        
+        Section {
+          if let phoneNumber = location.phoneNumber {
+            VStack(alignment: .leading, spacing: 7) {
+              Text("Phone Number")
+                .foregroundStyle(.secondary)
+              Button {
+                
+              } label: {
+                Text(phoneNumber)
+                  .lineLimit(1)
+              }
+            }
+          } else {
+            Button("Add Phone Number") {
+              
+            }
+          }
+          
+          if let url = location.url,
+             let host = url.host() {
+            VStack(alignment: .leading) {
+              Text("Web Site")
+                .foregroundStyle(.secondary)
+              
+              Button {
+                openURL(url)
+              } label: {
+                Text(host)
+                  .lineLimit(1)
+              }
+            }
+          } else {
+            Button("Add Web Site") {
+              
+            }
+          }
+          
+          VStack(alignment: .leading) {
+            Text("Address")
+              .foregroundStyle(.secondary)
+            
+            Text(formattedPostalAddress)
+          }
+        } header: {
+          Text("Detail")
+            .sectionHeader()
+        }
+      }
+      .navigationTitle(location.name)
+      .toolbar {
+        #if os(macOS)
+        let placement: ToolbarItemPlacement = .navigation
+        #else
+        let placement: ToolbarItemPlacement = .topBarTrailing
+        #endif
+        ToolbarItem(placement: placement) {
+          ShareLink(item: URL(string: "https://google.com")!) {
+            Image(systemName: "square.and.arrow.up.circle.fill")
+              .bold()
+              .font(.largeTitle)
+              .tint(.secondary)
+              .foregroundStyle(.secondary, .thickMaterial)
+          }
+          .padding(.top, 10)
+        }
       }
     }
   }
