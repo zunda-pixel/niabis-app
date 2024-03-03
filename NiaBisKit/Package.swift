@@ -10,10 +10,6 @@ let package = Package(
   ],
   products: [
     .library(
-      name: "NiaBisData",
-      targets: ["NiaBisData"]
-    ),
-    .library(
       name: "NiaBisUI",
       targets: ["NiaBisUI"]
     ),
