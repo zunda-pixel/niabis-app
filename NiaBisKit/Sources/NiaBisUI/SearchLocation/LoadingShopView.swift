@@ -51,6 +51,8 @@ private extension Location {
       content: "",
       createdAt: .now,
       updatedAt: nil,
+      latitude: mapItem.placemark.coordinate.latitude,
+      longitude: mapItem.placemark.coordinate.longitude,
       postalCode: mapItem.placemark.postalAddress?.postalCode,
       country: mapItem.placemark.postalAddress?.country,
       state: mapItem.placemark.postalAddress?.state,

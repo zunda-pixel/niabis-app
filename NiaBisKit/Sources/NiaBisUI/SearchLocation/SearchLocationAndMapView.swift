@@ -10,7 +10,8 @@ import CoreLocationUI
 @MainActor
 struct SearchLocationAndMapView: View {
   @State var state: ViewState = .init()
-
+  @Query var locations: [Location]
+  
   #if canImport(CoreLocationUI)
   var locationButton: some View {
     LocationButton(.currentLocation) {
@@ -29,7 +30,14 @@ struct SearchLocationAndMapView: View {
 
 
   var body: some View {
-    Map(position: $state.position)
+    Map(position: $state.position) {
+      ForEach(locations.filter { $0.coodinate != nil }) { location in
+        Marker(
+          location.name,
+          coordinate: location.coodinate!
+        )
+      }
+    }
       .edgesIgnoringSafeArea(.all)
       .overlay(alignment: .topTrailing) {
         #if canImport(CoreLocationUI)
@@ -37,7 +45,11 @@ struct SearchLocationAndMapView: View {
         #endif
       }
       .sheet(isPresented: .constant(true)) {
-        SearchLocationView()
+        // TODO Remove NavigationStack (iOS 17 Bug)
+        // https://github.com/feedback-assistant/reports/issues/471
+        NavigationStack {
+          SearchLocationView()
+        }
           .interactiveDismissDisabled()
           .presentationDetents([.fraction(0.1), .fraction(0.3), .large])
           .presentationBackgroundInteraction(.enabled)

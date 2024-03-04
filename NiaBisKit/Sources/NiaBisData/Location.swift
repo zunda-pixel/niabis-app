@@ -2,6 +2,7 @@ import SwiftData
 import Tagged
 import Foundation
 import Contacts
+import MapKit
 
 @Model
 public final class Location: Identifiable {
@@ -13,6 +14,9 @@ public final class Location: Identifiable {
   public var createdAt: Date
   public var updatedAt: Date?
 
+  public var latitude: Double?
+  public var longitude: Double?
+  
   public var postalCode: String?
   public var country: String?
   public var state: String?
@@ -35,6 +39,8 @@ public final class Location: Identifiable {
     content: String,
     createdAt: Date,
     updatedAt: Date? = nil,
+    latitude: Double? = nil,
+    longitude: Double? = nil,
     postalCode: String? = nil,
     country: String? = nil,
     state: String? = nil,
@@ -54,6 +60,8 @@ public final class Location: Identifiable {
     self.content = content
     self.createdAt = createdAt
     self.updatedAt = updatedAt
+    self.latitude = latitude
+    self.longitude = longitude
     self.postalCode = postalCode
     self.country = country
     self.state = state
@@ -71,6 +79,12 @@ public final class Location: Identifiable {
 }
 
 extension Location {
+  public var coodinate: CLLocationCoordinate2D? {
+    guard let latitude, let longitude else { return nil }
+    return .init(latitude: latitude, longitude: longitude)
+  }
+  
+  
   public func postalAddress(style: CNPostalAddressFormatter.Style) -> CNPostalAddress {
     let postalAddress = CNMutablePostalAddress()
     
