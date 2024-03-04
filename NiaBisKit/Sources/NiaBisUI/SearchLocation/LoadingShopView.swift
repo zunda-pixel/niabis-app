@@ -27,7 +27,7 @@ struct LoadingShopView: View {
   
   var body: some View {
     if let location {
-      LocationDetailView(location: location)
+      LocationDetailView(location: location, isNew: true)
     } else {
       NavigationStack {
         VStack {

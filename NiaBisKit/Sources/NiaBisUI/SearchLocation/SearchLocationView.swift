@@ -76,7 +76,7 @@ struct SearchLocationView: View {
         .presentationDragIndicator(.visible)
     }
     .sheet(item: $viewState.selectedLocation) { location in
-      LocationDetailView(location: location)
+      LocationDetailView(location: location, isNew: false)
         .presentationDragIndicator(.visible)
     }
   }

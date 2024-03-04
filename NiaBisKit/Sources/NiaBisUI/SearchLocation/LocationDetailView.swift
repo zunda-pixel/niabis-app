@@ -5,8 +5,13 @@ import SwiftData
 
 struct LocationDetailView: View {
   @Environment(\.openURL) var openURL
+  @Environment(\.modelContext) var modelContext
+  @Environment(\.dismiss) var dismiss
   
+  @State var isAdded = false
+
   var location: Location
+  let isNew: Bool
   let formatter = CNPostalAddressFormatter()
   
   var formattedPostalAddress: String {
@@ -79,7 +84,7 @@ struct LocationDetailView: View {
             .listRowSeparator(.hidden)
           
           scrollPhotosView
-            .frame(height: 250)
+            .frame(height: 200)
             .listRowBackground(Color.clear)
         }
         
@@ -97,7 +102,6 @@ struct LocationDetailView: View {
               Text("Phone Number")
                 .foregroundStyle(.secondary)
               Button {
-                
               } label: {
                 Text(phoneNumber)
                   .lineLimit(1)
@@ -146,17 +150,38 @@ struct LocationDetailView: View {
         #else
         let placement: ToolbarItemPlacement = .topBarTrailing
         #endif
+        
         ToolbarItem(placement: placement) {
-          ShareLink(item: URL(string: "https://google.com")!) {
-            Image(systemName: "square.and.arrow.up.circle.fill")
-              .bold()
-              .font(.largeTitle)
-              .tint(.secondary)
-              .foregroundStyle(.secondary, .thickMaterial)
+          if isNew {
+            Button {
+              isAdded.toggle()
+            } label: {
+              Label {
+                Text(isAdded ? "Delete" : "Add")
+              } icon: {
+                Image(systemName: isAdded ? "trash.circle.fill" : "plus.circle.fill")
+                  .foregroundStyle(.secondary, .thickMaterial)
+              }
+              .labelStyle(.iconOnly)
+            }
+            .tint(.secondary)
+          } else {
+            Menu("Detail", systemImage: "ellipsis.circle") {
+              Button(role: .destructive) {
+                modelContext.delete(location)
+                dismiss()
+              } label: {
+                Label("Delete", systemImage: "trash")
+              }
+            }
+            .tint(.secondary)
           }
-          .padding(.top, 10)
         }
       }
+    }
+    .onDisappear {
+      guard isNew && !isAdded else { return }
+      modelContext.delete(location)
     }
   }
 }
@@ -176,7 +201,9 @@ struct Preview: View {
   @Query var locations: [Location]
   
   var body: some View {
-    LocationDetailView(location: locations.first!)
+    if let location = locations.first {
+      LocationDetailView(location: location, isNew: false)
+    }
   }
 }
 
