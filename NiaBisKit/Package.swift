@@ -20,6 +20,7 @@ let package = Package(
     .package(url: "https://github.com/pointfreeco/swift-case-paths", from: "1.2.4"),
     .package(url: "https://github.com/pointfreeco/swift-tagged", from: "0.10.0"),
     .package(url: "https://github.com/AsyncSwift/AsyncLocationKit", from: "1.6.4"),
+    .package(url: "https://github.com/apple/swift-format", from: "509.0.0"),
   ],
   targets: [
     .target(
