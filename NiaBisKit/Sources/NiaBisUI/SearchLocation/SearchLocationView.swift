@@ -1,8 +1,8 @@
-import SwiftUI
+import Contacts
 import MapKit
 import NiaBisData
 import SwiftData
-import Contacts
+import SwiftUI
 
 struct SearchLocationView: View {
   @State var viewState = SearchLocationView.ViewState()
@@ -25,15 +25,17 @@ struct SearchLocationView: View {
           }
         }
       }
-      
-      if viewState.query.isEmpty &&  focusedSearchField != true {
+
+      if viewState.query.isEmpty && focusedSearchField != true {
         ForEach(locations) { location in
           Label {
             VStack(alignment: .leading) {
               Text(location.name)
                 .lineLimit(1)
               let address = location.postalAddress(style: .medium)
-              let formattedAddress = addressFormatter.string(from: address).split(whereSeparator: \.isNewline).joined(separator: " ")
+              let formattedAddress = addressFormatter.string(from: address).split(
+                whereSeparator: \.isNewline
+              ).joined(separator: " ")
               Text(formattedAddress)
                 .foregroundStyle(.secondary)
                 .font(.callout)
@@ -88,6 +90,6 @@ extension MKLocalSearchCompletion: Identifiable {
 
 #Preview {
   SearchLocationView()
-  .previewModelContainer()
-  .environment(ErrorController())
+    .previewModelContainer()
+    .environment(ErrorController())
 }

@@ -25,7 +25,7 @@ extension Auth.Session {
 
 extension EnvironmentValues {
   var session: Auth.Session {
-    get{ self[SessionKey.self] }
-    set{ self[SessionKey.self] = newValue }
+    get { self[SessionKey.self] }
+    set { self[SessionKey.self] = newValue }
   }
 }

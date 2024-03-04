@@ -1,32 +1,32 @@
-import SwiftUI
 import Contacts
 import NiaBisData
 import SwiftData
+import SwiftUI
 
 struct LocationDetailView: View {
   @Environment(\.openURL) var openURL
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
-  
+
   @State var isAdded = false
 
   var location: Location
   let isNew: Bool
   let formatter = CNPostalAddressFormatter()
-  
+
   var formattedPostalAddress: String {
     let address = location.postalAddress(style: .full)
     let formattedAddress = formatter.string(from: address)
     return formattedAddress
   }
-  
+
   var subAddress: String {
     let address = location.postalAddress(style: .short)
     let formattedAddress = formatter.string(from: address)
     let onelineAddress = formattedAddress.split(whereSeparator: \.isNewline).joined(separator: " ")
     return onelineAddress
   }
-  
+
   var scrollPhotosView: some View {
     ScrollView(.horizontal) {
       LazyHStack {
@@ -35,14 +35,14 @@ struct LocationDetailView: View {
             .resizable()
             .scaledToFit()
         }
-        
+
         VStack {
           RoundedRectangle(cornerRadius: 15.0)
             .foregroundStyle(.thickMaterial)
             .aspectRatio(1, contentMode: .fit)
             .overlay {
               Button {
-                
+
               } label: {
                 VStack(spacing: 10) {
                   Image(systemName: "camera.fill")
@@ -57,7 +57,7 @@ struct LocationDetailView: View {
             .aspectRatio(1, contentMode: .fit)
             .overlay {
               Button {
-                
+
               } label: {
                 VStack(spacing: 10) {
                   Image(systemName: "photo.on.rectangle")
@@ -77,17 +77,17 @@ struct LocationDetailView: View {
   var body: some View {
     NavigationStack {
       List {
-        Section {          
+        Section {
           Text(subAddress)
             .lineLimit(1)
             .listRowBackground(Color.clear)
             .listRowSeparator(.hidden)
-          
+
           scrollPhotosView
             .frame(height: 200)
             .listRowBackground(Color.clear)
         }
-        
+
         Section {
           Text(location.content)
             .lineLimit(5)
@@ -95,7 +95,7 @@ struct LocationDetailView: View {
           Text("Information")
             .sectionHeader()
         }
-        
+
         Section {
           if let phoneNumber = location.phoneNumber {
             VStack(alignment: .leading, spacing: 7) {
@@ -109,16 +109,17 @@ struct LocationDetailView: View {
             }
           } else {
             Button("Add Phone Number") {
-              
+
             }
           }
-          
+
           if let url = location.url,
-             let host = url.host() {
+            let host = url.host()
+          {
             VStack(alignment: .leading) {
               Text("Web Site")
                 .foregroundStyle(.secondary)
-              
+
               Button {
                 openURL(url)
               } label: {
@@ -128,14 +129,14 @@ struct LocationDetailView: View {
             }
           } else {
             Button("Add Web Site") {
-              
+
             }
           }
-          
+
           VStack(alignment: .leading) {
             Text("Address")
               .foregroundStyle(.secondary)
-            
+
             Text(formattedPostalAddress)
           }
         } header: {
@@ -146,11 +147,11 @@ struct LocationDetailView: View {
       .navigationTitle(location.name)
       .toolbar {
         #if os(macOS)
-        let placement: ToolbarItemPlacement = .navigation
+          let placement: ToolbarItemPlacement = .navigation
         #else
-        let placement: ToolbarItemPlacement = .topBarTrailing
+          let placement: ToolbarItemPlacement = .topBarTrailing
         #endif
-        
+
         ToolbarItem(placement: placement) {
           if isNew {
             Button {
@@ -186,9 +187,10 @@ struct LocationDetailView: View {
   }
 }
 
-private extension View {
-  func sectionHeader() -> some View {
-    return self
+extension View {
+  fileprivate func sectionHeader() -> some View {
+    return
+      self
       .foregroundStyle(.foreground)
       .bold()
       .textCase(nil)
@@ -196,10 +198,9 @@ private extension View {
   }
 }
 
-
 struct Preview: View {
   @Query var locations: [Location]
-  
+
   var body: some View {
     if let location = locations.first {
       LocationDetailView(location: location, isNew: false)
@@ -221,14 +222,14 @@ extension View {
         isStoredInMemoryOnly: true
       )
     )
-    
+
     for i in (0..<10) {
       let location = Location(
         id: .init(),
         name: "Shop Name \(i)",
         content: """
-        You should always try to avoid long sentences. Below are two examples, as well as some facts about long sentences in general. In 2005, Halton Borough Council put up a notice to tell the public about its plans to move a path from one place to another. Quite astonishingly, the notice was a 630 word sentence, which picked up one of our Golden Bull awards that year. Here is it in full.
-        """,
+          You should always try to avoid long sentences. Below are two examples, as well as some facts about long sentences in general. In 2005, Halton Borough Council put up a notice to tell the public about its plans to move a path from one place to another. Quite astonishingly, the notice was a 630 word sentence, which picked up one of our Golden Bull awards that year. Here is it in full.
+          """,
         createdAt: .now,
         updatedAt: nil,
         postalCode: "\(i)\(i)\(i)-\(i)\(i)\(i)",
@@ -245,10 +246,10 @@ extension View {
         tags: [],
         imageDatas: []
       )
-      
+
       container.mainContext.insert(location)
     }
-    
+
     return self.modelContainer(container)
   }
 }

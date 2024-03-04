@@ -10,6 +10,6 @@ enum Constants {
     }
     return appIdentifierPrefix
   }
-  
+
   static var bundleIdentifier: String = Bundle.main.infoDictionary!["CFBundleIdentifier"] as! String
 }

@@ -1,15 +1,15 @@
-import SwiftUI
 import Auth
 import AuthenticationServices
+import SwiftUI
 
 struct SignInOrSignUpView: View {
   enum Mode {
     case signIn
     case signUp
   }
-  
+
   let mode: Mode
-  
+
   @Environment(\.webAuthenticationSession) var webAuthenticationSession
   @Environment(AuthController.self) var authController
   @State var error: IdentifiedItem<Error>?
@@ -18,25 +18,25 @@ struct SignInOrSignUpView: View {
   @State var email: String = ""
   @State var password: String = ""
   @State var isPresentedConfirmMail = false
-  
+
   func login(provider: Provider) async {
     do {
       let signInURL = try await supabase.auth.getOAuthSignInURL(
         provider: provider,
         redirectTo: Constants.redirectToURL
       )
-      
+
       let urlWithToken = try await webAuthenticationSession.authenticate(
         using: signInURL,
         callbackURLScheme: Constants.redirectToURL.scheme!
       )
-      
+
       try await supabase.auth.session(from: urlWithToken)
     } catch {
       self.error = .init(item: error)
     }
   }
-  
+
   func siginIn(with email: String, password: String) async {
     guard !email.isEmpty && !password.isEmpty else { return }
 
@@ -45,13 +45,13 @@ struct SignInOrSignUpView: View {
         email: email,
         password: password
       )
-      
+
       authController.session = newSession
     } catch {
       self.error = .init(item: error)
     }
   }
-  
+
   func siginUp(with email: String, password: String) async {
     guard !email.isEmpty && !password.isEmpty else { return }
 
@@ -61,13 +61,13 @@ struct SignInOrSignUpView: View {
         password: password,
         redirectTo: Constants.redirectToURL
       )
-      
+
       isPresentedConfirmMail.toggle()
     } catch {
       self.error = .init(item: error)
     }
   }
-  
+
   func resendConfirmMail(email: String) async {
     do {
       try await supabase.auth.resend(email: email, type: .signup)
@@ -75,12 +75,12 @@ struct SignInOrSignUpView: View {
       self.error = .init(item: error)
     }
   }
-  
+
   func openMailApp() {
     let mailAppURL = URL(string: "message://")!
     openURL(mailAppURL)
   }
-  
+
   func onOpenURLVerifySetSession(url: URL) async {
     do {
       let session = try await supabase.auth.session(from: url)
@@ -89,7 +89,7 @@ struct SignInOrSignUpView: View {
       self.error = .init(item: error)
     }
   }
-  
+
   var body: some View {
     Form {
       if let session = authController.session {
@@ -97,25 +97,25 @@ struct SignInOrSignUpView: View {
           Text(session.user.email!)
         }
       }
-      
+
       Section {
         TextField("Email", text: $email)
           .textContentType(.emailAddress)
           .autocorrectionDisabled()
           #if !os(macOS)
-          .keyboardType(.emailAddress)
-          .textInputAutocapitalization(.never)
+            .keyboardType(.emailAddress)
+            .textInputAutocapitalization(.never)
           #endif
 
         SecureField("Password", text: $password)
           .textContentType(mode == .signIn ? .password : .newPassword)
           .autocorrectionDisabled()
           #if !os(macOS)
-          .textInputAutocapitalization(.never)
+            .textInputAutocapitalization(.never)
           #endif
-                
+
         switch mode {
-        case.signIn:
+        case .signIn:
           Button("Sign In with Email") {
             Task(priority: .high) {
               await siginIn(with: email, password: password)
@@ -129,7 +129,7 @@ struct SignInOrSignUpView: View {
           }
         }
       }
-      
+
       if isPresentedConfirmMail {
         Button("Resend Mail") {
           Task(priority: .high) {
@@ -137,7 +137,7 @@ struct SignInOrSignUpView: View {
           }
         }
       }
-      
+
       if let error {
         Section {
           if let error = error.item as? LocalizedError {
@@ -152,7 +152,7 @@ struct SignInOrSignUpView: View {
           }
         }
       }
-      
+
       Button {
         Task(priority: .high) {
           await login(provider: .google)

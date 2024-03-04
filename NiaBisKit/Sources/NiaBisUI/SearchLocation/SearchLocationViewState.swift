@@ -1,7 +1,7 @@
-import MapKit
-import Observation
-import NiaBisData
 import Contacts
+import MapKit
+import NiaBisData
+import Observation
 
 extension SearchLocationView {
   @Observable
@@ -19,20 +19,20 @@ extension SearchLocationView {
         }
       }
     }
-    
+
     override init() {
       completer = .init()
       super.init()
       completer.delegate = self
-      completer.resultTypes = .pointOfInterest // TODO What to set?
+      completer.resultTypes = .pointOfInterest  // TODO What to set?
     }
-    
+
     /// MKLocalSearchCompleterDelegate
     /// - Parameter completer: MKLocalSearchCompleter
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
       results = completer.results
     }
-    
+
     /// MKLocalSearchCompleterDelegate
     /// - Parameters:
     ///   - completer: MKLocalSearchCompleter

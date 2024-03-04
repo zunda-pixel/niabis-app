@@ -1,13 +1,13 @@
+import MapKit
 import NiaBisData
 import SwiftUI
-import MapKit
 
 struct LoadingShopView: View {
   let completion: MKLocalSearchCompletion
   @State var location: Location?
   @Environment(ErrorController.self) var errorController
   @Environment(\.modelContext) var modelContext
-  
+
   func search() async {
     let request = MKLocalSearch.Request(completion: completion)
     let search = MKLocalSearch(request: request)
@@ -16,7 +16,7 @@ struct LoadingShopView: View {
       guard let mapItem = try await search.start().mapItems.first else {
         throw AbortError.notFount
       }
-      
+
       let location = Location(completion: completion, mapItem: mapItem)
       modelContext.insert(location)
       self.location = location
@@ -24,7 +24,7 @@ struct LoadingShopView: View {
       self.errorController.error = error
     }
   }
-  
+
   var body: some View {
     if let location {
       LocationDetailView(location: location, isNew: true)
@@ -43,8 +43,8 @@ struct LoadingShopView: View {
   }
 }
 
-private extension Location {
-  convenience init(completion: MKLocalSearchCompletion, mapItem: MKMapItem) {
+extension Location {
+  fileprivate convenience init(completion: MKLocalSearchCompletion, mapItem: MKMapItem) {
     self.init(
       id: .init(),
       name: mapItem.name ?? mapItem.placemark.title ?? completion.title,
