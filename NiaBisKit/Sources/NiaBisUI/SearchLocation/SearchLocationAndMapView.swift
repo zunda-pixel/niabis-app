@@ -4,33 +4,15 @@ import NiaBisData
 import SwiftData
 import SwiftUI
 
-#if canImport(CoreLocationUI)
-  import CoreLocationUI
-#endif
-
 @MainActor
 struct SearchLocationAndMapView: View {
-  @State var state: ViewState = .init()
+  @State var position: MapCameraPosition = .userLocation(fallback: .automatic)
   @Query var locations: [Location]
 
-  #if canImport(CoreLocationUI)
-    var locationButton: some View {
-      LocationButton(.currentLocation) {
-        Task(priority: .high) {
-          await state.setCurrentLocation()
-        }
-      }
-      .labelStyle(.iconOnly)
-      .foregroundColor(.white)
-      .clipShape(.rect(cornerSize: .init(width: 15, height: 15)))
-      .tint(Color.orange)
-      .scaleEffect(1.3)
-      .padding(30)
-    }
-  #endif
-
   var body: some View {
-    Map(position: $state.position) {
+    Map(position: $position) {
+      UserAnnotation()
+      
       ForEach(locations.filter { $0.coodinate != nil }) { location in
         Marker(
           location.name,
@@ -38,11 +20,21 @@ struct SearchLocationAndMapView: View {
         )
       }
     }
-    .edgesIgnoringSafeArea(.all)
-    .overlay(alignment: .topTrailing) {
-      #if canImport(CoreLocationUI)
-        locationButton
-      #endif
+    .overlay(alignment: .bottomTrailing) {
+      Button {
+        position = .userLocation(fallback: .automatic)
+      } label: {
+        Circle()
+          .frame(width: 50, height: 50)
+          .foregroundStyle(.thinMaterial)
+          .overlay {
+            Image(systemName: "location.fill")
+              .imageScale(.large)
+              .foregroundStyle(.blue)
+          }
+      }
+      .padding(.trailing, 10)
+      .padding(.bottom, 100)
     }
     .sheet(isPresented: .constant(true)) {
       // TODO Remove NavigationStack (iOS 17 Bug)

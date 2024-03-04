@@ -5,7 +5,7 @@ import SwiftData
 import SwiftUI
 
 struct SearchLocationView: View {
-  @State var viewState = SearchLocationView.ViewState()
+  @State var viewState = ViewState()
   @FocusState var focusedSearchField: Bool?
   @Query var locations: [Location]
   private let addressFormatter = CNPostalAddressFormatter()

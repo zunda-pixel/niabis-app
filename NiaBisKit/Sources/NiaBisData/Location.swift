@@ -84,7 +84,6 @@ extension Location {
     return .init(latitude: latitude, longitude: longitude)
   }
   
-  
   public func postalAddress(style: CNPostalAddressFormatter.Style) -> CNPostalAddress {
     let postalAddress = CNMutablePostalAddress()
     
