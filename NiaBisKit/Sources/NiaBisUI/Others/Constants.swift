@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 
 enum Constants {
   static let redirectToURL = URL(string: "niabis://")!
@@ -12,4 +12,6 @@ enum Constants {
   }
 
   static var bundleIdentifier: String = Bundle.main.infoDictionary!["CFBundleIdentifier"] as! String
+  
+  static let presentationDetents:  [PresentationDetent] = [.height(100), .height(300), .large]
 }

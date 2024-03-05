@@ -12,9 +12,25 @@ struct SearchLocationAndMapView: View {
   @State var task: Task<Void, Never>?
   @State var isPresentedRequestLocationPermissionAlert = false
   @State var isPresentedSheet = true
+  @State var presentationDetent: PresentationDetent = Constants.presentationDetents.first!
+  @State var selectedLocation: Location?
+  @State var selectedLocationID: Location.ID?
 
+  var bottomLocationButtonPadding: CGFloat {
+    switch presentationDetent {
+    case Constants.presentationDetents[0]:
+      return 110
+    case Constants.presentationDetents[1]:
+      return 310
+    case Constants.presentationDetents[2]:
+      return 310
+    default:
+      fatalError()
+    }
+  }
+  
   var body: some View {
-    Map(position: $position) {
+    Map(position: $position, selection: $selectedLocationID) {
       UserAnnotation()
       
       ForEach(locations.filter { $0.coodinate != nil }) { location in
@@ -22,6 +38,7 @@ struct SearchLocationAndMapView: View {
           location.name,
           coordinate: location.coodinate!
         )
+        .tag(location.id)
       }
     }
     .overlay(alignment: .bottomTrailing) {
@@ -52,7 +69,7 @@ struct SearchLocationAndMapView: View {
           }
       }
       .padding(.trailing, 10)
-      .padding(.bottom, 100)
+      .padding(.bottom, bottomLocationButtonPadding)
       .alert("Permission", isPresented: $isPresentedRequestLocationPermissionAlert) {
         Button("Open") {
           let url = URL(string: UIApplication.openSettingsURLString)!
@@ -65,20 +82,27 @@ struct SearchLocationAndMapView: View {
           Text("Cancel")
         }
       } message: {
-        Text("Getting location requires permission")
-        Text("Open Settings to get permission")
+        Text("Getting location requires permission\nOpen settings and set Privacy > Location Service to get permission")
       }
     }
     .sheet(isPresented: $isPresentedSheet) {
       // TODO Remove NavigationStack (iOS 17 Bug)
       // https://github.com/feedback-assistant/reports/issues/471
       NavigationStack {
-        SearchLocationView()
+        SearchLocationView(selectedLocation: $selectedLocation)
       }
       .interactiveDismissDisabled()
-      .presentationDetents([.fraction(0.1), .fraction(0.3), .large])
       .presentationBackgroundInteraction(.enabled)
       .presentationDragIndicator(.visible)
+      .presentationDetents(Set(Constants.presentationDetents), selection: $presentationDetent)
+    }
+    .animation(.spring, value: bottomLocationButtonPadding)
+    .onChange(of: selectedLocation) { _, newValue in
+      guard let coodinate = newValue?.coodinate else { return }
+      position = .item(.init(placemark: .init(coordinate: coodinate)))
+    }
+    .onChange(of: selectedLocationID) { _, newValue in
+      selectedLocation = locations.first { $0.id == newValue }
     }
   }
 }

@@ -9,7 +9,6 @@ extension SearchLocationView {
     private let completer: MKLocalSearchCompleter
 
     var selectedCompletion: MKLocalSearchCompletion?
-    var selectedLocation: Location?
     var results: [MKLocalSearchCompletion] = []
     var query: String = "" {
       didSet {

@@ -9,6 +9,7 @@ struct SearchLocationView: View {
   @FocusState var focusedSearchField: Bool?
   @Query var locations: [Location]
   private let addressFormatter = CNPostalAddressFormatter()
+  @Binding var selectedLocation: Location?
 
   var body: some View {
     List {
@@ -47,7 +48,7 @@ struct SearchLocationView: View {
           .containerShape(.rect)
           .contentShape(.rect)
           .onTapGesture {
-            viewState.selectedLocation = location
+            selectedLocation = location
           }
         }
       } else {
@@ -77,9 +78,11 @@ struct SearchLocationView: View {
       LoadingShopView(completion: completion)
         .presentationDragIndicator(.visible)
     }
-    .sheet(item: $viewState.selectedLocation) { location in
+    .sheet(item: $selectedLocation) { location in
       LocationDetailView(location: location, isNew: false)
+        .presentationBackgroundInteraction(.enabled)
         .presentationDragIndicator(.visible)
+        .presentationDetents(Set(Constants.presentationDetents))
     }
   }
 }
@@ -89,7 +92,7 @@ extension MKLocalSearchCompletion: Identifiable {
 }
 
 #Preview {
-  SearchLocationView()
+  SearchLocationView(selectedLocation: .constant(nil))
     .previewModelContainer()
     .environment(ErrorController())
 }

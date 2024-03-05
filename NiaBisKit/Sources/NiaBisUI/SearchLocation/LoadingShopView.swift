@@ -65,7 +65,7 @@ extension Location {
       budget: nil,
       starCount: 0,
       tags: [],
-      imageDatas: []
+      imageURLs: []
     )
   }
 }

@@ -2,6 +2,7 @@ import Contacts
 import NiaBisData
 import SwiftData
 import SwiftUI
+import NukeUI
 
 struct LocationDetailView: View {
   @Environment(\.openURL) var openURL
@@ -27,13 +28,42 @@ struct LocationDetailView: View {
     return onelineAddress
   }
 
+  @MainActor
   var scrollPhotosView: some View {
     ScrollView(.horizontal) {
       LazyHStack {
-        ForEach(0..<1) { _ in
-          Image(systemName: "house")
-            .resizable()
-            .scaledToFit()
+        ForEach(location.imageURLs, id: \.absoluteString) { imageURL in
+          LazyImage(url: imageURL) { state in
+            switch state.result {
+            case .success(let result):
+              #if os(macOS)
+              Image(nsImage: result.image)
+                .resizable()
+              #else
+              Image(uiImage: result.image)
+                .resizable()
+                .scaledToFit()
+              #endif
+            case .failure(_):
+              Image(systemName: "photo")
+                .resizable()
+                .scaledToFit()
+                .overlay {
+                  Image(systemName: "xmark")
+                    .resizable()
+                    .foregroundStyle(.red)
+                }
+            case .none:
+              ProgressView(
+                value: state.progress.fraction,
+                total: Float(state.progress.total)
+              ) {
+                Image(systemName: "photo")
+                  .resizable()
+                  .scaledToFit()
+              }
+            }
+          }
         }
 
         VStack {
@@ -83,9 +113,11 @@ struct LocationDetailView: View {
             .listRowBackground(Color.clear)
             .listRowSeparator(.hidden)
 
-          scrollPhotosView
-            .frame(height: 200)
-            .listRowBackground(Color.clear)
+          if !location.imageURLs.isEmpty {
+            scrollPhotosView
+              .frame(height: 200)
+              .listRowBackground(Color.clear)
+          }
         }
 
         Section {
@@ -142,6 +174,14 @@ struct LocationDetailView: View {
         } header: {
           Text("Detail")
             .sectionHeader()
+        }
+        if location.imageURLs.isEmpty {
+          Section {
+            Button {
+            } label: {
+              Label("Add Photos", systemImage: "photo.on.rectangle")
+            }
+          }
         }
       }
       .navigationTitle(location.name)
@@ -244,7 +284,9 @@ extension View {
         budget: i * 100,
         starCount: i,
         tags: [],
-        imageDatas: []
+        imageURLs: [
+          .init(string: "https://ebimaru.com/img/home/keyvisual/Ph_1_PC.jpg?220511")!
+        ]
       )
 
       container.mainContext.insert(location)
