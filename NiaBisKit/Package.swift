@@ -17,17 +17,13 @@ let package = Package(
   dependencies: [
     .package(url: "https://github.com/supabase-community/supabase-swift", from: "2.1.3"),
     .package(url: "https://github.com/pointfreeco/swift-identified-collections", from: "1.0.0"),
-    .package(url: "https://github.com/pointfreeco/swift-tagged", from: "0.10.0"),
     .package(url: "https://github.com/pointfreeco/swift-case-paths", from: "1.3.0"),
     .package(url: "https://github.com/AsyncSwift/AsyncLocationKit", from: "1.6.4"),
     .package(url: "https://github.com/apple/swift-format", from: "509.0.0"),
   ],
   targets: [
     .target(
-      name: "NiaBisData",
-      dependencies: [
-        .product(name: "Tagged", package: "swift-tagged"),
-      ]
+      name: "NiaBisData"
     ),
     .target(
       name: "NiaBisUI",
@@ -37,7 +33,6 @@ let package = Package(
         .product(name: "Auth", package: "supabase-swift"),
         .product(name: "IdentifiedCollections", package: "swift-identified-collections"),
         .product(name: "CasePaths", package: "swift-case-paths"),
-        .product(name: "Tagged", package: "swift-tagged"),
         .product(name: "AsyncLocationKit", package: "AsyncLocationKit"),
       ]
     ),

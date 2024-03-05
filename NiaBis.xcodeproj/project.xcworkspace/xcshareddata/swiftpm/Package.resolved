@@ -118,15 +118,6 @@
       }
     },
     {
-      "identity" : "swift-tagged",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/zunda-pixel/swift-tagged",
-      "state" : {
-        "branch" : "support-swiftdata",
-        "revision" : "964ee1e10fcd82206a253df0c327d28dbf17751f"
-      }
-    },
-    {
       "identity" : "xctest-dynamic-overlay",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",

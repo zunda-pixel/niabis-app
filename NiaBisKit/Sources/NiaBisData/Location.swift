@@ -1,12 +1,11 @@
 import SwiftData
-import Tagged
 import Foundation
 import Contacts
 import MapKit
 
 @Model
 public final class Location: Identifiable {
-  public typealias ID = UUID /// TODO Tagged<Location, UUID>
+  public typealias ID = UUID
 
   public var id: ID
   public var name: String
@@ -109,5 +108,3 @@ extension Location {
     return postalAddress
   }
 }
-
-
