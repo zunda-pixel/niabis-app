@@ -30,7 +30,7 @@ public final class Location: Identifiable {
   public var budget: Int?
   public var starCount: Int
   public var tags: [String]
-  public var imageDatas: [Data]
+  public var imageURLs: [URL]
   
   public init(
     id: ID,
@@ -52,7 +52,7 @@ public final class Location: Identifiable {
     budget: Int? = nil,
     starCount: Int,
     tags: [String],
-    imageDatas: [Data]
+    imageURLs: [URL]
   ) {
     self.id = id
     self.name = name
@@ -73,7 +73,7 @@ public final class Location: Identifiable {
     self.budget = budget
     self.starCount = starCount
     self.tags = tags
-    self.imageDatas = imageDatas
+    self.imageURLs = imageURLs
   }
 }
 
