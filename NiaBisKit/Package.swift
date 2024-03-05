@@ -17,8 +17,8 @@ let package = Package(
   dependencies: [
     .package(url: "https://github.com/supabase-community/supabase-swift", from: "2.1.3"),
     .package(url: "https://github.com/pointfreeco/swift-identified-collections", from: "1.0.0"),
-    .package(url: "https://github.com/pointfreeco/swift-case-paths", from: "1.2.4"),
     .package(url: "https://github.com/pointfreeco/swift-tagged", from: "0.10.0"),
+    .package(url: "https://github.com/pointfreeco/swift-case-paths", from: "1.3.0"),
     .package(url: "https://github.com/AsyncSwift/AsyncLocationKit", from: "1.6.4"),
     .package(url: "https://github.com/apple/swift-format", from: "509.0.0"),
   ],
