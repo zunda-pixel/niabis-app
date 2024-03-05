@@ -20,6 +20,7 @@ let package = Package(
     .package(url: "https://github.com/pointfreeco/swift-case-paths", from: "1.3.0"),
     .package(url: "https://github.com/AsyncSwift/AsyncLocationKit", from: "1.6.4"),
     .package(url: "https://github.com/apple/swift-format", from: "509.0.0"),
+    .package(url: "https://github.com/kean/Nuke", .upToNextMajor(from: "12.4.0")),
   ],
   targets: [
     .target(
@@ -34,6 +35,7 @@ let package = Package(
         .product(name: "IdentifiedCollections", package: "swift-identified-collections"),
         .product(name: "CasePaths", package: "swift-case-paths"),
         .product(name: "AsyncLocationKit", package: "AsyncLocationKit"),
+        .product(name: "NukeUI", package: "Nuke"),
       ]
     ),
     .testTarget(
