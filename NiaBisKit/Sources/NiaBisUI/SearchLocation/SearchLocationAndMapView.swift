@@ -6,8 +6,12 @@ import SwiftUI
 
 @MainActor
 struct SearchLocationAndMapView: View {
-  @State var position: MapCameraPosition = .userLocation(fallback: .automatic)
   @Query var locations: [Location]
+  @Environment(\.openURL) var openURL
+  @State var position: MapCameraPosition = .userLocation(fallback: .automatic)
+  @State var task: Task<Void, Never>?
+  @State var isPresentedRequestLocationPermissionAlert = false
+  @State var isPresentedSheet = true
 
   var body: some View {
     Map(position: $position) {
@@ -22,7 +26,21 @@ struct SearchLocationAndMapView: View {
     }
     .overlay(alignment: .bottomTrailing) {
       Button {
-        position = .userLocation(fallback: .automatic)
+        let request: AsyncLocationManager = .init()
+        let locationAuthorization = request.getAuthorizationStatus()
+
+        switch locationAuthorization {
+        case .authorizedAlways, .authorizedWhenInUse:
+          position = .userLocation(fallback: .automatic)
+        case .notDetermined:
+          Task { await request.requestPermission(with: .whenInUsage) }
+        case .denied:
+          isPresentedRequestLocationPermissionAlert.toggle()
+        case .restricted:
+          break
+        @unknown default:
+          fatalError()
+        }
       } label: {
         Circle()
           .frame(width: 50, height: 50)
@@ -35,8 +53,23 @@ struct SearchLocationAndMapView: View {
       }
       .padding(.trailing, 10)
       .padding(.bottom, 100)
+      .alert("Permission", isPresented: $isPresentedRequestLocationPermissionAlert) {
+        Button("Open") {
+          let url = URL(string: UIApplication.openSettingsURLString)!
+          openURL(url)
+          isPresentedSheet = true
+        }
+        Button(role: .cancel) {
+          isPresentedSheet = true
+        } label: {
+          Text("Cancel")
+        }
+      } message: {
+        Text("Getting location requires permission")
+        Text("Open Settings to get permission")
+      }
     }
-    .sheet(isPresented: .constant(true)) {
+    .sheet(isPresented: $isPresentedSheet) {
       // TODO Remove NavigationStack (iOS 17 Bug)
       // https://github.com/feedback-assistant/reports/issues/471
       NavigationStack {
