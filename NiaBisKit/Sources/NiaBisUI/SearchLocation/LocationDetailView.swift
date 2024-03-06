@@ -3,14 +3,15 @@ import NiaBisData
 import SwiftData
 import SwiftUI
 import NukeUI
+import PhotosUI
 
 struct LocationDetailView: View {
   @Environment(\.openURL) var openURL
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
-
+  @State var photos: [PhotosPickerItem] = []
   @State var isAdded = false
-
+  @State var isLoadingPhotos = false
   var location: Location
   let isNew: Bool
   let formatter = CNPostalAddressFormatter()
@@ -27,13 +28,34 @@ struct LocationDetailView: View {
     let onelineAddress = formattedAddress.split(whereSeparator: \.isNewline).joined(separator: " ")
     return onelineAddress
   }
+  
+  func loadPhotos(photos: [PhotosPickerItem]) async {
+    isLoadingPhotos = true
+    
+    defer {
+      isLoadingPhotos = false
+    }
+    
+    var photoDatas: [Data] = []
+    
+    for photo in photos {
+      do {
+        let data = try await photo.loadTransferable(type: Data.self)!
+        photoDatas.append(data)
+      } catch {
+        print(error)
+      }
+    }
+    
+    location.photoDatas.append(contentsOf: photoDatas)
+  }
 
   @MainActor
   var scrollPhotosView: some View {
     ScrollView(.horizontal) {
       LazyHStack {
-        ForEach(location.imageURLs, id: \.absoluteString) { imageURL in
-          LazyImage(url: imageURL) { state in
+        ForEach(location.photoURLs, id: \.absoluteString) { photoURL in
+          LazyImage(url: photoURL) { state in
             switch state.result {
             case .success(let result):
               #if os(macOS)
@@ -64,6 +86,12 @@ struct LocationDetailView: View {
               }
             }
           }
+        }
+        
+        ForEach(location.photoDatas, id: \.self) { photoData in
+          Image(uiImage: .init(data: photoData)!)
+            .resizable()
+            .scaledToFit()
         }
 
         VStack {
@@ -113,7 +141,7 @@ struct LocationDetailView: View {
             .listRowBackground(Color.clear)
             .listRowSeparator(.hidden)
 
-          if !location.imageURLs.isEmpty {
+          if !location.photoURLs.isEmpty || !location.photoDatas.isEmpty {
             scrollPhotosView
               .frame(height: 200)
               .listRowBackground(Color.clear)
@@ -134,6 +162,8 @@ struct LocationDetailView: View {
               Text("Phone Number")
                 .foregroundStyle(.secondary)
               Button {
+                let url = URL(string: "tel://\(phoneNumber)")!
+                openURL(url)
               } label: {
                 Text(phoneNumber)
                   .lineLimit(1)
@@ -175,11 +205,21 @@ struct LocationDetailView: View {
           Text("Detail")
             .sectionHeader()
         }
-        if location.imageURLs.isEmpty {
+        if location.photoURLs.isEmpty {
           Section {
-            Button {
-            } label: {
-              Label("Add Photos", systemImage: "photo.on.rectangle")
+            PhotosPicker(
+              "Add Photos",
+              selection: $photos,
+              maxSelectionCount: 0,
+              selectionBehavior: .ordered,
+              matching: .images,
+              preferredItemEncoding: .automatic
+            )
+            .disabled(isLoadingPhotos)
+            .onChange(of: photos) { _, newValue in
+              Task {
+                await loadPhotos(photos: newValue)
+              }
             }
           }
         }
@@ -291,9 +331,10 @@ extension View {
         budget: i * 100,
         starCount: i,
         tags: [],
-        imageURLs: [
+        photoURLs: [
           .init(string: "https://ebimaru.com/img/home/keyvisual/Ph_1_PC.jpg?220511")!
-        ]
+        ],
+        photoDatas: []
       )
 
       container.mainContext.insert(location)
