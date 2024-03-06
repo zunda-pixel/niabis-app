@@ -192,7 +192,7 @@ struct LocationDetailView: View {
           let placement: ToolbarItemPlacement = .topBarTrailing
         #endif
 
-        ToolbarItem(placement: placement) {
+        ToolbarItemGroup(placement: placement) {
           if isNew {
             Button {
               isAdded.toggle()
@@ -217,6 +217,13 @@ struct LocationDetailView: View {
             }
             .tint(.secondary)
           }
+          
+          Button {
+            dismiss()
+          } label: {
+            Label("Close", systemImage: "xmark.circle")
+          }
+          .tint(.secondary)
         }
       }
     }
