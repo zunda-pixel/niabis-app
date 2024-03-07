@@ -7,9 +7,9 @@ import MapKit
 public final class Location: Identifiable {
   public typealias ID = UUID
 
-  public var id: ID
-  public var name: String
-  public var content: String
+  public var id: ID = UUID()
+  public var name: String = ""
+  public var content: String = ""
   public var createdDate: Date = Date.now
   public var updatedDate: Date?
 
@@ -28,10 +28,11 @@ public final class Location: Identifiable {
   public var url: URL?
 
   public var budget: Int?
-  public var starCount: Int
-  public var tags: [String]
-  public var imageURLs: [URL]
-  
+  public var starCount: Int = 0
+  public var tags: [String] = []
+  public var photoURLs: [URL] = []
+  public var photoDatas: [Data] = []
+
   public init(
     id: ID,
     name: String,
@@ -52,7 +53,8 @@ public final class Location: Identifiable {
     budget: Int? = nil,
     starCount: Int,
     tags: [String],
-    imageURLs: [URL]
+    photoURLs: [URL],
+    photoDatas: [Data]
   ) {
     self.id = id
     self.name = name
@@ -73,7 +75,8 @@ public final class Location: Identifiable {
     self.budget = budget
     self.starCount = starCount
     self.tags = tags
-    self.imageURLs = imageURLs
+    self.photoURLs = photoURLs
+    self.photoDatas = photoDatas
   }
 }
 
