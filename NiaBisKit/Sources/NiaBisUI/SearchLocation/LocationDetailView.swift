@@ -317,8 +317,8 @@ extension View {
         content: """
           You should always try to avoid long sentences. Below are two examples, as well as some facts about long sentences in general. In 2005, Halton Borough Council put up a notice to tell the public about its plans to move a path from one place to another. Quite astonishingly, the notice was a 630 word sentence, which picked up one of our Golden Bull awards that year. Here is it in full.
           """,
-        createdAt: .now,
-        updatedAt: nil,
+        createdDate: .now,
+        updatedDate: nil,
         postalCode: "\(i)\(i)\(i)-\(i)\(i)\(i)",
         country: "country",
         state: "state",

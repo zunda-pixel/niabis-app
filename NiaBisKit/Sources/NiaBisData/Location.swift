@@ -10,8 +10,8 @@ public final class Location: Identifiable {
   public var id: ID
   public var name: String
   public var content: String
-  public var createdAt: Date
-  public var updatedAt: Date?
+  public var createdDate: Date = Date.now
+  public var updatedDate: Date?
 
   public var latitude: Double?
   public var longitude: Double?
@@ -36,8 +36,8 @@ public final class Location: Identifiable {
     id: ID,
     name: String,
     content: String,
-    createdAt: Date,
-    updatedAt: Date? = nil,
+    createdDate: Date,
+    updatedDate: Date? = nil,
     latitude: Double? = nil,
     longitude: Double? = nil,
     postalCode: String? = nil,
@@ -57,8 +57,8 @@ public final class Location: Identifiable {
     self.id = id
     self.name = name
     self.content = content
-    self.createdAt = createdAt
-    self.updatedAt = updatedAt
+    self.createdDate = createdDate
+    self.updatedDate = updatedDate
     self.latitude = latitude
     self.longitude = longitude
     self.postalCode = postalCode
