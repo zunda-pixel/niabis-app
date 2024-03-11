@@ -11,7 +11,41 @@
 		2E44B7E12B864DE600C1968F /* NiaBisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44B7E02B864DE600C1968F /* NiaBisApp.swift */; };
 		2E44B7E72B864DEA00C1968F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E44B7E62B864DEA00C1968F /* Assets.xcassets */; };
 		2E44B7EB2B864DEA00C1968F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E44B7EA2B864DEA00C1968F /* Preview Assets.xcassets */; };
+		2E865C972B9A160900C056CF /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E865C962B9A160900C056CF /* WidgetKit.framework */; };
+		2E865C992B9A160900C056CF /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E865C982B9A160900C056CF /* SwiftUI.framework */; };
+		2E865C9C2B9A160900C056CF /* WidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E865C9B2B9A160900C056CF /* WidgetsBundle.swift */; };
+		2E865CA02B9A160900C056CF /* Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E865C9F2B9A160900C056CF /* Widgets.swift */; };
+		2E865CA22B9A160900C056CF /* ConfigurationAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E865CA12B9A160900C056CF /* ConfigurationAppIntent.swift */; };
+		2E865CA42B9A160B00C056CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E865CA32B9A160B00C056CF /* Assets.xcassets */; };
+		2E865CA82B9A160B00C056CF /* WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2E865C952B9A160900C056CF /* WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2E865CAE2B9A161800C056CF /* NiaBisUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E865CAD2B9A161800C056CF /* NiaBisUI */; };
+		2E865CB12B9AF31200C056CF /* WidgetsEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E865CB02B9AF2C900C056CF /* WidgetsEntry.swift */; };
+		2E865CB32B9AF36F00C056CF /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E865CB22B9AF36F00C056CF /* Widget.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2E865CA62B9A160B00C056CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2E44B7D52B864DE600C1968F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2E865C942B9A160900C056CF;
+			remoteInfo = WidgetsExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2E865CAC2B9A160B00C056CF /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				2E865CA82B9A160B00C056CF /* WidgetsExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2E13A8962B87A39000B991B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -21,6 +55,17 @@
 		2E44B7E82B864DEA00C1968F /* NiaBis.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NiaBis.entitlements; sourceTree = "<group>"; };
 		2E44B7EA2B864DEA00C1968F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2E7A20D82B86522500E77DBB /* NiaBisKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = NiaBisKit; sourceTree = "<group>"; };
+		2E865C952B9A160900C056CF /* WidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E865C962B9A160900C056CF /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		2E865C982B9A160900C056CF /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		2E865C9B2B9A160900C056CF /* WidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsBundle.swift; sourceTree = "<group>"; };
+		2E865C9F2B9A160900C056CF /* Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widgets.swift; sourceTree = "<group>"; };
+		2E865CA12B9A160900C056CF /* ConfigurationAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationAppIntent.swift; sourceTree = "<group>"; };
+		2E865CA32B9A160B00C056CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2E865CA52B9A160B00C056CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2E865CAF2B9A172C00C056CF /* WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsExtension.entitlements; sourceTree = "<group>"; };
+		2E865CB02B9AF2C900C056CF /* WidgetsEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsEntry.swift; sourceTree = "<group>"; };
+		2E865CB22B9AF36F00C056CF /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +77,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2E865C922B9A160900C056CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E865C992B9A160900C056CF /* SwiftUI.framework in Frameworks */,
+				2E865CAE2B9A161800C056CF /* NiaBisUI in Frameworks */,
+				2E865C972B9A160900C056CF /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -40,6 +95,7 @@
 			children = (
 				2E7A20D82B86522500E77DBB /* NiaBisKit */,
 				2E44B7DF2B864DE600C1968F /* NiaBis */,
+				2E865C9A2B9A160900C056CF /* Widgets */,
 				2E44B7DE2B864DE600C1968F /* Products */,
 				2E7A20D92B8652A000E77DBB /* Frameworks */,
 			);
@@ -49,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				2E44B7DD2B864DE600C1968F /* NiaBis.app */,
+				2E865C952B9A160900C056CF /* WidgetsExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -76,8 +133,25 @@
 		2E7A20D92B8652A000E77DBB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2E865C962B9A160900C056CF /* WidgetKit.framework */,
+				2E865C982B9A160900C056CF /* SwiftUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2E865C9A2B9A160900C056CF /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				2E865C9B2B9A160900C056CF /* WidgetsBundle.swift */,
+				2E865C9F2B9A160900C056CF /* Widgets.swift */,
+				2E865CB02B9AF2C900C056CF /* WidgetsEntry.swift */,
+				2E865CA12B9A160900C056CF /* ConfigurationAppIntent.swift */,
+				2E865CB22B9AF36F00C056CF /* Widget.swift */,
+				2E865CA32B9A160B00C056CF /* Assets.xcassets */,
+				2E865CAF2B9A172C00C056CF /* WidgetsExtension.entitlements */,
+				2E865CA52B9A160B00C056CF /* Info.plist */,
+			);
+			path = Widgets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -90,10 +164,12 @@
 				2E44B7D92B864DE600C1968F /* Sources */,
 				2E44B7DA2B864DE600C1968F /* Frameworks */,
 				2E44B7DB2B864DE600C1968F /* Resources */,
+				2E865CAC2B9A160B00C056CF /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2E865CA72B9A160B00C056CF /* PBXTargetDependency */,
 			);
 			name = NiaBis;
 			packageProductDependencies = (
@@ -102,6 +178,26 @@
 			productName = NiaBis;
 			productReference = 2E44B7DD2B864DE600C1968F /* NiaBis.app */;
 			productType = "com.apple.product-type.application";
+		};
+		2E865C942B9A160900C056CF /* WidgetsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E865CA92B9A160B00C056CF /* Build configuration list for PBXNativeTarget "WidgetsExtension" */;
+			buildPhases = (
+				2E865C912B9A160900C056CF /* Sources */,
+				2E865C922B9A160900C056CF /* Frameworks */,
+				2E865C932B9A160900C056CF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WidgetsExtension;
+			packageProductDependencies = (
+				2E865CAD2B9A161800C056CF /* NiaBisUI */,
+			);
+			productName = WidgetsExtension;
+			productReference = 2E865C952B9A160900C056CF /* WidgetsExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -114,6 +210,9 @@
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					2E44B7DC2B864DE600C1968F = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					2E865C942B9A160900C056CF = {
 						CreatedOnToolsVersion = 15.3;
 					};
 				};
@@ -132,6 +231,7 @@
 			projectRoot = "";
 			targets = (
 				2E44B7DC2B864DE600C1968F /* NiaBis */,
+				2E865C942B9A160900C056CF /* WidgetsExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -146,6 +246,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2E865C932B9A160900C056CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E865CA42B9A160B00C056CF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -157,7 +265,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2E865C912B9A160900C056CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2E865CA22B9A160900C056CF /* ConfigurationAppIntent.swift in Sources */,
+				2E865CA02B9A160900C056CF /* Widgets.swift in Sources */,
+				2E865CB32B9AF36F00C056CF /* Widget.swift in Sources */,
+				2E865CB12B9AF31200C056CF /* WidgetsEntry.swift in Sources */,
+				2E865C9C2B9A160900C056CF /* WidgetsBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2E865CA72B9A160B00C056CF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2E865C942B9A160900C056CF /* WidgetsExtension */;
+			targetProxy = 2E865CA62B9A160B00C056CF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		2E44B7EC2B864DEA00C1968F /* Debug */ = {
@@ -277,6 +405,7 @@
 		2E44B7EF2B864DEA00C1968F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = NiaBis/NiaBis.entitlements;
@@ -319,6 +448,7 @@
 		2E44B7F02B864DEA00C1968F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = NiaBis/NiaBis.entitlements;
@@ -358,6 +488,67 @@
 			};
 			name = Release;
 		};
+		2E865CAA2B9A160B00C056CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Widgets/WidgetsExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PU5HXZ4FZ2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Widgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zunda.niabis.Widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2E865CAB2B9A160B00C056CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Widgets/WidgetsExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PU5HXZ4FZ2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Widgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Widgets;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zunda.niabis.Widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -379,10 +570,23 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		2E865CA92B9A160B00C056CF /* Build configuration list for PBXNativeTarget "WidgetsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2E865CAA2B9A160B00C056CF /* Debug */,
+				2E865CAB2B9A160B00C056CF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		2E13A8912B8653B800B991B1 /* NiaBisUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NiaBisUI;
+		};
+		2E865CAD2B9A161800C056CF /* NiaBisUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NiaBisUI;
 		};
