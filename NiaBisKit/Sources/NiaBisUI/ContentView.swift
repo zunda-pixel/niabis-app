@@ -8,13 +8,22 @@ public struct ContentView: View {
   public init() {
 
   }
+  
+  let container: ModelContainer = {
+    let configuration = ModelConfiguration(
+      cloudKitDatabase: .private(Constants.privateCloudKitDatabaseName)
+    )
+    let container = try! ModelContainer(
+      for: Location.self,
+      configurations: configuration
+    )
+    return container
+  }()
 
   public var body: some View {
     SearchLocationAndMapView()
       .environment(errorController)
-      // TODO Remove inMemory
-      .modelContainer(for: Location.self, inMemory: true)
-
+      .modelContainer(container)
   }
 }
 

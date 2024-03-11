@@ -10,7 +10,8 @@ struct SearchLocationView: View {
   @Query var locations: [Location]
   private let addressFormatter = CNPostalAddressFormatter()
   @Binding var selectedLocation: Location?
-
+  @Environment(\.modelContext) var modelContext
+  
   var body: some View {
     List {
       Section {
@@ -49,6 +50,13 @@ struct SearchLocationView: View {
           .contentShape(.rect)
           .onTapGesture {
             selectedLocation = location
+          }
+          .swipeActions(edge: .trailing) {
+            Button(role: .destructive) {
+              modelContext.delete(location)
+            } label: {
+              Label("Delete", systemImage: "trash")
+            }
           }
         }
       } else {
