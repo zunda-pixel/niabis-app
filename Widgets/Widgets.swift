@@ -13,26 +13,30 @@ struct Provider: AppIntentTimelineProvider {
   )
 
   func placeholder(in context: Context) -> Entry {
-    Entry(date: .now, state: .placeholder)
+    Entry(date: .now, state: .placeholder, configuration: .init())
   }
   
   @MainActor
   func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> Entry {
     do {
-      let locations = try container.mainContext.fetch(FetchDescriptor<Location>())
-      return Entry(date: .now, state: .snapshot(locations: locations))
+      var descriptor = FetchDescriptor<Location>()
+      descriptor.fetchLimit = 3
+      let locations = try container.mainContext.fetch(descriptor)
+      return Entry(date: .now, state: .snapshot(locations: locations), configuration: configuration)
     } catch {
-      return Entry(date: .now,  state: .error(error: error))
+      return Entry(date: .now,  state: .error(error: error), configuration: configuration)
     }
   }
   
   @MainActor
   func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<Entry> {
     do {
-      let locations = try container.mainContext.fetch(FetchDescriptor<Location>())
-      return .init(entries: [Entry(date: .now, state: .timeline(locations: locations))], policy: .atEnd)
+      var descriptor = FetchDescriptor<Location>()
+      descriptor.fetchLimit = 3
+      let locations = try container.mainContext.fetch(descriptor)
+      return .init(entries: [Entry(date: .now, state: .timeline(locations: locations), configuration: configuration)], policy: .atEnd)
     } catch {
-      return .init(entries: [Entry(date: .now, state: .error(error: error))], policy: .atEnd)
+      return .init(entries: [Entry(date: .now, state: .error(error: error), configuration: configuration)], policy: .atEnd)
     }
   }
 }

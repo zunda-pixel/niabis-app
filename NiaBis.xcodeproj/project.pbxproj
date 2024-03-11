@@ -15,7 +15,7 @@
 		2E865C992B9A160900C056CF /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E865C982B9A160900C056CF /* SwiftUI.framework */; };
 		2E865C9C2B9A160900C056CF /* WidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E865C9B2B9A160900C056CF /* WidgetsBundle.swift */; };
 		2E865CA02B9A160900C056CF /* Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E865C9F2B9A160900C056CF /* Widgets.swift */; };
-		2E865CA22B9A160900C056CF /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E865CA12B9A160900C056CF /* AppIntent.swift */; };
+		2E865CA22B9A160900C056CF /* ConfigurationAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E865CA12B9A160900C056CF /* ConfigurationAppIntent.swift */; };
 		2E865CA42B9A160B00C056CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E865CA32B9A160B00C056CF /* Assets.xcassets */; };
 		2E865CA82B9A160B00C056CF /* WidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2E865C952B9A160900C056CF /* WidgetsExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2E865CAE2B9A161800C056CF /* NiaBisUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E865CAD2B9A161800C056CF /* NiaBisUI */; };
@@ -60,7 +60,7 @@
 		2E865C982B9A160900C056CF /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		2E865C9B2B9A160900C056CF /* WidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetsBundle.swift; sourceTree = "<group>"; };
 		2E865C9F2B9A160900C056CF /* Widgets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widgets.swift; sourceTree = "<group>"; };
-		2E865CA12B9A160900C056CF /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		2E865CA12B9A160900C056CF /* ConfigurationAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationAppIntent.swift; sourceTree = "<group>"; };
 		2E865CA32B9A160B00C056CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2E865CA52B9A160B00C056CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2E865CAF2B9A172C00C056CF /* WidgetsExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WidgetsExtension.entitlements; sourceTree = "<group>"; };
@@ -145,7 +145,7 @@
 				2E865C9B2B9A160900C056CF /* WidgetsBundle.swift */,
 				2E865C9F2B9A160900C056CF /* Widgets.swift */,
 				2E865CB02B9AF2C900C056CF /* WidgetsEntry.swift */,
-				2E865CA12B9A160900C056CF /* AppIntent.swift */,
+				2E865CA12B9A160900C056CF /* ConfigurationAppIntent.swift */,
 				2E865CB22B9AF36F00C056CF /* Widget.swift */,
 				2E865CA32B9A160B00C056CF /* Assets.xcassets */,
 				2E865CAF2B9A172C00C056CF /* WidgetsExtension.entitlements */,
@@ -269,7 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2E865CA22B9A160900C056CF /* AppIntent.swift in Sources */,
+				2E865CA22B9A160900C056CF /* ConfigurationAppIntent.swift in Sources */,
 				2E865CA02B9A160900C056CF /* Widgets.swift in Sources */,
 				2E865CB32B9AF36F00C056CF /* Widget.swift in Sources */,
 				2E865CB12B9AF31200C056CF /* WidgetsEntry.swift in Sources */,
