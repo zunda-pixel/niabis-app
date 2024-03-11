@@ -9,9 +9,12 @@ struct LocationDetailView: View {
   @Environment(\.openURL) var openURL
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
+
+  @State var editMode: EditMode = .inactive
   @State var photos: [PhotosPickerItem] = []
-  @State var isAdded = false
   @State var isLoadingPhotos = false
+  @State var textFieldURLString = ""
+  
   var location: Location
   let isNew: Bool
   let formatter = CNPostalAddressFormatter()
@@ -149,8 +152,16 @@ struct LocationDetailView: View {
         }
 
         Section {
-          Text(location.content)
-            .lineLimit(5)
+          if editMode.isEditing == true {
+            TextField(
+              "Input Information",
+              text: .init(get: { location.content }, set: { location.content = $0 }),
+              axis: .vertical
+            )
+          } else {
+            Text(location.content)
+              .lineLimit(5)
+          }
         } header: {
           Text("Information")
             .sectionHeader()
@@ -161,50 +172,65 @@ struct LocationDetailView: View {
             VStack(alignment: .leading, spacing: 7) {
               Text("Phone Number")
                 .foregroundStyle(.secondary)
-              Button {
-                let url = URL(string: "tel://\(phoneNumber)")!
-                openURL(url)
-              } label: {
-                Text(phoneNumber)
-                  .lineLimit(1)
+              
+              if editMode.isEditing {
+                TextField("Phone Number", text: .init(get: { phoneNumber }, set: { location.phoneNumber = $0 }))
+              } else {
+                Button {
+                  let url = URL(string: "tel://\(phoneNumber)")!
+                  openURL(url)
+                } label: {
+                  Text(phoneNumber)
+                    .lineLimit(1)
+                }
               }
             }
           } else {
             Button("Add Phone Number") {
-
-            }
-          }
-
-          if let url = location.url,
-            let host = url.host()
-          {
-            VStack(alignment: .leading) {
-              Text("Web Site")
-                .foregroundStyle(.secondary)
-
-              Button {
-                openURL(url)
-              } label: {
-                Text(host)
-                  .lineLimit(1)
+              if let phoneNumber = UIPasteboard.general.string {
+                location.phoneNumber = phoneNumber
+                return
+              } else {
+                location.phoneNumber = ""
               }
             }
-          } else {
-            Button("Add Web Site") {
-
-            }
           }
 
-          VStack(alignment: .leading) {
-            Text("Address")
-              .foregroundStyle(.secondary)
+          EditableURLView(
+            url: .init(get: { location.url }, set: { location.url = $0 }),
+            editMode: $editMode
+          )
 
-            Text(formattedPostalAddress)
+          if !editMode.isEditing {
+            VStack(alignment: .leading) {
+              Text("Address")
+                .foregroundStyle(.secondary)
+              
+              Text(formattedPostalAddress)
+            }
           }
         } header: {
           Text("Detail")
             .sectionHeader()
         }
+        
+        if editMode.isEditing {
+          Section {
+            TextField("Postal Code", text: .init(get: { location.postalCode ?? ""}, set: { location.postalCode = $0 }))
+
+            TextField("Country", text: .init(get: { location.country ?? ""}, set: { location.country = $0 }))
+            TextField("State", text: .init(get: { location.state ?? ""}, set: { location.state = $0 }))
+
+            TextField("Sub Administrative Area", text: .init(get: { location.subAdministrativeArea ?? ""}, set: { location.subAdministrativeArea = $0 }))
+            TextField("City", text: .init(get: { location.city ?? ""}, set: { location.city = $0 }))
+            TextField("Sub Locality", text: .init(get: { location.subLocality ?? ""}, set: { location.subLocality = $0 }))
+            TextField("Street", text: .init(get: { location.street ?? ""}, set: { location.street = $0 }))
+          } header: {
+            Text("Address")
+              .sectionHeader()
+          }
+        }
+        
         if location.photoURLs.isEmpty {
           Section {
             PhotosPicker(
@@ -226,24 +252,33 @@ struct LocationDetailView: View {
       }
       .navigationTitle(location.name)
       .toolbar {
-        #if os(macOS)
+        if isNew {
+          #if os(macOS)
           let placement: ToolbarItemPlacement = .navigation
+          #else
+          let placement: ToolbarItemPlacement = .topBarLeading
+          #endif
+          
+          ToolbarItem(placement: placement) {
+            Button("Cancel", role: .cancel) {
+              modelContext.delete(location)
+              dismiss()
+            }
+          }
+        }
+        
+        #if os(macOS)
+        let placement: ToolbarItemPlacement = .navigation
         #else
-          let placement: ToolbarItemPlacement = .topBarTrailing
+        let placement: ToolbarItemPlacement = .topBarTrailing
         #endif
 
-        ToolbarItemGroup(placement: placement) {
-          if isNew {
+        ToolbarItem(placement: placement) {
+          if self.editMode.isEditing {
             Button {
-              isAdded.toggle()
+              editMode = editMode == .active ? .inactive : .active
             } label: {
-              Label {
-                Text(isAdded ? "Delete" : "Add")
-              } icon: {
-                Image(systemName: isAdded ? "trash.circle.fill" : "plus.circle.fill")
-                  .foregroundStyle(.secondary, .thickMaterial)
-              }
-              .labelStyle(.iconOnly)
+              Text(editMode.isEditing ? "Done" : "Edit")
             }
             .tint(.secondary)
           } else {
@@ -254,22 +289,17 @@ struct LocationDetailView: View {
               } label: {
                 Label("Delete", systemImage: "trash")
               }
+              
+              Button {
+                editMode = editMode == .active ? .inactive : .active
+              } label: {
+                Label(editMode.isEditing ? "Done" : "Edit", systemImage: "pencil.circle")
+              }
             }
             .tint(.secondary)
           }
-          
-          Button {
-            dismiss()
-          } label: {
-            Label("Close", systemImage: "xmark.circle")
-          }
-          .tint(.secondary)
         }
       }
-    }
-    .onDisappear {
-      guard isNew && !isAdded else { return }
-      modelContext.delete(location)
     }
   }
 }
@@ -285,12 +315,12 @@ extension View {
   }
 }
 
-struct Preview: View {
+private struct Preview: View {
   @Query var locations: [Location]
 
   var body: some View {
     if let location = locations.first {
-      LocationDetailView(location: location, isNew: false)
+      LocationDetailView(location: location, isNew: true)
     }
   }
 }
@@ -327,7 +357,7 @@ extension View {
         subLocality: "locality",
         street: "street",
         phoneNumber: "81+ \(i)\(i)\(i)-\(i)\(i)\(i)-\(i)\(i)\(i)",
-        url: .init(string: "https://niabis.com/\(i)"),
+        url: nil,//.init(string: "https://niabis.com/\(i)"),
         budget: i * 100,
         starCount: i,
         tags: [],

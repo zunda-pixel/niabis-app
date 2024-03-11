@@ -28,7 +28,7 @@ public final class Location: Identifiable {
   public var url: URL?
 
   public var budget: Int?
-  public var starCount: Int = 0
+  public var starCount: Int?
   public var tags: [String] = []
   public var photoURLs: [URL] = []
   public var photoDatas: [Data] = []
@@ -51,7 +51,7 @@ public final class Location: Identifiable {
     phoneNumber: String? = nil,
     url: URL? = nil,
     budget: Int? = nil,
-    starCount: Int,
+    starCount: Int? = nil,
     tags: [String],
     photoURLs: [URL],
     photoDatas: [Data]

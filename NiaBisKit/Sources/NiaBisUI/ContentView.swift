@@ -23,7 +23,6 @@ public struct ContentView: View {
   public var body: some View {
     SearchLocationAndMapView()
       .environment(errorController)
-      // TODO Remove inMemory
       .modelContainer(container)
   }
 }
