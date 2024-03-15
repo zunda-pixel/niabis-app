@@ -417,7 +417,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NiaBis/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = LocationAlwaysAndWhenInUseUsageDescription;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = LocationWhenInUseUsageDescription;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -460,7 +460,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NiaBis/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = LocationAlwaysAndWhenInUseUsageDescription;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = LocationWhenInUseUsageDescription;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
