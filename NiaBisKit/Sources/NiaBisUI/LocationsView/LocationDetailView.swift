@@ -259,6 +259,18 @@ struct LocationDetailView: View {
               dismiss()
             }
           }
+        } else {
+          #if os(macOS)
+          let placement: ToolbarItemPlacement = .navigation
+          #else
+          let placement: ToolbarItemPlacement = .topBarLeading
+          #endif
+          
+          ToolbarItem(placement: placement) {
+            Button("Close") {
+              dismiss()
+            }
+          }
         }
         
         #if os(macOS)
@@ -323,7 +335,7 @@ extension View {
       )
     )
 
-    for i in (0..<10) {
+    for i in (0..<10).shuffled() {
       let location = Location(
         id: .init(),
         name: "Shop Name \(i)",

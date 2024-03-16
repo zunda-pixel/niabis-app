@@ -4,8 +4,15 @@ import NiaBisData
 import SwiftData
 import MapKit
 
+enum LocationOrder: String, CaseIterable, Identifiable {
+  case createdDate = "Created Date"
+  case name = "Name"
+  case address = "Address"
+  
+  var id: Self { self }
+}
+
 struct LocationsView: View {
-  @FocusState var focusedSearchField: Bool?
   @Query var locations: [Location]
   private let addressFormatter = CNPostalAddressFormatter()
   @Binding var selectedLocation: Location?
@@ -13,6 +20,7 @@ struct LocationsView: View {
   @State var isPresentedSettings = false
   @State var isPresentedSearchLocation = false
   @State var query = ""
+  @State var order: LocationOrder = .createdDate
   
   var filteredLocations: [Location] {
     guard !query.isEmpty else {
@@ -22,33 +30,54 @@ struct LocationsView: View {
     return locations.filter { $0.name.contains(query) }
   }
   
+  var sortedLocations: [Location] {
+    filteredLocations.sorted {
+      switch order {
+      case .createdDate: return $0.createdDate < $1.createdDate
+      case .name: return $0.name.localizedStandardCompare($1.name) == .orderedAscending
+      case .address:
+        let address0 = addressFormatter.string(from: $0.postalAddress(style: .full))
+        let address1 = addressFormatter.string(from: $1.postalAddress(style: .full))
+        return address0.localizedStandardCompare(address1) == .orderedAscending
+      }
+    }
+  }
+  
   var body: some View {
     List {
       Section {
         TextField("Search Location", text: $query, axis: .horizontal)
-          .focused($focusedSearchField, equals: true)
       }
       Section {
         HStack {
           Spacer()
+          Picker("Order", selection: $order) {
+            ForEach(LocationOrder.allCases) { order in
+              Text(order.rawValue)
+                .lineLimit(1)
+                .tag(order)
+            }
+          }
+          .labelsHidden()
+          
           Button {
             isPresentedSearchLocation.toggle()
           } label: {
             Image(systemName: "plus.circle")
+              .imageScale(.large)
           }
           Button {
             isPresentedSettings.toggle()
           } label: {
             Image(systemName: "gear.circle")
+              .imageScale(.large)
           }
-          Spacer()
         }
         .listRowBackground(Color.clear)
-        .buttonStyle(.plain)
-
+        .buttonStyle(.bordered)
       }
       Section {
-        ForEach(filteredLocations) { location in
+        ForEach(sortedLocations) { location in
           Label {
             VStack(alignment: .leading) {
               Text(location.name)
