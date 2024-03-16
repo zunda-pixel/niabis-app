@@ -27,7 +27,10 @@ struct LocationsView: View {
       return locations
     }
     
-    return locations.filter { $0.name.contains(query) }
+    return locations.filter {
+      $0.name.contains(query)
+      || addressFormatter.string(from: $0.postalAddress(style: .full)).contains(query)
+    }
   }
   
   var sortedLocations: [Location] {
@@ -54,7 +57,6 @@ struct LocationsView: View {
           Picker("Order", selection: $order) {
             ForEach(LocationOrder.allCases) { order in
               Text(order.rawValue)
-                .lineLimit(1)
                 .tag(order)
             }
           }
@@ -63,14 +65,12 @@ struct LocationsView: View {
           Button {
             isPresentedSearchLocation.toggle()
           } label: {
-            Image(systemName: "plus.circle")
-              .imageScale(.large)
+            Text("\(Image(systemName: "plus"))")
           }
           Button {
             isPresentedSettings.toggle()
           } label: {
-            Image(systemName: "gear.circle")
-              .imageScale(.large)
+            Text("\(Image(systemName: "gear"))")
           }
         }
         .listRowBackground(Color.clear)
