@@ -89,7 +89,7 @@ struct SearchLocationAndMapView: View {
       // TODO Remove NavigationStack (iOS 17 Bug)
       // https://github.com/feedback-assistant/reports/issues/471
       NavigationStack {
-        SearchLocationView(selectedLocation: $selectedLocation)
+        LocationsView(selectedLocation: $selectedLocation)
       }
       .interactiveDismissDisabled()
       .presentationBackgroundInteraction(.enabled)
