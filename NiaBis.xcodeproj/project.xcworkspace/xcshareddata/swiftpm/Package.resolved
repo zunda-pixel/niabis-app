@@ -19,6 +19,15 @@
       }
     },
     {
+      "identity" : "licenseprovider",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/zunda-pixel/LicenseProvider",
+      "state" : {
+        "revision" : "ca2216026c681aa154e5023bcefc560b7507268b",
+        "version" : "1.1.2"
+      }
+    },
+    {
       "identity" : "nuke",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kean/Nuke",
@@ -86,8 +95,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-crypto.git",
       "state" : {
-        "revision" : "f0525da24dc3c6cbb2b6b338b65042bc91cbc4bb",
-        "version" : "3.3.0"
+        "revision" : "cc76b894169a3c86b71bac10c78a4db6beb7a9ad",
+        "version" : "3.2.0"
       }
     },
     {
