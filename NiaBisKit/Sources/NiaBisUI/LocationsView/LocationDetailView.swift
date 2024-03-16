@@ -151,23 +151,21 @@ struct LocationDetailView: View {
           }
         }
 
-        Section {
-          if editMode.isEditing == true {
+        Section("Information") {
+          if editMode.isEditing {
             TextField(
               "Input Information",
               text: .init(get: { location.content }, set: { location.content = $0 }),
               axis: .vertical
             )
           } else {
-            Text(location.content)
+            Text(location.content.isEmpty ? "Empty Infomation" : location.content)
               .lineLimit(5)
           }
-        } header: {
-          Text("Information")
-            .sectionHeader()
         }
+        .headerProminence(.increased)
 
-        Section {
+        Section("Detail") {
           if let phoneNumber = location.phoneNumber {
             VStack(alignment: .leading, spacing: 7) {
               Text("Phone Number")
@@ -209,13 +207,11 @@ struct LocationDetailView: View {
               Text(formattedPostalAddress)
             }
           }
-        } header: {
-          Text("Detail")
-            .sectionHeader()
         }
+        .headerProminence(.increased)
         
         if editMode.isEditing {
-          Section {
+          Section("Address") {
             TextField("Postal Code", text: .init(get: { location.postalCode ?? ""}, set: { location.postalCode = $0 }))
 
             TextField("Country", text: .init(get: { location.country ?? ""}, set: { location.country = $0 }))
@@ -225,10 +221,8 @@ struct LocationDetailView: View {
             TextField("City", text: .init(get: { location.city ?? ""}, set: { location.city = $0 }))
             TextField("Sub Locality", text: .init(get: { location.subLocality ?? ""}, set: { location.subLocality = $0 }))
             TextField("Street", text: .init(get: { location.street ?? ""}, set: { location.street = $0 }))
-          } header: {
-            Text("Address")
-              .sectionHeader()
           }
+          .headerProminence(.increased)
         }
         
         if location.photoURLs.isEmpty {
@@ -301,17 +295,6 @@ struct LocationDetailView: View {
         }
       }
     }
-  }
-}
-
-extension View {
-  fileprivate func sectionHeader() -> some View {
-    return
-      self
-      .foregroundStyle(.foreground)
-      .bold()
-      .textCase(nil)
-      .font(.title2)
   }
 }
 
