@@ -5,7 +5,7 @@ import SwiftData
 import MapKit
 
 enum LocationOrder: String, CaseIterable, Identifiable {
-  case createdDate = "Created Date"
+  case createdDate = "CreatedDate"
   case name = "Name"
   case address = "Address"
   
@@ -62,7 +62,7 @@ struct LocationsView: View {
             selection: $order
           ) {
             ForEach(LocationOrder.allCases) { order in
-              Text(order.rawValue)
+              Text(String(localized: String.LocalizationValue(order.rawValue), bundle: .module))
                 .tag(order)
             }
           }

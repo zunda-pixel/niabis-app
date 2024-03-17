@@ -94,6 +94,23 @@
         }
       }
     },
+    "CreatedDate" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Created Date"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "作成日"
+          }
+        }
+      }
+    },
     "Delete" : {
       "localizations" : {
         "ja" : {
@@ -214,6 +231,17 @@
     "N" : {
 
     },
+    "Name" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "名前"
+          }
+        }
+      }
+    },
     "Open" : {
       "localizations" : {
         "ja" : {
@@ -321,6 +349,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "場所を検索"
+          }
+        }
+      }
+    },
+    "Search New Location" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しい場所を検索"
           }
         }
       }

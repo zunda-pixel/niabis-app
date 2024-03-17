@@ -39,7 +39,7 @@ struct SearchLocationView: View {
         text: $viewState.query,
         prompt: Text("Search Location", bundle: .module)
       )
-      .navigationTitle(Text("Search Location", bundle: .module))
+      .navigationTitle(Text("Search New Location", bundle: .module))
     }
   }
 }
