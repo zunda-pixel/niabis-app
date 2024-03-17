@@ -28,7 +28,6 @@ public final class Location: Identifiable {
   public var url: URL?
 
   public var budget: Int?
-  public var starCount: Int?
   public var tags: [String] = []
   public var photoURLs: [URL] = []
   public var photoDatas: [Data] = []
@@ -51,7 +50,6 @@ public final class Location: Identifiable {
     phoneNumber: String? = nil,
     url: URL? = nil,
     budget: Int? = nil,
-    starCount: Int? = nil,
     tags: [String],
     photoURLs: [URL],
     photoDatas: [Data]
@@ -73,7 +71,6 @@ public final class Location: Identifiable {
     self.phoneNumber = phoneNumber
     self.url = url
     self.budget = budget
-    self.starCount = starCount
     self.tags = tags
     self.photoURLs = photoURLs
     self.photoDatas = photoDatas
@@ -81,7 +78,7 @@ public final class Location: Identifiable {
 }
 
 extension Location {
-  public var coodinate: CLLocationCoordinate2D? {
+  public var coordinate: CLLocationCoordinate2D? {
     guard let latitude, let longitude else { return nil }
     return .init(latitude: latitude, longitude: longitude)
   }

@@ -63,7 +63,6 @@ extension Location {
       phoneNumber: mapItem.phoneNumber,
       url: mapItem.url,
       budget: nil,
-      starCount: 0,
       tags: [],
       photoURLs: [],
       photoDatas: []

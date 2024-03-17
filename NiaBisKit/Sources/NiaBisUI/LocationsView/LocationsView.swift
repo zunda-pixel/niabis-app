@@ -21,6 +21,7 @@ struct LocationsView: View {
   @State var isPresentedSearchLocation = false
   @State var query = ""
   @State var order: LocationOrder = .createdDate
+  @State var selectedLocationPresentationDetent: PresentationDetent = Constants.presentationDetents[0]
   
   var filteredLocations: [Location] {
     guard !query.isEmpty else {
@@ -103,6 +104,7 @@ struct LocationsView: View {
           .containerShape(.rect)
           .contentShape(.rect)
           .onTapGesture {
+            selectedLocationPresentationDetent = Constants.presentationDetents[0]
             selectedLocation = location
           }
           .swipeActions(edge: .trailing) {
@@ -123,7 +125,7 @@ struct LocationsView: View {
       LocationDetailView(location: location, isNew: false)
         .presentationBackgroundInteraction(.enabled)
         .presentationDragIndicator(.visible)
-        .presentationDetents(Set(Constants.presentationDetents))
+        .presentationDetents(Set(Constants.presentationDetents), selection: $selectedLocationPresentationDetent)
     }
     .sheet(isPresented: $isPresentedSettings) {
       SettingsView()

@@ -1,8 +1,31 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
     "%@" : {
 
+    },
+    "Add" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "追加"
+          }
+        }
+      }
+    },
+    "Add New Tag" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいタグを追加"
+          }
+        }
+      }
     },
     "Add Phone Number" : {
       "localizations" : {
@@ -44,6 +67,26 @@
         }
       }
     },
+    "Budget" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "予算"
+          }
+        }
+      }
+    },
+    "Call" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "発信"
+          }
+        }
+      }
+    },
     "Cancel" : {
       "localizations" : {
         "ja" : {
@@ -65,10 +108,11 @@
       }
     },
     "Close" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "閉じる"
           }
         }
@@ -238,6 +282,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "名前"
+          }
+        }
+      }
+    },
+    "New Tag" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新しいタグ"
           }
         }
       }
@@ -437,12 +491,32 @@
         }
       }
     },
+    "Tags" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タグ"
+          }
+        }
+      }
+    },
     "Terms" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "行動規約"
+          }
+        }
+      }
+    },
+    "Way to" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "道のり"
           }
         }
       }
