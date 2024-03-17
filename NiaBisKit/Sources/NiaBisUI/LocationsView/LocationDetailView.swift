@@ -108,7 +108,7 @@ struct LocationDetailView: View {
                 VStack(spacing: 10) {
                   Image(systemName: "camera.fill")
                     .imageScale(.large)
-                  Text("Add Photos")
+                  Text("Add Photos", bundle: .module)
                     .bold()
                 }
               }
@@ -124,7 +124,7 @@ struct LocationDetailView: View {
                   Image(systemName: "photo.on.rectangle")
                     .imageScale(.large)
 
-                  Text("Other Photos")
+                  Text("Other Photos", bundle: .module)
                     .bold()
                 }
               }
@@ -151,28 +151,31 @@ struct LocationDetailView: View {
           }
         }
 
-        Section("Information") {
+        Section(String(localized: "Information", bundle: .module)) {
           if editMode.isEditing {
             TextField(
-              "Input Information",
+              String(localized: "Input Information", bundle: .module),
               text: .init(get: { location.content }, set: { location.content = $0 }),
               axis: .vertical
             )
           } else {
-            Text(location.content.isEmpty ? "Empty Infomation" : location.content)
+            Text(location.content.isEmpty ? String(localized: "Empty Infomation", bundle: .module) : location.content)
               .lineLimit(5)
           }
         }
         .headerProminence(.increased)
 
-        Section("Detail") {
+        Section(String(localized: "Detail", bundle: .module)) {
           if let phoneNumber = location.phoneNumber {
             VStack(alignment: .leading, spacing: 7) {
-              Text("Phone Number")
+              Text("Phone Number", bundle: .module)
                 .foregroundStyle(.secondary)
               
               if editMode.isEditing {
-                TextField("Phone Number", text: .init(get: { phoneNumber }, set: { location.phoneNumber = $0 }))
+                TextField(
+                  String(localized: "Phone Number", bundle: .module),
+                  text: .init(get: { phoneNumber }, set: { location.phoneNumber = $0 })
+                )
               } else {
                 Button {
                   let url = URL(string: "tel://\(phoneNumber)")!
@@ -184,13 +187,15 @@ struct LocationDetailView: View {
               }
             }
           } else {
-            Button("Add Phone Number") {
+            Button {
               if let phoneNumber = UIPasteboard.general.string {
                 location.phoneNumber = phoneNumber
                 return
               } else {
                 location.phoneNumber = ""
               }
+            } label: {
+              Text("Add Phone Number", bundle: .module)
             }
           }
 
@@ -201,7 +206,7 @@ struct LocationDetailView: View {
 
           if !editMode.isEditing {
             VStack(alignment: .leading) {
-              Text("Address")
+              Text("Address", bundle: .module)
                 .foregroundStyle(.secondary)
               
               Text(formattedPostalAddress)
@@ -212,15 +217,34 @@ struct LocationDetailView: View {
         
         if editMode.isEditing {
           Section("Address") {
-            TextField("Postal Code", text: .init(get: { location.postalCode ?? ""}, set: { location.postalCode = $0 }))
-
-            TextField("Country", text: .init(get: { location.country ?? ""}, set: { location.country = $0 }))
-            TextField("State", text: .init(get: { location.state ?? ""}, set: { location.state = $0 }))
-
-            TextField("Sub Administrative Area", text: .init(get: { location.subAdministrativeArea ?? ""}, set: { location.subAdministrativeArea = $0 }))
-            TextField("City", text: .init(get: { location.city ?? ""}, set: { location.city = $0 }))
-            TextField("Sub Locality", text: .init(get: { location.subLocality ?? ""}, set: { location.subLocality = $0 }))
-            TextField("Street", text: .init(get: { location.street ?? ""}, set: { location.street = $0 }))
+            TextField(
+              String(localized: "Postal Code", bundle: .module),
+              text: .init(get: { location.postalCode ?? ""}, set: { location.postalCode = $0 })
+            )
+            TextField(
+              String(localized: "Country", bundle: .module),
+              text: .init(get: { location.country ?? ""}, set: { location.country = $0 })
+            )
+            TextField(
+              String(localized: "State", bundle: .module),
+              text: .init(get: { location.state ?? ""}, set: { location.state = $0 })
+            )
+            TextField(
+              String(localized: "Sub Administrative Area", bundle: .module),
+              text: .init(get: { location.subAdministrativeArea ?? ""}, set: { location.subAdministrativeArea = $0 })
+            )
+            TextField(
+              String(localized: "City", bundle: .module),
+              text: .init(get: { location.city ?? ""}, set: { location.city = $0 })
+            )
+            TextField(
+              String(localized: "Sub Locality", bundle: .module),
+              text: .init(get: { location.subLocality ?? ""}, set: { location.subLocality = $0 })
+            )
+            TextField(
+              String(localized: "Street", bundle: .module),
+              text: .init(get: { location.street ?? ""}, set: { location.street = $0 })
+            )
           }
           .headerProminence(.increased)
         }
@@ -228,7 +252,7 @@ struct LocationDetailView: View {
         if location.photoURLs.isEmpty {
           Section {
             PhotosPicker(
-              "Add Photos",
+              String(localized: "Add Photos", bundle: .module),
               selection: $photos,
               maxSelectionCount: 0,
               selectionBehavior: .ordered,
@@ -254,9 +278,11 @@ struct LocationDetailView: View {
           #endif
           
           ToolbarItem(placement: placement) {
-            Button("Cancel", role: .cancel) {
+            Button(role: .cancel) {
               modelContext.delete(location)
               dismiss()
+            } label: {
+              Text("Cancel", bundle: .module)
             }
           }
         } else {
@@ -267,8 +293,10 @@ struct LocationDetailView: View {
           #endif
           
           ToolbarItem(placement: placement) {
-            Button("Close") {
+            Button {
               dismiss()
+            } label: {
+              Text("Close", bundle: .module)
             }
           }
         }
@@ -284,22 +312,28 @@ struct LocationDetailView: View {
             Button {
               editMode = editMode == .active ? .inactive : .active
             } label: {
-              Text(editMode.isEditing ? "Done" : "Edit")
+              Text(editMode.isEditing ? "Done" : "Edit", bundle: .module)
             }
             .tint(.secondary)
           } else {
-            Menu("Detail", systemImage: "ellipsis.circle") {
+            Menu(
+              String(localized: "Detail", bundle: .module),
+              systemImage: "ellipsis.circle"
+            ) {
               Button(role: .destructive) {
                 modelContext.delete(location)
                 dismiss()
               } label: {
-                Label("Delete", systemImage: "trash")
+                Label(String(localized: "Delete", bundle: .module), systemImage: "trash")
               }
               
               Button {
                 editMode = editMode == .active ? .inactive : .active
               } label: {
-                Label(editMode.isEditing ? "Done" : "Edit", systemImage: "pencil.circle")
+                Label(
+                  String(localized: editMode.isEditing ? "Done" : "Edit", bundle: .module),
+                  systemImage: "pencil.circle"
+                )
               }
             }
             .tint(.secondary)

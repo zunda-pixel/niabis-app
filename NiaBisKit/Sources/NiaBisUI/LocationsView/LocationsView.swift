@@ -49,12 +49,18 @@ struct LocationsView: View {
   var body: some View {
     List {
       Section {
-        TextField("Search Location", text: $query, axis: .horizontal)
+        TextField(
+          String(localized: "Search Location", bundle: .module),
+          text: $query, axis: .horizontal
+        )
       }
       Section {
         HStack {
           Spacer()
-          Picker("Order", selection: $order) {
+          Picker(
+            String(localized: "Order", bundle: .module),
+            selection: $order
+          ) {
             ForEach(LocationOrder.allCases) { order in
               Text(order.rawValue)
                 .tag(order)
@@ -103,7 +109,10 @@ struct LocationsView: View {
             Button(role: .destructive) {
               modelContext.delete(location)
             } label: {
-              Label("Delete", systemImage: "trash")
+              Label(
+                String(localized: "Delete", bundle: .module),
+                systemImage: "trash"
+              )
             }
           }
         }

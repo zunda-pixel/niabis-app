@@ -17,7 +17,7 @@ struct LicensesView: View {
         }
       }
     }
-    .navigationTitle("Licenses")
+    .navigationTitle(Text("Licenses", bundle: .module))
   }
 }
 

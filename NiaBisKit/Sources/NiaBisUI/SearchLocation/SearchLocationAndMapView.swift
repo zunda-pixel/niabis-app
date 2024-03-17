@@ -70,19 +70,24 @@ struct SearchLocationAndMapView: View {
       }
       .padding(.trailing, 10)
       .padding(.bottom, bottomLocationButtonPadding)
-      .alert("Permission", isPresented: $isPresentedRequestLocationPermissionAlert) {
-        Button("Open") {
+      .alert(
+        Text("Permission", bundle: .module),
+        isPresented: $isPresentedRequestLocationPermissionAlert
+      ) {
+        Button {
           let url = URL(string: UIApplication.openSettingsURLString)!
           openURL(url)
           isPresentedSheet = true
+        } label: {
+          Text("Open", bundle: .module)
         }
         Button(role: .cancel) {
           isPresentedSheet = true
         } label: {
-          Text("Cancel")
+          Text("Cancel", bundle: .module)
         }
       } message: {
-        Text("Getting location requires permission\nOpen settings and set Privacy > Location Service to get permission")
+        Text("GettingLocationRequiresPermissionAndOpenSettings", bundle: .module)
       }
     }
     .sheet(isPresented: $isPresentedSheet) {

@@ -35,8 +35,11 @@ struct SearchLocationView: View {
         LoadingShopView(completion: completion)
           .presentationDragIndicator(.visible)
       }
-      .searchable(text: $viewState.query, prompt: "Search Location")
-      .navigationTitle("Search Location")
+      .searchable(
+        text: $viewState.query,
+        prompt: Text("Search Location", bundle: .module)
+      )
+      .navigationTitle(Text("Search Location", bundle: .module))
     }
   }
 }

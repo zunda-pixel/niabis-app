@@ -9,10 +9,14 @@ struct EditableURLView: View {
   
   var body: some View {
     VStack(alignment: .leading) {
-      Text("Web Site")
+      Text("Web Site", bundle: .module)
         .foregroundStyle(.secondary)
       if editMode.isEditing {
-        TextField("Web Site", text: $urlString, axis: .horizontal)
+        TextField(
+          String(localized: "Web Site", bundle: .module),
+          text: $urlString,
+          axis: .horizontal
+        )
           .focused($focusTextField, equals: true)
           .onSubmit(of: .text) {
             if let url = URL(string: urlString) {
@@ -28,13 +32,15 @@ struct EditableURLView: View {
             .lineLimit(1)
         }
       } else {
-        Button("Add Web Site") {
+        Button {
           if let url = UIPasteboard.general.url {
             self.url = url
           } else {
             self.urlString = self.url?.absoluteString ?? ""
             self.focusTextField = true
           }
+        } label: {
+          Text("Add Web Site", bundle: .module)
         }
       }
     }
@@ -63,7 +69,11 @@ private struct Preview: View {
       }
       .toolbar {
         ToolbarItem {
-          Button("Edit") { editMode = editMode == .active ? .inactive : .active}
+          Button {
+            editMode = editMode == .active ? .inactive : .active
+          } label: {
+            Text("Edit", bundle: .module)
+          }
         }
       }
     }

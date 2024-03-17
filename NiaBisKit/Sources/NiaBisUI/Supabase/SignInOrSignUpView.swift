@@ -158,7 +158,7 @@ struct SignInOrSignUpView: View {
           await login(provider: .google)
         }
       } label: {
-        Text("Sin in with Google")
+        Text("Sign in with Google")
       }
       .buttonBorderShape(.roundedRectangle)
     }

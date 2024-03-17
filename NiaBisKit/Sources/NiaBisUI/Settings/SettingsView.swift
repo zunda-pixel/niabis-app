@@ -10,28 +10,37 @@ struct SettingsView: View {
           NavigationLink {
             LicensesView()
           } label: {
-            Label("Licenses", systemImage: "licenseplate")
+            Label(
+              String(localized: "Licenses", bundle: .module),
+              systemImage: "licenseplate"
+            )
           }
         }
         
-        Section("Links") {
+        Section(String(localized: "Links", bundle: .module)) {
           Button {
             openURL(URL(string: "https://niabis.com/privacypolicy")!)
           } label: {
-            Label("Privacy Policy", systemImage: "hand.raised")
+            Label(
+              String(localized: "Privacy Policy", bundle: .module),
+              systemImage: "hand.raised"
+            )
           }
           .foregroundStyle(.foreground)
           
           Button {
             openURL(URL(string: "https://niabis.com/terms")!)
           } label: {
-            Label("Terms", systemImage: "book.pages")
+            Label(
+              String(localized: "Terms", bundle: .module),
+              systemImage: "book.pages"
+            )
           }
           .foregroundStyle(.foreground)
         }
         .headerProminence(.increased)
       }
-      .navigationTitle("Settings")
+      .navigationTitle(Text("Settings", bundle: .module))
     }
   }
 }
