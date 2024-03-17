@@ -17,6 +17,7 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/supabase-community/supabase-swift", from: "2.1.3"),
+    .package(url: "https://github.com/apple/swift-algorithms", from: "1.2.0"),
     .package(url: "https://github.com/pointfreeco/swift-identified-collections", from: "1.0.0"),
     .package(url: "https://github.com/pointfreeco/swift-case-paths", from: "1.3.0"),
     .package(url: "https://github.com/AsyncSwift/AsyncLocationKit", from: "1.6.4"),
@@ -32,6 +33,7 @@ let package = Package(
       name: "NiaBisUI",
       dependencies: [
         .target(name: "NiaBisData"),
+        .product(name: "Algorithms", package: "swift-algorithms"),
         .product(name: "Supabase", package: "supabase-swift"),
         .product(name: "Auth", package: "supabase-swift"),
         .product(name: "IdentifiedCollections", package: "swift-identified-collections"),
