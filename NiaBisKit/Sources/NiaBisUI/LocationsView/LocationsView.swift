@@ -13,6 +13,7 @@ enum LocationOrder: String, CaseIterable, Identifiable {
 }
 
 struct LocationsView: View {
+  @FocusState var focusTextField: Bool?
   @Query var locations: [Location]
   private let addressFormatter = CNPostalAddressFormatter()
   @Binding var selectedLocation: Location?
@@ -50,10 +51,22 @@ struct LocationsView: View {
   var body: some View {
     List {
       Section {
-        TextField(
-          String(localized: "Search Location", bundle: .module),
-          text: $query, axis: .horizontal
-        )
+        HStack {
+          TextField(
+            String(localized: "Search Location", bundle: .module),
+            text: $query, axis: .horizontal
+          )
+          .focused($focusTextField, equals: true)
+          
+          if focusTextField == true {
+            Button {
+              query = ""
+              focusTextField = nil
+            } label: {
+              Text("Cancel", bundle: .module)
+            }
+          }
+        }
       }
       Section {
         HStack {
