@@ -5,17 +5,20 @@ import SwiftUI
 import NukeUI
 import PhotosUI
 import Algorithms
+import SwiftUIIntrospect
 
 struct LocationDetailView: View {
   @Environment(\.openURL) var openURL
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
+  @Environment(ErrorController.self) var errorController
 
   @State var editMode: EditMode = .inactive
   @State var photos: [PhotosPickerItem] = []
   @State var isLoadingPhotos = false
   @State var textFieldURLString = ""
   @State var newTag = ""
+  @State var isAdded = false
   
   var location: Location
   let isNew: Bool
@@ -41,7 +44,7 @@ struct LocationDetailView: View {
         let data = try await photo.loadTransferable(type: Data.self)!
         photoDatas.append(data)
       } catch {
-        print(error)
+        errorController.error = error
       }
     }
     
@@ -148,54 +151,51 @@ struct LocationDetailView: View {
   }
   
   @ViewBuilder
-  var actionSection: some View {
-    Section {
-      HStack {
-        if !formattedPostalAddress.isEmpty {
-          Button {
-            openMap(
-              name: location.name,
-              address: formattedPostalAddress,
-              coordinate: location.coordinate
-            )
-          } label: {
-            VStack {
-              Image(systemName: "tram")
-              Text("Way to", bundle: .module)
-                .lineLimit(1)
-            }
-            .frame(maxWidth: .infinity)
+  var actionsView: some View {
+    HStack {
+      if !formattedPostalAddress.isEmpty {
+        Button {
+          openMap(
+            name: location.name,
+            address: formattedPostalAddress,
+            coordinate: location.coordinate
+          )
+        } label: {
+          VStack {
+            Image(systemName: "tram")
+            Text("Way to", bundle: .module)
+              .lineLimit(1)
           }
-        }
-        if let phoneNumber = location.phoneNumber {
-          Button {
-            let url = URL(string: "tel://\(phoneNumber)")!
-            openURL(url)
-          } label: {
-            VStack {
-              Text("\(Image(systemName: "phone.fill"))")
-              Text("Call", bundle: .module)
-                .lineLimit(1)
-            }
-            .frame(maxWidth: .infinity)
-          }
-        }
-        if let url = location.url {
-          Button {
-            openURL(url)
-          } label: {
-            VStack {
-              Text("\(Image(systemName: "safari.fill"))")
-              Text("Web Site", bundle: .module)
-                .lineLimit(1)
-            }
-            .frame(maxWidth: .infinity)
-          }
+          .frame(maxWidth: .infinity)
         }
       }
-      .buttonStyle(.bordered)
-      .listRowBackground(Color.clear)
+      if let phoneNumber = location.phoneNumber {
+        Button {
+          let url = URL(string: "tel://\(phoneNumber)")!
+          openURL(url)
+        } label: {
+          VStack {
+            Text("\(Image(systemName: "phone.fill"))")
+            Text("Call", bundle: .module)
+              .lineLimit(1)
+          }
+          .frame(maxWidth: .infinity)
+        }
+      }
+      if let url = location.url {
+        Button {
+          openURL(url)
+        } label: {
+          VStack {
+            Text("\(Image(systemName: "safari.fill"))")
+            Text("Web Site", bundle: .module)
+              .lineLimit(1)
+          }
+          .frame(maxWidth: .infinity)
+        }
+      }
     }
+    .buttonStyle(.bordered)
   }
   
   @ViewBuilder
@@ -293,8 +293,9 @@ struct LocationDetailView: View {
   }
   
   @ViewBuilder
-  var budgetAndTagsSection: some View {
-    Section {
+  var budgetAndTagsView: some View {
+    VStack(spacing: 0) {
+      Divider()
       HStack {
         if let budget = location.budget {
           VStack(alignment: .leading) {
@@ -319,7 +320,7 @@ struct LocationDetailView: View {
           }
         }
       }
-      .listRowBackground(Color.clear)
+      Divider()
     }
   }
   
@@ -352,18 +353,46 @@ struct LocationDetailView: View {
   var body: some View {
     NavigationStack {
       List {
-        actionSection
-        
-        if location.budget != nil || !location.tags.isEmpty {
-          budgetAndTagsSection
-        }
-
-        if !location.photoURLs.isEmpty || !location.photoDatas.isEmpty {
-          Section {
-            scrollPhotosView
-              .frame(height: 200)
-              .listRowBackground(Color.clear)
+        Section {
+          VStack {
+            if isNew {
+              HStack {
+                Button (role: isAdded ? .destructive : nil) {
+                  isAdded.toggle()
+                } label: {
+                  VStack {
+                    Image(systemName: isAdded ? "trash" : "plus")
+                    Text(isAdded ? "Delete" : "Add", bundle: .module)
+                  }
+                  .frame(maxWidth: .infinity)
+                }
+                Button (role: isAdded ? .destructive : nil) {
+                  editMode = editMode == .active ? .inactive : .active
+                } label: {
+                  VStack {
+                    Image(systemName: isAdded ? "checkmark" : "pencil")
+                    Text(editMode.isEditing ? "Done" : "Edit", bundle: .module)
+                  }
+                  .frame(maxWidth: .infinity)
+                }
+              }
+              .buttonStyle(.bordered)
+            }
+            
+            if !formattedPostalAddress.isEmpty || location.phoneNumber != nil || location.url != nil {
+              actionsView
+            }
+            
+            if location.budget != nil || !location.tags.isEmpty {
+              budgetAndTagsView
+            }
+            
+            if !location.photoURLs.isEmpty || !location.photoDatas.isEmpty {
+              scrollPhotosView
+                .frame(height: 200)
+            }
           }
+          .listRowBackground(Color.clear)
         }
 
         Section(String(localized: "Information", bundle: .module)) {
@@ -425,7 +454,7 @@ struct LocationDetailView: View {
         }
         
         if location.photoURLs.isEmpty && location.photoDatas.isEmpty {
-          Section("") {
+          Section {
             PhotosPicker(
               String(localized: "Add Photos", bundle: .module),
               selection: $photos,
@@ -443,41 +472,28 @@ struct LocationDetailView: View {
           }
         }
       }
+      // TODO if SwiftUI supports custom headerTopPadding, remove this View Motifider
+      .introspect(.list, on: .iOS(.v17)) { list in
+        var configuration = UICollectionLayoutListConfiguration(appearance: .insetGrouped)
+        configuration.headerMode = .supplementary
+        configuration.headerTopPadding = 0
+        let layout = UICollectionViewCompositionalLayout.list(using: configuration)
+        list.collectionViewLayout = layout
+      }
       .listSectionSpacing(.custom(0))
-      .navigationTitle(location.name)
       .toolbar {
-        if isNew {
-          #if os(macOS)
-          let placement: ToolbarItemPlacement = .navigation
-          #else
-          let placement: ToolbarItemPlacement = .topBarLeading
-          #endif
-          
-          ToolbarItem(placement: placement) {
-            Button(role: .cancel) {
-              modelContext.delete(location)
-              dismiss()
-            } label: {
-              Text("Cancel", bundle: .module)
-            }
-          }
+        ToolbarItem(placement: .topBarLeading) {
+          Text(location.name)
+            .font(.title.bold())
         }
-        
+
         #if os(macOS)
         let placement: ToolbarItemPlacement = .navigation
         #else
         let placement: ToolbarItemPlacement = .topBarTrailing
         #endif
-
-        ToolbarItem(placement: placement) {
-          if self.editMode.isEditing {
-            Button {
-              editMode = editMode == .active ? .inactive : .active
-            } label: {
-              Text(editMode.isEditing ? "Done" : "Edit", bundle: .module)
-            }
-            .tint(.secondary)
-          } else {
+        if !isNew && !self.editMode.isEditing {
+          ToolbarItem(placement: placement) {
             Menu(
               String(localized: "Detail", bundle: .module),
               systemImage: "ellipsis.circle"
@@ -501,27 +517,34 @@ struct LocationDetailView: View {
             .tint(.secondary)
           }
         }
-        
-        if !isNew {
-          #if os(macOS)
-          let placement: ToolbarItemPlacement = .navigation
-          #else
-          let placement: ToolbarItemPlacement = .topBarTrailing
-          #endif
-          
+
+        if !isNew && editMode.isEditing {
           ToolbarItem(placement: placement) {
             Button {
-              dismiss()
+              editMode = .inactive
             } label: {
-              Image(systemName: "xmark")
-                .bold()
-                .padding(6)
-                .background(Color(uiColor: .systemGray5))
-                .clipShape(.circle)
+              Text("Done", bundle: .module)
             }
             .tint(.secondary)
           }
         }
+        
+        ToolbarItem(placement: placement) {
+          Button {
+            dismiss()
+          } label: {
+            Image(systemName: "xmark")
+              .bold()
+              .padding(6)
+              .background(Color(uiColor: .systemGray5))
+              .clipShape(.circle)
+          }
+          .tint(.secondary)
+        }
+      }
+      .onDisappear {
+        guard isNew && !isAdded else { return }
+        modelContext.delete(location)
       }
     }
   }
@@ -540,6 +563,7 @@ private struct Preview: View {
 #Preview {
   Preview()
     .previewModelContainer()
+    .environment(ErrorController())
 }
 
 extension View {
