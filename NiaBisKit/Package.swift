@@ -24,6 +24,7 @@ let package = Package(
     .package(url: "https://github.com/apple/swift-format", from: "509.0.0"),
     .package(url: "https://github.com/kean/Nuke", from: "12.4.0"),
     .package(url: "https://github.com/zunda-pixel/LicenseProvider", from: "1.1.2"),
+    .package(url: "https://github.com/siteline/swiftui-introspect", from: "1.1.3"),
   ],
   targets: [
     .target(
@@ -40,6 +41,7 @@ let package = Package(
         .product(name: "CasePaths", package: "swift-case-paths"),
         .product(name: "AsyncLocationKit", package: "AsyncLocationKit"),
         .product(name: "NukeUI", package: "Nuke"),
+        .product(name: "SwiftUIIntrospect", package: "swiftui-introspect"),
       ],
       plugins: [
         .plugin(name: "LicenseProviderPlugin", package: "LicenseProvider"),
