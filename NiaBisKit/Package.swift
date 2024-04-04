@@ -25,6 +25,7 @@ let package = Package(
     .package(url: "https://github.com/kean/Nuke", from: "12.4.0"),
     .package(url: "https://github.com/zunda-pixel/LicenseProvider", from: "1.1.2"),
     .package(url: "https://github.com/siteline/swiftui-introspect", from: "1.1.3"),
+    .package(url: "https://github.com/apple/swift-http-types", from: "1.0.0"),
   ],
   targets: [
     .target(
@@ -45,6 +46,13 @@ let package = Package(
       ],
       plugins: [
         .plugin(name: "LicenseProviderPlugin", package: "LicenseProvider"),
+      ]
+    ),
+    .target(
+      name: "NiaBisClient",
+      dependencies: [
+        .product(name: "HTTPTypes", package: "swift-http-types"),
+        .product(name: "HTTPTypesFoundation", package: "swift-http-types"),
       ]
     ),
     .testTarget(
