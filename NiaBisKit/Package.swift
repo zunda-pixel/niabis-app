@@ -35,6 +35,7 @@ let package = Package(
       name: "NiaBisUI",
       dependencies: [
         .target(name: "NiaBisData"),
+        .target(name: "NiaBisClient"),
         .product(name: "Algorithms", package: "swift-algorithms"),
         .product(name: "Supabase", package: "supabase-swift"),
         .product(name: "Auth", package: "supabase-swift"),

@@ -17,11 +17,12 @@ struct SearchLocationAndMapView: View {
   @State var selectedLocationID: Location.ID?
 
   var bottomLocationButtonPadding: CGFloat {
+    // 😏 Manual Set
     switch presentationDetent {
     case Constants.presentationDetents[0]:
-      return 110
-    case Constants.presentationDetents[1]:
       return 310
+    case Constants.presentationDetents[1]:
+      return 110
     case Constants.presentationDetents[2]:
       return 310
     default:

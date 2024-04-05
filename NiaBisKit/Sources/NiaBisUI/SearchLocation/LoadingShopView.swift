@@ -1,23 +1,37 @@
 import MapKit
 import NiaBisData
 import SwiftUI
+import NiaBisClient
 
 struct LoadingShopView: View {
   let completion: MKLocalSearchCompletion
   @State var location: Location?
   @Environment(ErrorController.self) var errorController
   @Environment(\.modelContext) var modelContext
+  @Environment(\.locale) var locale
 
   func search() async {
     let request = MKLocalSearch.Request(completion: completion)
     let search = MKLocalSearch(request: request)
 
     do {
-      guard let mapItem = try await search.start().mapItems.first else {
+      async let mapItem = try await search.start().mapItems.first
+      
+      let client = NiaBisClient(
+        token: Constants.niabisAPIToken,
+        locale: locale
+      )
+      async let locationInfomation = try await client.location(name: completion.title)
+
+      guard let mapItem = try await mapItem else {
         throw AbortError.notFount
       }
 
-      let location = Location(completion: completion, mapItem: mapItem)
+      let location = try await Location(
+        completion: completion,
+        mapItem: mapItem,
+        information: locationInfomation
+      )
       modelContext.insert(location)
       self.location = location
     } catch {
@@ -44,11 +58,15 @@ struct LoadingShopView: View {
 }
 
 extension Location {
-  fileprivate convenience init(completion: MKLocalSearchCompletion, mapItem: MKMapItem) {
+  fileprivate convenience init(
+    completion: MKLocalSearchCompletion,
+    mapItem: MKMapItem,
+    information: LocationInformation
+  ) {
     self.init(
       id: .init(),
       name: mapItem.name ?? mapItem.placemark.title ?? completion.title,
-      content: "",
+      content: information.description,
       createdDate: .now,
       updatedDate: nil,
       latitude: mapItem.placemark.coordinate.latitude,
@@ -63,8 +81,8 @@ extension Location {
       phoneNumber: mapItem.phoneNumber,
       url: mapItem.url,
       budget: nil,
-      tags: [],
-      photoURLs: [],
+      tags: information.cuisines.map(\.localizedName),
+      photoURLs: information.photoURLs,
       photoDatas: []
     )
   }
