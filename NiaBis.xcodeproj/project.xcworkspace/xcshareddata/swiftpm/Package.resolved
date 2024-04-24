@@ -172,6 +172,15 @@
       }
     },
     {
+      "identity" : "systemnotification",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/danielsaidi/SystemNotification",
+      "state" : {
+        "revision" : "c6e27d9a6a90b213a854a182d7769f33358ec747",
+        "version" : "1.1.0"
+      }
+    },
+    {
       "identity" : "xctest-dynamic-overlay",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
