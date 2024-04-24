@@ -184,5 +184,4 @@ struct SignInOrSignUpView: View {
 #Preview {
   SignInOrSignUpView(mode: .signIn)
     .environment(AuthController())
-    .environment(ErrorController())
 }

@@ -116,5 +116,4 @@ struct SearchLocationAndMapView: View {
 #Preview {
   SearchLocationAndMapView()
     .previewModelContainer()
-    .environment(ErrorController())
 }

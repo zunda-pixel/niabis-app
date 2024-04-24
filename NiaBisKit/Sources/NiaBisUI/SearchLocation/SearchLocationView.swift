@@ -49,5 +49,4 @@ struct SearchLocationView: View {
     SearchLocationView()
   }
   .previewModelContainer()
-  .environment(ErrorController())
 }

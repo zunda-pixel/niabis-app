@@ -11,8 +11,6 @@ struct LocationDetailView: View {
   @Environment(\.openURL) var openURL
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
-  @Environment(ErrorController.self) var errorController
-
   @State var editMode: EditMode = .inactive
   @State var photos: [PhotosPickerItem] = []
   @State var isLoadingPhotos = false
@@ -44,7 +42,6 @@ struct LocationDetailView: View {
         let data = try await photo.loadTransferable(type: Data.self)!
         photoDatas.append(data)
       } catch {
-        errorController.error = error
       }
     }
     
@@ -563,7 +560,6 @@ private struct Preview: View {
 #Preview {
   Preview()
     .previewModelContainer()
-    .environment(ErrorController())
 }
 
 extension View {

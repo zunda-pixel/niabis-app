@@ -3,8 +3,6 @@ import SwiftData
 import SwiftUI
 
 public struct ContentView: View {
-  let errorController = ErrorController()
-
   public init() {
 
   }
@@ -22,7 +20,6 @@ public struct ContentView: View {
 
   public var body: some View {
     SearchLocationAndMapView()
-      .environment(errorController)
       .modelContainer(container)
   }
 }

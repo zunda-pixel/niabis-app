@@ -6,7 +6,6 @@ import NiaBisClient
 struct LoadingShopView: View {
   let completion: MKLocalSearchCompletion
   @State var location: Location?
-  @Environment(ErrorController.self) var errorController
   @Environment(\.modelContext) var modelContext
   @Environment(\.locale) var locale
 
@@ -35,7 +34,7 @@ struct LoadingShopView: View {
       modelContext.insert(location)
       self.location = location
     } catch {
-      self.errorController.error = error
+      print(error)
     }
   }
 

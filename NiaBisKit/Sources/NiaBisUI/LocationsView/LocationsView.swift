@@ -156,5 +156,4 @@ extension MKLocalSearchCompletion: Identifiable {
 #Preview {
   LocationsView(selectedLocation: .constant(nil))
     .previewModelContainer()
-    .environment(ErrorController())
 }
