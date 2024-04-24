@@ -17,11 +17,12 @@ struct SearchLocationAndMapView: View {
   @State var selectedLocationID: Location.ID?
 
   var bottomLocationButtonPadding: CGFloat {
+    // 😏 Manual Set
     switch presentationDetent {
     case Constants.presentationDetents[0]:
-      return 110
-    case Constants.presentationDetents[1]:
       return 310
+    case Constants.presentationDetents[1]:
+      return 110
     case Constants.presentationDetents[2]:
       return 310
     default:
@@ -33,10 +34,10 @@ struct SearchLocationAndMapView: View {
     Map(position: $position, selection: $selectedLocationID) {
       UserAnnotation()
       
-      ForEach(locations.filter { $0.coodinate != nil }) { location in
+      ForEach(locations.filter { $0.coordinate != nil }) { location in
         Marker(
           location.name,
-          coordinate: location.coodinate!
+          coordinate: location.coordinate!
         )
         .tag(location.id)
       }
@@ -70,26 +71,31 @@ struct SearchLocationAndMapView: View {
       }
       .padding(.trailing, 10)
       .padding(.bottom, bottomLocationButtonPadding)
-      .alert("Permission", isPresented: $isPresentedRequestLocationPermissionAlert) {
-        Button("Open") {
+      .alert(
+        Text("Permission", bundle: .module),
+        isPresented: $isPresentedRequestLocationPermissionAlert
+      ) {
+        Button {
           let url = URL(string: UIApplication.openSettingsURLString)!
           openURL(url)
           isPresentedSheet = true
+        } label: {
+          Text("Open", bundle: .module)
         }
         Button(role: .cancel) {
           isPresentedSheet = true
         } label: {
-          Text("Cancel")
+          Text("Cancel", bundle: .module)
         }
       } message: {
-        Text("Getting location requires permission\nOpen settings and set Privacy > Location Service to get permission")
+        Text("GettingLocationRequiresPermissionAndOpenSettings", bundle: .module)
       }
     }
     .sheet(isPresented: $isPresentedSheet) {
       // TODO Remove NavigationStack (iOS 17 Bug)
       // https://github.com/feedback-assistant/reports/issues/471
       NavigationStack {
-        SearchLocationView(selectedLocation: $selectedLocation)
+        LocationsView(selectedLocation: $selectedLocation)
       }
       .interactiveDismissDisabled()
       .presentationBackgroundInteraction(.enabled)
@@ -98,8 +104,8 @@ struct SearchLocationAndMapView: View {
     }
     .animation(.spring, value: bottomLocationButtonPadding)
     .onChange(of: selectedLocation) { _, newValue in
-      guard let coodinate = newValue?.coodinate else { return }
-      position = .item(.init(placemark: .init(coordinate: coodinate)))
+      guard let coordinate = newValue?.coordinate else { return }
+      position = .item(.init(placemark: .init(coordinate: coordinate)))
     }
     .onChange(of: selectedLocationID) { _, newValue in
       selectedLocation = locations.first { $0.id == newValue }

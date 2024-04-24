@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2E059A7B2BA6180D00FE9B07 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 2E059A7A2BA6180D00FE9B07 /* InfoPlist.xcstrings */; };
 		2E13A8922B8653B800B991B1 /* NiaBisUI in Frameworks */ = {isa = PBXBuildFile; productRef = 2E13A8912B8653B800B991B1 /* NiaBisUI */; };
 		2E44B7E12B864DE600C1968F /* NiaBisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E44B7E02B864DE600C1968F /* NiaBisApp.swift */; };
 		2E44B7E72B864DEA00C1968F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2E44B7E62B864DEA00C1968F /* Assets.xcassets */; };
@@ -48,6 +49,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2E059A7A2BA6180D00FE9B07 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		2E13A8962B87A39000B991B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2E44B7DD2B864DE600C1968F /* NiaBis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NiaBis.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E44B7E02B864DE600C1968F /* NiaBisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiaBisApp.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				2E13A8962B87A39000B991B1 /* Info.plist */,
 				2E44B7E02B864DE600C1968F /* NiaBisApp.swift */,
 				2E44B7E62B864DEA00C1968F /* Assets.xcassets */,
+				2E059A7A2BA6180D00FE9B07 /* InfoPlist.xcstrings */,
 				2E44B7E82B864DEA00C1968F /* NiaBis.entitlements */,
 				2E44B7E92B864DEA00C1968F /* Preview Content */,
 			);
@@ -224,6 +227,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ja,
 			);
 			mainGroup = 2E44B7D42B864DE600C1968F;
 			productRefGroup = 2E44B7DE2B864DE600C1968F /* Products */;
@@ -241,6 +245,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E059A7B2BA6180D00FE9B07 /* InfoPlist.xcstrings in Resources */,
 				2E44B7EB2B864DEA00C1968F /* Preview Assets.xcassets in Resources */,
 				2E44B7E72B864DEA00C1968F /* Assets.xcassets in Resources */,
 			);
@@ -418,8 +423,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NiaBis/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = LocationAlwaysAndWhenInUseUsageDescription;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = LocationWhenInUseUsageDescription;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Show current location on map.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Accessing user current location requires a location permission.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -461,8 +466,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NiaBis/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
-				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = LocationAlwaysAndWhenInUseUsageDescription;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = LocationWhenInUseUsageDescription;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Show current location on map.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Accessing user current location requires a location permission.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;

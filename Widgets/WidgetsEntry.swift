@@ -13,23 +13,28 @@ struct EntryView : View {
     switch entry.configuration.displayStyle {
     case .short:
       Text(location.name)
+        .font(.callout.bold())
+        .lineLimit(1)
     case .medium:
       VStack(alignment: .leading) {
         Text(location.name)
-          .bold()
+          .font(.callout.bold())
+          .lineLimit(1)
         let address = location.postalAddress(style: .short)
         Text(formatter.string(from: address))
-          .dynamicTypeSize(.small)
+          .font(.caption)
           .foregroundStyle(.secondary)
+          .lineLimit(1)
       }
     case .full:
       VStack(alignment: .leading) {
         Text(location.name)
-          .bold()
+          .font(.callout.bold())
+          .lineLimit(1)
         let address = location.postalAddress(style: .medium)
         Text(formatter.string(from: address))
-          .dynamicTypeSize(.small)
           .foregroundStyle(.secondary)
+          .lineLimit(1)
       }
     }
   }
@@ -41,8 +46,10 @@ struct EntryView : View {
     case .snapshot(let locations), .timeline(let locations):
       VStack(alignment: .leading) {
         ForEach(locations) { location in
+          if locations.first?.id != location.id {
+            Divider()
+          }
           cell(location: location)
-          Divider()
         }
       }
     case .error(let error):
