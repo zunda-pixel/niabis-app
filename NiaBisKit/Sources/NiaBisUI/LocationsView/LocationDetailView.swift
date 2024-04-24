@@ -22,10 +22,10 @@ struct LocationDetailView: View {
   
   var location: Location
   let isNew: Bool
-  let formatter = CNPostalAddressFormatter()
 
   var formattedPostalAddress: String {
     let address = location.postalAddress(style: .full)
+    let formatter = CNPostalAddressFormatter()
     let formattedAddress = formatter.string(from: address)
     return formattedAddress
   }
