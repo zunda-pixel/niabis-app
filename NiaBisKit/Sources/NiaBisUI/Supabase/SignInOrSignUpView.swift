@@ -21,7 +21,7 @@ struct SignInOrSignUpView: View {
 
   func login(provider: Provider) async {
     do {
-      let signInURL = try await supabase.auth.getOAuthSignInURL(
+      let signInURL = try supabase.auth.getOAuthSignInURL(
         provider: provider,
         redirectTo: Constants.redirectToURL
       )
@@ -184,5 +184,4 @@ struct SignInOrSignUpView: View {
 #Preview {
   SignInOrSignUpView(mode: .signIn)
     .environment(AuthController())
-    .environment(ErrorController())
 }

@@ -6,13 +6,13 @@ import NukeUI
 import PhotosUI
 import Algorithms
 import SwiftUIIntrospect
+import SystemNotification
 
 struct LocationDetailView: View {
   @Environment(\.openURL) var openURL
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
-  @Environment(ErrorController.self) var errorController
-
+  @StateObject var toast = SystemNotificationContext()
   @State var editMode: EditMode = .inactive
   @State var photos: [PhotosPickerItem] = []
   @State var isLoadingPhotos = false
@@ -22,10 +22,10 @@ struct LocationDetailView: View {
   
   var location: Location
   let isNew: Bool
-  let formatter = CNPostalAddressFormatter()
 
   var formattedPostalAddress: String {
     let address = location.postalAddress(style: .full)
+    let formatter = CNPostalAddressFormatter()
     let formattedAddress = formatter.string(from: address)
     return formattedAddress
   }
@@ -39,13 +39,17 @@ struct LocationDetailView: View {
     
     var photoDatas: [Data] = []
     
-    for photo in photos {
-      do {
+    do {
+      for photo in photos {
         let data = try await photo.loadTransferable(type: Data.self)!
         photoDatas.append(data)
-      } catch {
-        errorController.error = error
       }
+    } catch {
+      toast.presentMessage(
+        .error(
+          text: "Failed to load Photos"
+        )
+      )
     }
     
     location.photoDatas.append(contentsOf: photoDatas)
@@ -547,6 +551,8 @@ struct LocationDetailView: View {
         modelContext.delete(location)
       }
     }
+    .systemNotification(toast)
+    .systemNotificationConfiguration(.standardToast)
   }
 }
 
@@ -563,7 +569,6 @@ private struct Preview: View {
 #Preview {
   Preview()
     .previewModelContainer()
-    .environment(ErrorController())
 }
 
 extension View {

@@ -26,6 +26,7 @@ let package = Package(
     .package(url: "https://github.com/zunda-pixel/LicenseProvider", from: "1.1.2"),
     .package(url: "https://github.com/siteline/swiftui-introspect", from: "1.1.3"),
     .package(url: "https://github.com/apple/swift-http-types", from: "1.0.0"),
+    .package(url: "https://github.com/danielsaidi/SystemNotification", from: "1.1.0"),
   ],
   targets: [
     .target(
@@ -44,6 +45,7 @@ let package = Package(
         .product(name: "AsyncLocationKit", package: "AsyncLocationKit"),
         .product(name: "NukeUI", package: "Nuke"),
         .product(name: "SwiftUIIntrospect", package: "swiftui-introspect"),
+        .product(name: "SystemNotification", package: "SystemNotification"),
       ],
       plugins: [
         .plugin(name: "LicenseProviderPlugin", package: "LicenseProvider"),

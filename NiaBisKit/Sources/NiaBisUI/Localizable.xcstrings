@@ -216,6 +216,16 @@
         }
       }
     },
+    "Failed to load Photos" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写真の読み込みに失敗しました。"
+          }
+        }
+      }
+    },
     "GettingLocationRequiresPermissionAndOpenSettings" : {
       "localizations" : {
         "en" : {
