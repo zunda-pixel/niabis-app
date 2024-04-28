@@ -29,7 +29,7 @@ public final class Location: Identifiable {
 
   public var budget: Int?
   public var tags: [String] = []
-  public var photoURLs: [URL] = []
+  public var photoIDs: [IdentifiedItem<UUID>] = []
   public var photoDatas: [Data] = []
 
   public init(
@@ -51,7 +51,7 @@ public final class Location: Identifiable {
     url: URL? = nil,
     budget: Int? = nil,
     tags: [String],
-    photoURLs: [URL],
+    photoIDs: [IdentifiedItem<UUID>],
     photoDatas: [Data]
   ) {
     self.id = id
@@ -72,7 +72,7 @@ public final class Location: Identifiable {
     self.url = url
     self.budget = budget
     self.tags = tags
-    self.photoURLs = photoURLs
+    self.photoIDs = photoIDs
     self.photoDatas = photoDatas
   }
 }

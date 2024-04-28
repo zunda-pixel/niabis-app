@@ -16,4 +16,5 @@ public enum Constants {
   public static let presentationDetents:  [PresentationDetent] = [.height(300), .height(100), .large]
   public static let privateCloudKitDatabaseName = "iCloud.com.zunda.niabis"
   public static let niabisAPIToken = ""
+  public static let cloudflareImagesAccountHashId = ""
 }

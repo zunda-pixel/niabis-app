@@ -81,7 +81,7 @@ extension Location {
       url: mapItem.url,
       budget: nil,
       tags: information.cuisines.map(\.localizedName),
-      photoURLs: information.photoURLs,
+      photoIDs: information.photoIDs.map { .init(item: $0) },
       photoDatas: []
     )
   }

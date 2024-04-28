@@ -1,6 +1,7 @@
 import Auth
 import AuthenticationServices
 import SwiftUI
+import NiaBisData
 
 struct SignInOrSignUpView: View {
   enum Mode {

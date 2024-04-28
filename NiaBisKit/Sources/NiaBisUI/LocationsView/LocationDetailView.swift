@@ -1,4 +1,5 @@
 import Contacts
+import NiaBisClient
 import NiaBisData
 import SwiftData
 import SwiftUI
@@ -12,6 +13,8 @@ struct LocationDetailView: View {
   @Environment(\.openURL) var openURL
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
+  @Environment(\.locale) var locale
+
   @StateObject var toast = SystemNotificationContext()
   @State var editMode: EditMode = .inactive
   @State var photos: [PhotosPickerItem] = []
@@ -44,6 +47,8 @@ struct LocationDetailView: View {
         let data = try await photo.loadTransferable(type: Data.self)!
         photoDatas.append(data)
       }
+      
+      location.photoDatas.append(contentsOf: photoDatas)
     } catch {
       toast.presentMessage(
         .error(
@@ -52,7 +57,20 @@ struct LocationDetailView: View {
       )
     }
     
-    location.photoDatas.append(contentsOf: photoDatas)
+    do {
+      let client = NiaBisClient(
+        token: Constants.niabisAPIToken,
+        locale: locale
+      )
+      let imageIDs = try await client.uploadImages(images: photoDatas)
+      location.photoIDs.append(contentsOf: imageIDs.map { .init(item: $0) })
+    } catch {
+      toast.presentMessage(
+        .error(
+          text: "Failed to upload Photos"
+        )
+      )
+    }
   }
   
   let currencyFormetter: NumberFormatter = {
@@ -74,8 +92,9 @@ struct LocationDetailView: View {
   var scrollPhotosView: some View {
     ScrollView(.horizontal) {
       LazyHStack {
-        ForEach(location.photoURLs, id: \.absoluteString) { photoURL in
-          LazyImage(url: photoURL) { state in
+        ForEach(location.photoIDs) { photoID in
+          let url = URL(string: "https://imagedelivery.net/\(Constants.cloudflareImagesAccountHashId)/\(photoID.item)/public")!
+          LazyImage(url: url) { state in
             switch state.result {
             case .success(let result):
               #if os(macOS)
@@ -391,7 +410,7 @@ struct LocationDetailView: View {
               budgetAndTagsView
             }
             
-            if !location.photoURLs.isEmpty || !location.photoDatas.isEmpty {
+            if !location.photoIDs.isEmpty || !location.photoDatas.isEmpty {
               scrollPhotosView
                 .frame(height: 200)
             }
@@ -457,7 +476,7 @@ struct LocationDetailView: View {
             .headerProminence(.increased)
         }
         
-        if location.photoURLs.isEmpty && location.photoDatas.isEmpty {
+        if location.photoIDs.isEmpty && location.photoDatas.isEmpty {
           Section {
             PhotosPicker(
               String(localized: "Add Photos", bundle: .module),
@@ -605,8 +624,8 @@ extension View {
           "ramen",
           "shrimp"
         ],
-        photoURLs: [
-          .init(string: "https://ebimaru.com/img/home/keyvisual/Ph_1_PC.jpg?220511")!
+        photoIDs: [
+          .init(item: .init()),
         ],
         photoDatas: []
       )

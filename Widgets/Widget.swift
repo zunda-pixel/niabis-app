@@ -36,7 +36,7 @@ struct Widgets: Widget {
           subLocality: nil,
           street: "1231 Ninth Ave",
           tags: [],
-          photoURLs: [],
+          photoIDs: [],
           photoDatas: []
         )
       ]
