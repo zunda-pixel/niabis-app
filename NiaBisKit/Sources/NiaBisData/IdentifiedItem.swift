@@ -1,6 +1,6 @@
 import Foundation
 
-public struct IdentifiedItem<Item>: Identifiable {
+public struct IdentifiedItem<Item: Hashable>: Identifiable, Hashable {
   public let id: UUID
   public let item: Item
 

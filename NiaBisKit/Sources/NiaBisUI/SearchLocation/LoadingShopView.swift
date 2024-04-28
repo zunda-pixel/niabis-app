@@ -80,9 +80,8 @@ extension Location {
       phoneNumber: mapItem.phoneNumber,
       url: mapItem.url,
       budget: nil,
-      tags: information.cuisines.map(\.localizedName),
-      photoIDs: information.photoIDs.map { .init(item: $0) },
-      photoDatas: []
+      tags: information.cuisines.map(\.localizedName).map { .init(item: $0) },
+      photoIDs: information.photoIDs.map { .init(item: $0) }
     )
   }
 }

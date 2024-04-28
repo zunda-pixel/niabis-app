@@ -47,8 +47,6 @@ struct LocationDetailView: View {
         let data = try await photo.loadTransferable(type: Data.self)!
         photoDatas.append(data)
       }
-      
-      location.photoDatas.append(contentsOf: photoDatas)
     } catch {
       toast.presentMessage(
         .error(
@@ -126,13 +124,6 @@ struct LocationDetailView: View {
               }
             }
           }
-        }
-        
-        ForEach(location.photoDatas, id: \.self) { photoData in
-          Image(uiImage: .init(data: photoData)!)
-            .resizable()
-            .scaledToFit()
-            .clipShape(.rect(cornerRadius: 10))
         }
 
         VStack {
@@ -350,9 +341,9 @@ struct LocationDetailView: View {
   var scrollTags: some View {
     ScrollView(.horizontal) {
       HStack(spacing: 0) {
-        ForEach(location.tags.indexed(), id: \.element) { index, tag in
+        ForEach(location.tags) { tag in
           HStack {
-            Text(tag)
+            Text(tag.item)
               .bold()
               .foregroundStyle(.secondary)
               .padding(.horizontal, 6)
@@ -410,7 +401,7 @@ struct LocationDetailView: View {
               budgetAndTagsView
             }
             
-            if !location.photoIDs.isEmpty || !location.photoDatas.isEmpty {
+            if !location.photoIDs.isEmpty {
               scrollPhotosView
                 .frame(height: 200)
             }
@@ -443,8 +434,8 @@ struct LocationDetailView: View {
                 text: $newTag
               )
               Button {
-                guard !newTag.isEmpty && !location.tags.contains(newTag) else { return }
-                location.tags.append(newTag)
+                guard !newTag.isEmpty && !location.tags.map(\.item).contains(newTag) else { return }
+                location.tags.append(.init(item: newTag))
                 newTag = ""
               } label: {
                 Text("Add", bundle: .module)
@@ -455,11 +446,11 @@ struct LocationDetailView: View {
 
           if !location.tags.isEmpty {
             Section(String(localized: "Tags", bundle: .module)) {
-              ForEach(location.tags.indexed(), id: \.element) { index, tag in
-                Text(tag)
+              ForEach(location.tags) { tag in
+                Text(tag.item)
                   .swipeActions(edge: .trailing) {
                     Button(role: .destructive) {
-                      location.tags.remove(at: index)
+                      location.tags.removeAll { $0.id == tag.id }
                     } label: {
                       Label(
                         String(localized: "Delete", bundle: .module),
@@ -476,7 +467,7 @@ struct LocationDetailView: View {
             .headerProminence(.increased)
         }
         
-        if location.photoIDs.isEmpty && location.photoDatas.isEmpty {
+        if location.photoIDs.isEmpty {
           Section {
             PhotosPicker(
               String(localized: "Add Photos", bundle: .module),
@@ -620,14 +611,13 @@ extension View {
         url: .init(string: "https://niabis.com/\(i)"),
         budget: i * 100 + 1238,
         tags: [
-          "wine",
-          "ramen",
-          "shrimp"
+          .init(item: "wine"),
+          .init(item: "ramen"),
+          .init(item: "shrimp"),
         ],
         photoIDs: [
           .init(item: .init()),
-        ],
-        photoDatas: []
+        ]
       )
 
       container.mainContext.insert(location)
