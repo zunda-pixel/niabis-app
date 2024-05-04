@@ -57,7 +57,7 @@ struct LocationDetailView: View {
     
     do {
       let client = NiaBisClient(
-        token: Constants.niabisAPIToken,
+        token: SecretConstants.niabisAPIToken,
         locale: locale
       )
       let imageIDs = try await client.uploadImages(images: photoDatas)
@@ -91,7 +91,7 @@ struct LocationDetailView: View {
     ScrollView(.horizontal) {
       LazyHStack {
         ForEach(location.photoIDs) { photoID in
-          let url = URL(string: "https://imagedelivery.net/\(Constants.cloudflareImagesAccountHashId)/\(photoID.item)/public")!
+          let url = URL(string: "https://imagedelivery.net/\(SecretConstants.cloudflareImagesAccountHashId)/\(photoID.item)/public")!
           LazyImage(url: url) { state in
             switch state.result {
             case .success(let result):
