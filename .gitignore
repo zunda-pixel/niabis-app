@@ -22,3 +22,4 @@ xcuserdata/
 
 DerivedData
 NiaBisKit/Sources/NiaBisUI/Supabase/LocalSecureEnv.swift
+.env
