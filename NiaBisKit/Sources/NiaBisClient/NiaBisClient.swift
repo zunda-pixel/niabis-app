@@ -21,7 +21,7 @@ public struct NiaBisClient {
 
   public func location(name locationName: String) async throws -> LocationInformation {
     let url: URL = baseURL
-      .appending(path: "location")
+      .appending(path: "locationDetail")
       .appending(queryItems: [
         .init(name: "locationName", value: locationName),
         .init(name: "language", value: language.rawValue),
