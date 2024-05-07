@@ -37,6 +37,15 @@
       }
     },
     {
+      "identity" : "selene",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/zunda-pixel/selene",
+      "state" : {
+        "revision" : "18cd92b578ed84e4529ba25763feda7a36007ae2",
+        "version" : "1.2.3"
+      }
+    },
+    {
       "identity" : "supabase-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/supabase-community/supabase-swift",

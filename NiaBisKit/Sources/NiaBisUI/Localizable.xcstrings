@@ -226,6 +226,16 @@
         }
       }
     },
+    "Failed to upload Photos" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "写真のアップロードに失敗しました。"
+          }
+        }
+      }
+    },
     "GettingLocationRequiresPermissionAndOpenSettings" : {
       "localizations" : {
         "en" : {

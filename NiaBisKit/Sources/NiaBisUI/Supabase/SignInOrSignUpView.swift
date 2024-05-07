@@ -1,6 +1,7 @@
 import Auth
 import AuthenticationServices
 import SwiftUI
+import NiaBisData
 
 struct SignInOrSignUpView: View {
   enum Mode {
@@ -12,7 +13,6 @@ struct SignInOrSignUpView: View {
 
   @Environment(\.webAuthenticationSession) var webAuthenticationSession
   @Environment(AuthController.self) var authController
-  @State var error: IdentifiedItem<Error>?
   @Environment(\.openURL) var openURL
 
   @State var email: String = ""
@@ -33,7 +33,7 @@ struct SignInOrSignUpView: View {
 
       try await supabase.auth.session(from: urlWithToken)
     } catch {
-      self.error = .init(item: error)
+      print(error)
     }
   }
 
@@ -48,7 +48,7 @@ struct SignInOrSignUpView: View {
 
       authController.session = newSession
     } catch {
-      self.error = .init(item: error)
+      print(error)
     }
   }
 
@@ -64,7 +64,7 @@ struct SignInOrSignUpView: View {
 
       isPresentedConfirmMail.toggle()
     } catch {
-      self.error = .init(item: error)
+      print(error)
     }
   }
 
@@ -72,7 +72,7 @@ struct SignInOrSignUpView: View {
     do {
       try await supabase.auth.resend(email: email, type: .signup)
     } catch {
-      self.error = .init(item: error)
+      print(error)
     }
   }
 
@@ -86,7 +86,7 @@ struct SignInOrSignUpView: View {
       let session = try await supabase.auth.session(from: url)
       authController.session = session
     } catch {
-      self.error = .init(item: error)
+      print(error)
     }
   }
 
@@ -134,21 +134,6 @@ struct SignInOrSignUpView: View {
         Button("Resend Mail") {
           Task(priority: .high) {
             await resendConfirmMail(email: email)
-          }
-        }
-      }
-
-      if let error {
-        Section {
-          if let error = error.item as? LocalizedError {
-            if let failureReason = error.failureReason {
-              Text(failureReason)
-            }
-            if let recoverySuggestion = error.recoverySuggestion {
-              Text(recoverySuggestion)
-            }
-          } else {
-            Text(error.item.localizedDescription)
           }
         }
       }

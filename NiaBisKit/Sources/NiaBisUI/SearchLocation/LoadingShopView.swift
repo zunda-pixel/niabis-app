@@ -17,7 +17,7 @@ struct LoadingShopView: View {
       async let mapItem = try await search.start().mapItems.first
       
       let client = NiaBisClient(
-        token: Constants.niabisAPIToken,
+        token: SecretConstants.niabisAPIToken,
         locale: locale
       )
       async let locationInfomation = try await client.location(name: completion.title)
@@ -80,9 +80,8 @@ extension Location {
       phoneNumber: mapItem.phoneNumber,
       url: mapItem.url,
       budget: nil,
-      tags: information.cuisines.map(\.localizedName),
-      photoURLs: information.photoURLs,
-      photoDatas: []
+      tags: information.cuisines.map(\.localizedName).map { .init(item: $0) },
+      photoIDs: information.photoIDs.map { .init(item: $0) }
     )
   }
 }

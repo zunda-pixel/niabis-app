@@ -1,4 +1,5 @@
 import Contacts
+import NiaBisClient
 import NiaBisData
 import SwiftData
 import SwiftUI
@@ -12,6 +13,8 @@ struct LocationDetailView: View {
   @Environment(\.openURL) var openURL
   @Environment(\.modelContext) var modelContext
   @Environment(\.dismiss) var dismiss
+  @Environment(\.locale) var locale
+
   @StateObject var toast = SystemNotificationContext()
   @State var editMode: EditMode = .inactive
   @State var photos: [PhotosPickerItem] = []
@@ -52,7 +55,20 @@ struct LocationDetailView: View {
       )
     }
     
-    location.photoDatas.append(contentsOf: photoDatas)
+    do {
+      let client = NiaBisClient(
+        token: SecretConstants.niabisAPIToken,
+        locale: locale
+      )
+      let imageIDs = try await client.uploadImages(images: photoDatas)
+      location.photoIDs.append(contentsOf: imageIDs.map { .init(item: $0) })
+    } catch {
+      toast.presentMessage(
+        .error(
+          text: "Failed to upload Photos"
+        )
+      )
+    }
   }
   
   let currencyFormetter: NumberFormatter = {
@@ -74,8 +90,9 @@ struct LocationDetailView: View {
   var scrollPhotosView: some View {
     ScrollView(.horizontal) {
       LazyHStack {
-        ForEach(location.photoURLs, id: \.absoluteString) { photoURL in
-          LazyImage(url: photoURL) { state in
+        ForEach(location.photoIDs) { photoID in
+          let url = URL(string: "https://imagedelivery.net/\(SecretConstants.cloudflareImagesAccountHashId)/\(photoID.item)/public")!
+          LazyImage(url: url) { state in
             switch state.result {
             case .success(let result):
               #if os(macOS)
@@ -107,13 +124,6 @@ struct LocationDetailView: View {
               }
             }
           }
-        }
-        
-        ForEach(location.photoDatas, id: \.self) { photoData in
-          Image(uiImage: .init(data: photoData)!)
-            .resizable()
-            .scaledToFit()
-            .clipShape(.rect(cornerRadius: 10))
         }
 
         VStack {
@@ -331,9 +341,9 @@ struct LocationDetailView: View {
   var scrollTags: some View {
     ScrollView(.horizontal) {
       HStack(spacing: 0) {
-        ForEach(location.tags.indexed(), id: \.element) { index, tag in
+        ForEach(location.tags) { tag in
           HStack {
-            Text(tag)
+            Text(tag.item)
               .bold()
               .foregroundStyle(.secondary)
               .padding(.horizontal, 6)
@@ -391,7 +401,7 @@ struct LocationDetailView: View {
               budgetAndTagsView
             }
             
-            if !location.photoURLs.isEmpty || !location.photoDatas.isEmpty {
+            if !location.photoIDs.isEmpty {
               scrollPhotosView
                 .frame(height: 200)
             }
@@ -424,8 +434,8 @@ struct LocationDetailView: View {
                 text: $newTag
               )
               Button {
-                guard !newTag.isEmpty && !location.tags.contains(newTag) else { return }
-                location.tags.append(newTag)
+                guard !newTag.isEmpty && !location.tags.map(\.item).contains(newTag) else { return }
+                location.tags.append(.init(item: newTag))
                 newTag = ""
               } label: {
                 Text("Add", bundle: .module)
@@ -436,11 +446,11 @@ struct LocationDetailView: View {
 
           if !location.tags.isEmpty {
             Section(String(localized: "Tags", bundle: .module)) {
-              ForEach(location.tags.indexed(), id: \.element) { index, tag in
-                Text(tag)
+              ForEach(location.tags) { tag in
+                Text(tag.item)
                   .swipeActions(edge: .trailing) {
                     Button(role: .destructive) {
-                      location.tags.remove(at: index)
+                      location.tags.removeAll { $0.id == tag.id }
                     } label: {
                       Label(
                         String(localized: "Delete", bundle: .module),
@@ -457,7 +467,7 @@ struct LocationDetailView: View {
             .headerProminence(.increased)
         }
         
-        if location.photoURLs.isEmpty && location.photoDatas.isEmpty {
+        if location.photoIDs.isEmpty {
           Section {
             PhotosPicker(
               String(localized: "Add Photos", bundle: .module),
@@ -601,14 +611,13 @@ extension View {
         url: .init(string: "https://niabis.com/\(i)"),
         budget: i * 100 + 1238,
         tags: [
-          "wine",
-          "ramen",
-          "shrimp"
+          .init(item: "wine"),
+          .init(item: "ramen"),
+          .init(item: "shrimp"),
         ],
-        photoURLs: [
-          .init(string: "https://ebimaru.com/img/home/keyvisual/Ph_1_PC.jpg?220511")!
-        ],
-        photoDatas: []
+        photoIDs: [
+          .init(item: .init()),
+        ]
       )
 
       container.mainContext.insert(location)

@@ -28,9 +28,8 @@ public final class Location: Identifiable {
   public var url: URL?
 
   public var budget: Int?
-  public var tags: [String] = []
-  public var photoURLs: [URL] = []
-  public var photoDatas: [Data] = []
+  public var tags: [IdentifiedItem<String>] = []
+  public var photoIDs: [IdentifiedItem<UUID>] = []
 
   public init(
     id: ID,
@@ -50,9 +49,8 @@ public final class Location: Identifiable {
     phoneNumber: String? = nil,
     url: URL? = nil,
     budget: Int? = nil,
-    tags: [String],
-    photoURLs: [URL],
-    photoDatas: [Data]
+    tags: [IdentifiedItem<String>],
+    photoIDs: [IdentifiedItem<UUID>]
   ) {
     self.id = id
     self.name = name
@@ -72,8 +70,7 @@ public final class Location: Identifiable {
     self.url = url
     self.budget = budget
     self.tags = tags
-    self.photoURLs = photoURLs
-    self.photoDatas = photoDatas
+    self.photoIDs = photoIDs
   }
 }
 
