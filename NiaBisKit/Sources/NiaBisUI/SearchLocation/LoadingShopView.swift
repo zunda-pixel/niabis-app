@@ -38,7 +38,7 @@ struct LoadingShopView: View {
     } catch {
       toast.presentMessage(
         .error(
-          text: "Failed to load Photos"
+          text: "Failed to load a Location"
         )
       )
     }

@@ -37,7 +37,7 @@ struct SignInOrSignUpView: View {
     } catch {
       toast.presentMessage(
         .error(
-          text: "Failed to load Photos"
+          text: "Failed to Login"
         )
       )
     }
@@ -56,7 +56,7 @@ struct SignInOrSignUpView: View {
     } catch {
       toast.presentMessage(
         .error(
-          text: "Failed to load Photos"
+          text: "Failed to SingIn"
         )
       )
     }
@@ -76,7 +76,7 @@ struct SignInOrSignUpView: View {
     } catch {
       toast.presentMessage(
         .error(
-          text: "Failed to load Photos"
+          text: "Failed to SignUp"
         )
       )
     }
@@ -88,7 +88,7 @@ struct SignInOrSignUpView: View {
     } catch {
       toast.presentMessage(
         .error(
-          text: "Failed to load Photos"
+          text: "Failed to Resend Confirm Mail"
         )
       )
     }
@@ -106,7 +106,7 @@ struct SignInOrSignUpView: View {
     } catch {
       toast.presentMessage(
         .error(
-          text: "Failed to load Photos"
+          text: "Failed to auth Login URL"
         )
       )
     }
