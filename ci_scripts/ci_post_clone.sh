@@ -3,6 +3,9 @@
 defaults write com.apple.dt.Xcode IDESkipPackagePluginFingerprintValidatation -bool YES
 defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
 
+## change directory to top
+cd ../
+
 env_file=".env"
 touch $env_file
 
