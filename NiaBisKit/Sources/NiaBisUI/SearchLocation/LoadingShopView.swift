@@ -2,12 +2,14 @@ import MapKit
 import NiaBisData
 import SwiftUI
 import NiaBisClient
+import SystemNotification
 
 struct LoadingShopView: View {
   let completion: MKLocalSearchCompletion
   @State var location: Location?
   @Environment(\.modelContext) var modelContext
   @Environment(\.locale) var locale
+  @StateObject var toast = SystemNotificationContext()
 
   func search() async {
     let request = MKLocalSearch.Request(completion: completion)
@@ -34,7 +36,11 @@ struct LoadingShopView: View {
       modelContext.insert(location)
       self.location = location
     } catch {
-      print(error)
+      toast.presentMessage(
+        .error(
+          text: "Failed to load Photos"
+        )
+      )
     }
   }
 

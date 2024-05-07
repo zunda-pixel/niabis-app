@@ -2,6 +2,7 @@ import Auth
 import AuthenticationServices
 import SwiftUI
 import NiaBisData
+import SystemNotification
 
 struct SignInOrSignUpView: View {
   enum Mode {
@@ -14,6 +15,7 @@ struct SignInOrSignUpView: View {
   @Environment(\.webAuthenticationSession) var webAuthenticationSession
   @Environment(AuthController.self) var authController
   @Environment(\.openURL) var openURL
+  @StateObject var toast = SystemNotificationContext()
 
   @State var email: String = ""
   @State var password: String = ""
@@ -33,7 +35,11 @@ struct SignInOrSignUpView: View {
 
       try await supabase.auth.session(from: urlWithToken)
     } catch {
-      print(error)
+      toast.presentMessage(
+        .error(
+          text: "Failed to load Photos"
+        )
+      )
     }
   }
 
@@ -48,7 +54,11 @@ struct SignInOrSignUpView: View {
 
       authController.session = newSession
     } catch {
-      print(error)
+      toast.presentMessage(
+        .error(
+          text: "Failed to load Photos"
+        )
+      )
     }
   }
 
@@ -64,7 +74,11 @@ struct SignInOrSignUpView: View {
 
       isPresentedConfirmMail.toggle()
     } catch {
-      print(error)
+      toast.presentMessage(
+        .error(
+          text: "Failed to load Photos"
+        )
+      )
     }
   }
 
@@ -72,7 +86,11 @@ struct SignInOrSignUpView: View {
     do {
       try await supabase.auth.resend(email: email, type: .signup)
     } catch {
-      print(error)
+      toast.presentMessage(
+        .error(
+          text: "Failed to load Photos"
+        )
+      )
     }
   }
 
@@ -86,7 +104,11 @@ struct SignInOrSignUpView: View {
       let session = try await supabase.auth.session(from: url)
       authController.session = session
     } catch {
-      print(error)
+      toast.presentMessage(
+        .error(
+          text: "Failed to load Photos"
+        )
+      )
     }
   }
 
