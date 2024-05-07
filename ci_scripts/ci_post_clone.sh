@@ -16,4 +16,4 @@ EOL
 
 cd NiaBisKit
 
-swift package plugin --allow-writing-to-directory Sources generate-env-code SecretConstants ../${env_file} Sources/SecretConstants.swift
+swift package plugin --allow-writing-to-directory Sources generate-env-code SecretConstants ../${env_file} Sources/NiaBisUI/Otheres/SecretConstants.swift
