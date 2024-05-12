@@ -32,7 +32,7 @@ struct LoadingShopView: View {
       guard let mapItem = try await search.start().mapItems.first else {
         throw AbortError.notFount
       }
-      
+
       let locationInfomation = try await client.location(name: completion.title)
 
       location.update(
