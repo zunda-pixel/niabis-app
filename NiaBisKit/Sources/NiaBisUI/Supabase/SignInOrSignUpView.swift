@@ -169,6 +169,8 @@ struct SignInOrSignUpView: View {
       }
       .buttonBorderShape(.roundedRectangle)
     }
+    .systemNotification(toast)
+    .systemNotificationConfiguration(.standardToast)
     .formStyle(.grouped)
     .onSubmit(of: .text) {
       Task(priority: .high) {

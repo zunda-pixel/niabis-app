@@ -2,6 +2,11 @@ import Foundation
 import HTTPTypes
 import HTTPTypesFoundation
 
+public enum ImageParameter {
+  case url(URL)
+  case data(Data)
+}
+
 public struct NiaBisClient {
   private let token: String
   private let locale: Locale
@@ -39,23 +44,33 @@ public struct NiaBisClient {
     return location
   }
   
-  public func uploadImage(image: Data) async throws -> UUID {
-    let url: URL = baseURL
+  public func uploadImage(image: ImageParameter) async throws -> UUID {
+    var url: URL = baseURL
       .appending(path: "image")
+    
+    if case .url(let imageURL) = image {
+      url.append(queryItems: [.init(name: "url", value: imageURL.absoluteString)])
+    }
     
     let request = HTTPRequest(method: .get, url: url, headerFields: .init([
       .init(name: .accept, value: "application/json"),
       .init(name: .authorization, value: "Bearer \(token)")
     ]))
     
-    let (data, _) = try await URLSession.shared.upload(for: request, from: image)
+    let data: Data
+    switch image {
+    case .data(let imageData):
+      (data, _) = try await URLSession.shared.upload(for: request, from: imageData)
+    case .url(_):
+      (data, _) = try await URLSession.shared.data(for: request)
+    }
     
     let uploadedImage = try JSONDecoder().decode(UploadImage.self, from: data)
     
     return uploadedImage.id
   }
   
-  public func uploadImages(images: [Data]) async throws -> [UUID] {
+  public func uploadImages(images: [ImageParameter]) async throws -> [UUID] {
     try await withThrowingTaskGroup(of: UUID.self) { group in
       for image in images {
         group.addTask {

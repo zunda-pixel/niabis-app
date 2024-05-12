@@ -6,6 +6,7 @@ import SwiftUI
 
 struct SearchLocationView: View {
   @State var viewState = ViewState()
+  @Environment(\.modelContext) var modelContext
 
   var body: some View {
     NavigationStack {
@@ -27,12 +28,21 @@ struct SearchLocationView: View {
           .containerShape(.rect)
           .contentShape(.rect)
           .onTapGesture {
-            viewState.selectedCompletion = completion
+            let location = Location(
+              id: .init(),
+              name: completion.title,
+              content: completion.subtitle,
+              createdDate: .now,
+              tags: [],
+              photoIDs: []
+            )
+            modelContext.insert(location)
+            viewState.selectedItem = .init(item: .init(completion: completion, location: location))
           }
         }
       }
-      .sheet(item: $viewState.selectedCompletion) { completion in
-        LoadingShopView(completion: completion)
+      .sheet(item: $viewState.selectedItem) { item in
+        LoadingShopView(completion: item.item.completion, location: item.item.location)
           .presentationDragIndicator(.visible)
       }
       .searchable(

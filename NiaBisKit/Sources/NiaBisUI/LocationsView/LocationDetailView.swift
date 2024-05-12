@@ -22,9 +22,10 @@ struct LocationDetailView: View {
   @State var textFieldURLString = ""
   @State var newTag = ""
   @State var isAdded = false
-  
+
   var location: Location
   let isNew: Bool
+  let imageURLs: [URL]
 
   var formattedPostalAddress: String {
     let address = location.postalAddress(style: .full)
@@ -60,7 +61,7 @@ struct LocationDetailView: View {
         token: SecretConstants.niabisAPIToken,
         locale: locale
       )
-      let imageIDs = try await client.uploadImages(images: photoDatas)
+      let imageIDs = try await client.uploadImages(images: photoDatas.map { .data($0) })
       location.photoIDs.append(contentsOf: imageIDs.map { .init(item: $0) })
     } catch {
       toast.presentMessage(
@@ -78,7 +79,7 @@ struct LocationDetailView: View {
   }()
   
   func openMap(name: String, address: String, coordinate: CLLocationCoordinate2D?) {
-    var urlComponents = URLComponents(string: "maps://")!
+    var urlComponents = URLComponents(string: "https://maps.apple.com")!
     urlComponents.queryItems = [
       .init(name: "q", value: name),
       .init(name: "address", value: address),
@@ -86,44 +87,54 @@ struct LocationDetailView: View {
     openURL(urlComponents.url!)
   }
 
+  func imageView(url: URL) -> some View {
+    LazyImage(url: url) { state in
+      switch state.result {
+      case .success(let result):
+        #if os(macOS)
+        Image(nsImage: result.image)
+          .resizable()
+        #else
+        Image(uiImage: result.image)
+          .resizable()
+          .scaledToFit()
+          .clipShape(.rect(cornerRadius: 10))
+        #endif
+      case .failure(_):
+        Image(systemName: "photo")
+          .resizable()
+          .scaledToFit()
+          .overlay {
+            Image(systemName: "xmark")
+              .resizable()
+              .foregroundStyle(.red)
+          }
+      case .none:
+        ProgressView(
+          value: state.progress.fraction,
+          total: Float(state.progress.total)
+        ) {
+          Image(systemName: "photo")
+            .resizable()
+            .scaledToFit()
+        }
+      }
+    }
+  }
+  
   @MainActor
   var scrollPhotosView: some View {
     ScrollView(.horizontal) {
       LazyHStack {
+        if location.photoIDs.isEmpty {
+          ForEach(imageURLs, id: \.self) { imageURL in
+            imageView(url: imageURL)
+          }
+        }
+        
         ForEach(location.photoIDs) { photoID in
           let url = URL(string: "https://imagedelivery.net/\(SecretConstants.cloudflareImagesAccountHashId)/\(photoID.item)/public")!
-          LazyImage(url: url) { state in
-            switch state.result {
-            case .success(let result):
-              #if os(macOS)
-              Image(nsImage: result.image)
-                .resizable()
-              #else
-              Image(uiImage: result.image)
-                .resizable()
-                .scaledToFit()
-                .clipShape(.rect(cornerRadius: 10))
-              #endif
-            case .failure(_):
-              Image(systemName: "photo")
-                .resizable()
-                .scaledToFit()
-                .overlay {
-                  Image(systemName: "xmark")
-                    .resizable()
-                    .foregroundStyle(.red)
-                }
-            case .none:
-              ProgressView(
-                value: state.progress.fraction,
-                total: Float(state.progress.total)
-              ) {
-                Image(systemName: "photo")
-                  .resizable()
-                  .scaledToFit()
-              }
-            }
-          }
+          imageView(url: url)
         }
 
         VStack {
@@ -401,7 +412,7 @@ struct LocationDetailView: View {
               budgetAndTagsView
             }
             
-            if !location.photoIDs.isEmpty {
+            if !location.photoIDs.isEmpty || !imageURLs.isEmpty {
               scrollPhotosView
                 .frame(height: 200)
             }
@@ -561,6 +572,7 @@ struct LocationDetailView: View {
         modelContext.delete(location)
       }
     }
+    .navigationTitle(location.name)
     .systemNotification(toast)
     .systemNotificationConfiguration(.standardToast)
   }
@@ -571,7 +583,7 @@ private struct Preview: View {
 
   var body: some View {
     if let location = locations.first {
-      LocationDetailView(location: location, isNew: false)
+      LocationDetailView(location: location, isNew: false, imageURLs: [])
     }
   }
 }
