@@ -145,6 +145,7 @@ struct LocationsView: View {
     }
     .sheet(isPresented: $isPresentedSearchLocation) {
       SearchLocationView()
+        .presentationDetents(Set(Constants.presentationDetents), selection: $selectedLocationPresentationDetent)
     }
   }
 }
