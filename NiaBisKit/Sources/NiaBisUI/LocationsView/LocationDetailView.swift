@@ -58,7 +58,7 @@ struct LocationDetailView: View {
     
     do {
       let client = NiaBisClient(
-        token: SecretConstants.niabisAPIToken,
+        apiToken: SecretConstants.niabisAPIToken,
         locale: locale
       )
       let imageIDs = try await client.uploadImages(images: photoDatas.map { .data($0) })

@@ -23,16 +23,16 @@ struct LoadingShopView: View {
   func search() async {
     let request = MKLocalSearch.Request(completion: completion)
     let search = MKLocalSearch(request: request)
+    let client = NiaBisClient(
+      apiToken: SecretConstants.niabisAPIToken,
+      locale: locale
+    )
 
     do {
       guard let mapItem = try await search.start().mapItems.first else {
         throw AbortError.notFount
       }
       
-      let client = NiaBisClient(
-        token: SecretConstants.niabisAPIToken,
-        locale: locale
-      )
       let locationInfomation = try await client.location(name: completion.title)
 
       location.update(
@@ -46,6 +46,18 @@ struct LoadingShopView: View {
       toast.presentMessage(
         .error(
           text: "Failed to load a Location"
+        )
+      )
+    }
+    
+    do {
+      let imageIDs = try await client.uploadImages(images: imageURLs.map { .url($0) })
+      imageURLs.removeAll()
+      location.photoIDs.append(contentsOf: imageIDs.map { .init(item: $0)})
+    } catch {
+      toast.presentMessage(
+        .error(
+          text: "Failed to upload a Location Image"
         )
       )
     }
