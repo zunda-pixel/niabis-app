@@ -60,9 +60,21 @@ let package = Package(
       ]
     ),
     .testTarget(
+      name: "NiaBisClientTests",
+      dependencies: [
+        .target(name: "NiaBisClient"),
+      ]
+    ),
+    .testTarget(
       name: "NiaBisDataTests",
       dependencies: [
         .target(name: "NiaBisData"),
+      ]
+    ),
+    .testTarget(
+      name: "NiaBisUITests",
+      dependencies: [
+        .target(name: "NiaBisUI"),
       ]
     ),
   ]

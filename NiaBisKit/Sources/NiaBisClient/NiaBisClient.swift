@@ -2,8 +2,13 @@ import Foundation
 import HTTPTypes
 import HTTPTypesFoundation
 
+public enum ImageParameter {
+  case url(URL)
+  case data(Data)
+}
+
 public struct NiaBisClient {
-  private let token: String
+  private let apiToken: String
   private let locale: Locale
   private var language: Language {
     Language(locale: locale) ?? .english
@@ -12,10 +17,10 @@ public struct NiaBisClient {
   private let baseURL: URL = .init(string: "https://api.niabis.com/")!
   
   public init(
-    token: String,
+    apiToken: String,
     locale: Locale
   ) {
-    self.token = token
+    self.apiToken = apiToken
     self.locale = locale
   }
 
@@ -29,7 +34,7 @@ public struct NiaBisClient {
     
     let request = HTTPRequest(method: .get, url: url, headerFields: .init([
       .init(name: .accept, value: "application/json"),
-      .init(name: .authorization, value: "Bearer \(token)")
+      .init(name: .authorization, value: "Bearer \(apiToken)")
     ]))
     
     let (data, _) = try await URLSession.shared.data(for: request)
@@ -39,23 +44,36 @@ public struct NiaBisClient {
     return location
   }
   
-  public func uploadImage(image: Data) async throws -> UUID {
+  public func uploadImage(image: ImageParameter) async throws -> UUID {
     let url: URL = baseURL
       .appending(path: "image")
     
-    let request = HTTPRequest(method: .get, url: url, headerFields: .init([
+    var request = HTTPRequest(method: .post, url: url, headerFields: .init([
       .init(name: .accept, value: "application/json"),
-      .init(name: .authorization, value: "Bearer \(token)")
+      .init(name: .authorization, value: "Bearer \(apiToken)")
     ]))
     
-    let (data, _) = try await URLSession.shared.upload(for: request, from: image)
+    let data: Data
+    switch image {
+    case .data(let imageData):
+      (data, _) = try await URLSession.shared.upload(for: request, from: imageData)
+    case .url(let url):
+      request.headerFields.append(.init(name: .contentType, value: "application/json"))
+      struct URLImage: Codable {
+        let url: URL
+      }
+      
+      let urlImage = URLImage(url: url)
+      let body = try! JSONEncoder().encode(urlImage)
+      (data, _) = try await URLSession.shared.upload(for: request, from: body)
+    }
     
     let uploadedImage = try JSONDecoder().decode(UploadImage.self, from: data)
     
     return uploadedImage.id
   }
   
-  public func uploadImages(images: [Data]) async throws -> [UUID] {
+  public func uploadImages(images: [ImageParameter]) async throws -> [UUID] {
     try await withThrowingTaskGroup(of: UUID.self) { group in
       for image in images {
         group.addTask {

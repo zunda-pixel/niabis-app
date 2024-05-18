@@ -216,12 +216,82 @@
         }
       }
     },
+    "Failed to auth Login URL" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ログインURLの認証に失敗しました。"
+          }
+        }
+      }
+    },
+    "Failed to load a Location" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "位置情報の取得に失敗しました。"
+          }
+        }
+      }
+    },
     "Failed to load Photos" : {
       "localizations" : {
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "写真の読み込みに失敗しました。"
+          }
+        }
+      }
+    },
+    "Failed to Login" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ログインに失敗しました。"
+          }
+        }
+      }
+    },
+    "Failed to Resend Confirm Mail" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確認メールの再送に失敗しました。"
+          }
+        }
+      }
+    },
+    "Failed to SignUp" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サインアップに失敗しました。"
+          }
+        }
+      }
+    },
+    "Failed to SingIn" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サインインに失敗しました。"
+          }
+        }
+      }
+    },
+    "Failed to upload a Location Image" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "画像のアップロードに失敗しました。"
           }
         }
       }

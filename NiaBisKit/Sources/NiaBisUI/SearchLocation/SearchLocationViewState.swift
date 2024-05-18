@@ -3,12 +3,17 @@ import MapKit
 import NiaBisData
 import Observation
 
+struct SearchLocationItem: Hashable {
+  var completion: MKLocalSearchCompletion
+  var location: Location
+}
+
 extension SearchLocationView {
   @Observable
   final class ViewState: NSObject, MKLocalSearchCompleterDelegate {
     private let completer: MKLocalSearchCompleter
 
-    var selectedCompletion: MKLocalSearchCompletion?
+    var selectedItem: IdentifiedItem<SearchLocationItem>?
     var results: [MKLocalSearchCompletion] = []
     var query: String = "" {
       didSet {
