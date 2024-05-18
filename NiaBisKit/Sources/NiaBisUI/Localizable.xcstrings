@@ -216,6 +216,12 @@
         }
       }
     },
+    "Failed to auth Login URL" : {
+
+    },
+    "Failed to load a Location" : {
+
+    },
     "Failed to load Photos" : {
       "localizations" : {
         "ja" : {
@@ -225,6 +231,21 @@
           }
         }
       }
+    },
+    "Failed to Login" : {
+
+    },
+    "Failed to Resend Confirm Mail" : {
+
+    },
+    "Failed to SignUp" : {
+
+    },
+    "Failed to SingIn" : {
+
+    },
+    "Failed to upload a Location Image" : {
+
     },
     "Failed to upload Photos" : {
       "localizations" : {
