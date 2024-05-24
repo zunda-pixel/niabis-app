@@ -109,7 +109,7 @@ struct LocationsView: View {
               Text(formattedAddress)
                 .foregroundStyle(.secondary)
                 .font(.callout)
-                .lineLimit(1)
+                .lineLimit(1)123
             }
           } icon: {
             Image(systemName: "fork.knife")
