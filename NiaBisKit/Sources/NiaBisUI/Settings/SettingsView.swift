@@ -7,10 +7,6 @@ struct SettingsView: View {
     NavigationStack {
       List {
         Section {
-          Text(SecretConstants.niabisAPIToken)
-          Text(SecretConstants.cloudflareImagesAccountHashId)
-        }
-        Section {
           NavigationLink {
             LicensesView()
           } label: {

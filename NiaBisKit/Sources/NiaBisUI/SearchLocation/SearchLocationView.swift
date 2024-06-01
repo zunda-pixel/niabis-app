@@ -45,7 +45,10 @@ struct SearchLocationView: View {
         }
       }
       .sheet(item: $viewState.selectedItem) { item in
-        LoadingShopView(completion: item.item.completion, location: item.item.location)
+        LoadingShopView(
+          completion: item.item.completion,
+          location: item.item.location
+        )
           .presentationDragIndicator(.visible)
       }
       .searchable(
