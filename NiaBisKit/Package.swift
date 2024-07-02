@@ -20,7 +20,6 @@ let package = Package(
     .package(url: "https://github.com/apple/swift-algorithms", from: "1.2.0"),
     .package(url: "https://github.com/pointfreeco/swift-identified-collections", from: "1.1.0"),
     .package(url: "https://github.com/pointfreeco/swift-case-paths", from: "1.4.2"),
-    .package(url: "https://github.com/apple/swift-format", from: "510.1.0"),
     .package(url: "https://github.com/kean/Nuke", from: "12.7.3"),
     .package(url: "https://github.com/zunda-pixel/LicenseProvider", from: "1.1.2"),
     .package(url: "https://github.com/siteline/swiftui-introspect", from: "1.2.0"),
