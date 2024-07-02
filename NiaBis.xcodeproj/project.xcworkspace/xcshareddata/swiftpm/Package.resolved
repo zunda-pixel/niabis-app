@@ -1,15 +1,6 @@
 {
   "pins" : [
     {
-      "identity" : "asynclocationkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/AsyncSwift/AsyncLocationKit",
-      "state" : {
-        "revision" : "3a9f81e99ba3497a438d882676fb1c3ceb4f177c",
-        "version" : "1.6.4"
-      }
-    },
-    {
       "identity" : "keychainaccess",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/kishikawakatsumi/KeychainAccess",

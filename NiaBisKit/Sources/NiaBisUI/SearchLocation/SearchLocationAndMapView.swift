@@ -1,4 +1,3 @@
-import AsyncLocationKit
 import MapKit
 import NiaBisData
 import SwiftData
