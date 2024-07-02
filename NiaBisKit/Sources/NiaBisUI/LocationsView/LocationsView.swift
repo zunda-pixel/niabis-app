@@ -150,7 +150,7 @@ struct LocationsView: View {
   }
 }
 
-extension MKLocalSearchCompletion: Identifiable {
+extension MKLocalSearchCompletion: @retroactive Identifiable {
   public var id: String { self.title + self.subtitle }
 }
 
