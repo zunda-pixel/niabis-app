@@ -10,7 +10,7 @@ extension Auth.Session {
     accessToken: "",
     tokenType: "",
     expiresIn: .zero,
-    expiresAt: nil,
+    expiresAt: .zero,
     refreshToken: "",
     user: .init(
       id: .init(),
