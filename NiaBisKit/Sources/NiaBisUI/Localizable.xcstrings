@@ -107,17 +107,6 @@
         }
       }
     },
-    "Close" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "閉じる"
-          }
-        }
-      }
-    },
     "Confirm Mail" : {
       "localizations" : {
         "ja" : {
@@ -306,22 +295,6 @@
         }
       }
     },
-    "GettingLocationRequiresPermissionAndOpenSettings" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Getting location requires permission\\nOpen settings and set Privacy > Location Service to get permission"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "位置情報を取得するために権限が必要です。\\nプライバシー > 位置情報サービスから権限を変更可能です。"
-          }
-        }
-      }
-    },
     "Information" : {
       "localizations" : {
         "ja" : {
@@ -382,16 +355,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "新しいタグ"
-          }
-        }
-      }
-    },
-    "Open" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "開く"
           }
         }
       }
