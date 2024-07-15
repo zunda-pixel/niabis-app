@@ -9,6 +9,7 @@ import Algorithms
 import SwiftUIIntrospect
 import SystemNotification
 
+#if !os(macOS)
 struct LocationDetailView: View {
   @Environment(\.openURL) var openURL
   @Environment(\.modelContext) var modelContext
@@ -592,6 +593,8 @@ private struct Preview: View {
   Preview()
     .previewModelContainer()
 }
+
+#endif
 
 extension View {
   @MainActor

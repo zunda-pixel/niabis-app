@@ -1,4 +1,4 @@
-// swift-tools-version: 6.0
+// swift-tools-version: 5.10
 
 import PackageDescription
 
@@ -6,8 +6,8 @@ let package = Package(
   name: "NiaBisKit",
   defaultLocalization: "en",
   platforms: [
-    .iOS(.v17),
-    .macOS(.v14),
+    .iOS("17.4"),
+    .macOS("14.4"),
   ],
   products: [
     .library(

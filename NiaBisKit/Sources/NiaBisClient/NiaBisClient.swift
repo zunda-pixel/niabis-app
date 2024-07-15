@@ -2,7 +2,7 @@ import Foundation
 import HTTPTypes
 import HTTPTypesFoundation
 
-public enum ImageParameter {
+public enum ImageParameter: Sendable, Hashable {
   case url(URL)
   case data(Data)
 }
@@ -32,10 +32,14 @@ public struct NiaBisClient {
         .init(name: "language", value: language.rawValue),
       ])
     
-    let request = HTTPRequest(method: .get, url: url, headerFields: .init([
-      .init(name: .accept, value: "application/json"),
-      .init(name: .authorization, value: "Bearer \(apiToken)")
-    ]))
+    let request = HTTPRequest(
+      method: .get,
+      url: url,
+      headerFields: [
+        .accept: "application/json",
+        .authorization: "Bearer \(apiToken)"
+      ]
+    )
     
     let (data, _) = try await URLSession.shared.data(for: request)
     
@@ -48,10 +52,14 @@ public struct NiaBisClient {
     let url: URL = baseURL
       .appending(path: "image")
     
-    var request = HTTPRequest(method: .post, url: url, headerFields: .init([
-      .init(name: .accept, value: "application/json"),
-      .init(name: .authorization, value: "Bearer \(apiToken)")
-    ]))
+    var request = HTTPRequest(
+      method: .post,
+      url: url,
+      headerFields: [
+        .accept: "application/json",
+        .authorization: "Bearer \(apiToken)",
+      ]
+    )
     
     let data: Data
     switch image {

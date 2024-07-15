@@ -30,7 +30,9 @@ struct SignInOrSignUpView: View {
 
       let urlWithToken = try await webAuthenticationSession.authenticate(
         using: signInURL,
-        callbackURLScheme: Constants.redirectToURL.scheme!
+        callback: .customScheme(Constants.redirectToURL.scheme!),
+        preferredBrowserSession: .shared,
+        additionalHeaderFields: [:]
       )
 
       try await supabase.auth.session(from: urlWithToken)
