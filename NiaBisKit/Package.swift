@@ -25,8 +25,6 @@ let package = Package(
     .package(url: "https://github.com/apple/swift-http-types", from: "1.2.0"),
     .package(url: "https://github.com/danielsaidi/SystemNotification", from: "1.1.1"),
     .package(url: "https://github.com/zunda-pixel/selene", from: "1.3.0"),
-    .package(url: "https://github.com/zunda-pixel/firebase-swift", branch: "add-oauth-api"),
-    .package(url: "https://github.com/zunda-pixel/GitHubKit", from: "0.2.0"),
   ],
   targets: [
     .target(
@@ -43,8 +41,6 @@ let package = Package(
         .product(name: "NukeUI", package: "Nuke"),
         .product(name: "SwiftUIIntrospect", package: "swiftui-introspect"),
         .product(name: "SystemNotification", package: "SystemNotification"),
-        .product(name: "Auth", package: "firebase-swift", moduleAliases: ["HTTPClient" : "HTTPClient1"]),
-        .product(name: "GitHubAPI", package: "GitHubKit", moduleAliases: ["HTTPClient" : "HTTPClient2"]),
       ],
       plugins: [
         .plugin(name: "LicenseProviderPlugin", package: "LicenseProvider"),

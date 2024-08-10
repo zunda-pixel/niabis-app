@@ -1,24 +1,6 @@
 {
-  "originHash" : "38a8f9e7700fdff2afc264d1b0f5d2369d9de1b10abf8370d754a7fbd1796f2c",
+  "originHash" : "127f10fa256dd6999f8cf66a187fbec0f14b45224a92ac18388a8234630ef2e0",
   "pins" : [
-    {
-      "identity" : "firebase-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/zunda-pixel/firebase-swift",
-      "state" : {
-        "branch" : "add-oauth-api",
-        "revision" : "6399d2b4cb06f04bd42b3f453d42389a87932de8"
-      }
-    },
-    {
-      "identity" : "githubkit",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/zunda-pixel/GitHubKit",
-      "state" : {
-        "revision" : "23a0562fc39bfdd92613a71b5761cd85cb322f9d",
-        "version" : "0.2.0"
-      }
-    },
     {
       "identity" : "licenseprovider",
       "kind" : "remoteSourceControl",
@@ -116,15 +98,6 @@
       "state" : {
         "revision" : "06b5cdc432e93b60e3bdf53aff2857c6b312991a",
         "version" : "600.0.0-prerelease-2024-07-30"
-      }
-    },
-    {
-      "identity" : "swift-tagged",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-tagged",
-      "state" : {
-        "revision" : "3907a9438f5b57d317001dc99f3f11b46882272b",
-        "version" : "0.10.0"
       }
     },
     {
