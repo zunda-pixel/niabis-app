@@ -20,7 +20,7 @@ let package = Package(
     .package(url: "https://github.com/pointfreeco/swift-identified-collections", from: "1.1.0"),
     .package(url: "https://github.com/pointfreeco/swift-case-paths", from: "1.5.4"),
     .package(url: "https://github.com/kean/Nuke", from: "12.7.3"),
-    .package(url: "https://github.com/zunda-pixel/LicenseProvider", from: "1.1.2"),
+    //.package(url: "https://github.com/zunda-pixel/LicenseProvider", from: "1.2.0"),
     .package(url: "https://github.com/siteline/swiftui-introspect", from: "1.2.0"),
     .package(url: "https://github.com/apple/swift-http-types", from: "1.2.0"),
     .package(url: "https://github.com/danielsaidi/SystemNotification", from: "1.1.1"),
@@ -50,7 +50,7 @@ let package = Package(
         .swiftLanguageMode(.v5)
       ],
       plugins: [
-        .plugin(name: "LicenseProviderPlugin", package: "LicenseProvider"),
+        //.plugin(name: "LicenseProviderPlugin", package: "LicenseProvider"),
       ]
     ),
     .target(
