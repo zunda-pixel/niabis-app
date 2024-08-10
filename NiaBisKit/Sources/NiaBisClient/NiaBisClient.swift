@@ -7,7 +7,7 @@ public enum ImageParameter: Sendable, Hashable {
   case data(Data)
 }
 
-public struct NiaBisClient {
+public struct NiaBisClient : Sendable {
   private let apiToken: String
   private let locale: Locale
   private var language: Language {
