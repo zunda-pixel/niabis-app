@@ -1,5 +1,5 @@
 {
-  "originHash" : "e63fff8f458dd4135a0ed9f385480f0ac2597d31405e1b81f4cb195d4d1b171e",
+  "originHash" : "672ff67725ca0ab733e4d2b49af620c6b4d54a3feb66ad7f2cbcee6c497e3242",
   "pins" : [
     {
       "identity" : "firebase-swift",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "23a0562fc39bfdd92613a71b5761cd85cb322f9d",
         "version" : "0.2.0"
+      }
+    },
+    {
+      "identity" : "licenseprovider",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/zunda-pixel/LicenseProvider",
+      "state" : {
+        "revision" : "c18168e09b3ff1e0b032e72ee31095a494adb315",
+        "version" : "1.2.1"
       }
     },
     {
