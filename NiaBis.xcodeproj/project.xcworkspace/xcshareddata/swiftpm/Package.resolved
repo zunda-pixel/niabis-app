@@ -1,5 +1,5 @@
 {
-  "originHash" : "672ff67725ca0ab733e4d2b49af620c6b4d54a3feb66ad7f2cbcee6c497e3242",
+  "originHash" : "38a8f9e7700fdff2afc264d1b0f5d2369d9de1b10abf8370d754a7fbd1796f2c",
   "pins" : [
     {
       "identity" : "firebase-swift",
@@ -7,7 +7,7 @@
       "location" : "https://github.com/zunda-pixel/firebase-swift",
       "state" : {
         "branch" : "add-oauth-api",
-        "revision" : "ec03675d9a5bc117c3277ac2ce7886aa49874629"
+        "revision" : "6399d2b4cb06f04bd42b3f453d42389a87932de8"
       }
     },
     {

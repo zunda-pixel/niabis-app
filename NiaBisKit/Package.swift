@@ -46,9 +46,6 @@ let package = Package(
         .product(name: "Auth", package: "firebase-swift", moduleAliases: ["HTTPClient" : "HTTPClient1"]),
         .product(name: "GitHubAPI", package: "GitHubKit", moduleAliases: ["HTTPClient" : "HTTPClient2"]),
       ],
-      swiftSettings: [
-        .swiftLanguageMode(.v5)
-      ],
       plugins: [
         .plugin(name: "LicenseProviderPlugin", package: "LicenseProvider"),
       ]
