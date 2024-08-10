@@ -11,7 +11,7 @@ public enum Constants {
     return appIdentifierPrefix
   }
 
-  public static var bundleIdentifier: String = Bundle.main.infoDictionary!["CFBundleIdentifier"] as! String
+  public static let bundleIdentifier: String = Bundle.main.infoDictionary!["CFBundleIdentifier"] as! String
   
   public static let presentationDetents:  [PresentationDetent] = [.height(300), .height(100), .large]
   public static let privateCloudKitDatabaseName = "iCloud.com.zunda.niabis.database"

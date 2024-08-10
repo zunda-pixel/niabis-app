@@ -1,8 +1,11 @@
-import MapKit
+@preconcurrency import MapKit
 import NiaBisData
 import SwiftUI
 import NiaBisClient
 import SystemNotification
+import PhotosUI
+
+extension PhotosPickerItem: @unchecked @retroactive Sendable { }
 
 struct LoadingShopView: View {
   let completion: MKLocalSearchCompletion

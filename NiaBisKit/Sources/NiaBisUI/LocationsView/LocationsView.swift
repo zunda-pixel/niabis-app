@@ -133,6 +133,7 @@ struct LocationsView: View {
         }
       }
     }
+    #if !os(macOS)
     .listSectionSpacing(.compact)
     .sheet(item: $selectedLocation) { location in
       LocationDetailView(location: location, isNew: false, imageURLs: [])
@@ -140,6 +141,7 @@ struct LocationsView: View {
         .presentationDragIndicator(.visible)
         .presentationDetents(Set(Constants.presentationDetents), selection: $selectedLocationPresentationDetent)
     }
+    #endif
     .sheet(isPresented: $isPresentedSettings) {
       SettingsView()
     }

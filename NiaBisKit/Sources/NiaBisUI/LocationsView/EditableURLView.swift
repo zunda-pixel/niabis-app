@@ -1,5 +1,6 @@
 import SwiftUI
 
+#if !os(macOS)
 struct EditableURLView: View {
   @Environment(\.openURL) var openURL
   @Binding var url: URL?
@@ -33,7 +34,13 @@ struct EditableURLView: View {
         }
       } else {
         Button {
-          if let url = UIPasteboard.general.url {
+          #if os(macOS)
+          let url = NSPasteboard.general.string(forType: .URL).map { URL(string: $0) }
+          #else
+          let url = UIPasteboard.general.url
+          #endif
+          
+          if let url {
             self.url = url
           } else {
             self.urlString = self.url?.absoluteString ?? ""
@@ -83,3 +90,5 @@ private struct Preview: View {
 #Preview {
   Preview()
 }
+
+#endif

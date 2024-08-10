@@ -6,8 +6,8 @@ let package = Package(
   name: "NiaBisKit",
   defaultLocalization: "en",
   platforms: [
-    .iOS(.v17),
-    .macOS(.v14),
+    .iOS("17.4"),
+    .macOS("14.4"),
   ],
   products: [
     .library(
@@ -16,16 +16,15 @@ let package = Package(
     ),
   ],
   dependencies: [
-    .package(url: "https://github.com/supabase-community/supabase-swift", from: "2.13.7"),
     .package(url: "https://github.com/apple/swift-algorithms", from: "1.2.0"),
     .package(url: "https://github.com/pointfreeco/swift-identified-collections", from: "1.1.0"),
-    .package(url: "https://github.com/pointfreeco/swift-case-paths", from: "1.4.2"),
+    .package(url: "https://github.com/pointfreeco/swift-case-paths", from: "1.5.4"),
     .package(url: "https://github.com/kean/Nuke", from: "12.7.3"),
-    .package(url: "https://github.com/zunda-pixel/LicenseProvider", from: "1.1.2"),
+    .package(url: "https://github.com/zunda-pixel/LicenseProvider", from: "1.2.1"),
     .package(url: "https://github.com/siteline/swiftui-introspect", from: "1.2.0"),
     .package(url: "https://github.com/apple/swift-http-types", from: "1.2.0"),
     .package(url: "https://github.com/danielsaidi/SystemNotification", from: "1.1.1"),
-    .package(url: "https://github.com/zunda-pixel/selene", from: "1.2.3"),
+    .package(url: "https://github.com/zunda-pixel/selene", from: "1.3.0"),
   ],
   targets: [
     .target(
@@ -37,8 +36,6 @@ let package = Package(
         .target(name: "NiaBisData"),
         .target(name: "NiaBisClient"),
         .product(name: "Algorithms", package: "swift-algorithms"),
-        .product(name: "Supabase", package: "supabase-swift"),
-        .product(name: "Auth", package: "supabase-swift"),
         .product(name: "IdentifiedCollections", package: "swift-identified-collections"),
         .product(name: "CasePaths", package: "swift-case-paths"),
         .product(name: "NukeUI", package: "Nuke"),
