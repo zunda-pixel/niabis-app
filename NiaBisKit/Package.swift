@@ -26,6 +26,7 @@ let package = Package(
     .package(url: "https://github.com/danielsaidi/SystemNotification", from: "1.1.1"),
     .package(url: "https://github.com/zunda-pixel/selene", from: "1.3.0"),
     .package(url: "https://github.com/getsentry/sentry-cocoa", from: "8.35.0"),
+    .package(url: "https://github.com/mixpanel/mixpanel-swift", from: "4.3.0"),
   ],
   targets: [
     .target(
@@ -43,6 +44,7 @@ let package = Package(
         .product(name: "SwiftUIIntrospect", package: "swiftui-introspect"),
         .product(name: "SystemNotification", package: "SystemNotification"),
         .product(name: "Sentry", package: "sentry-cocoa"),
+        .product(name: "Mixpanel", package: "mixpanel-swift"),
       ],
       plugins: [
         .plugin(name: "LicenseProviderPlugin", package: "LicenseProvider"),
