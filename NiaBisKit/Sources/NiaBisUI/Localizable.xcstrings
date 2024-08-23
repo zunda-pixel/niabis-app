@@ -107,16 +107,6 @@
         }
       }
     },
-    "Confirm Mail" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "メールを確認"
-          }
-        }
-      }
-    },
     "Country" : {
       "localizations" : {
         "ja" : {
@@ -184,16 +174,6 @@
         }
       }
     },
-    "Email" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "メール"
-          }
-        }
-      }
-    },
     "Empty Infomation" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -201,16 +181,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "情報が空です"
-          }
-        }
-      }
-    },
-    "Failed to auth Login URL" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ログインURLの認証に失敗しました。"
           }
         }
       }
@@ -231,46 +201,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "写真の読み込みに失敗しました。"
-          }
-        }
-      }
-    },
-    "Failed to Login" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ログインに失敗しました。"
-          }
-        }
-      }
-    },
-    "Failed to Resend Confirm Mail" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "確認メールの再送に失敗しました。"
-          }
-        }
-      }
-    },
-    "Failed to SignUp" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "サインアップに失敗しました。"
-          }
-        }
-      }
-    },
-    "Failed to SingIn" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "サインインに失敗しました。"
           }
         }
       }
@@ -359,16 +289,6 @@
         }
       }
     },
-    "Open Mail" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "メールを開く"
-          }
-        }
-      }
-    },
     "Order" : {
       "localizations" : {
         "ja" : {
@@ -385,16 +305,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "他の写真"
-          }
-        }
-      }
-    },
-    "Password" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "パスワード"
           }
         }
       }
@@ -440,16 +350,6 @@
         }
       }
     },
-    "Resend Mail" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "メールを再送信"
-          }
-        }
-      }
-    },
     "Search Location" : {
       "localizations" : {
         "ja" : {
@@ -477,36 +377,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "設定"
-          }
-        }
-      }
-    },
-    "Sign In with Email" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "メールでサインイン"
-          }
-        }
-      }
-    },
-    "Sign in with Google" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Googleでサインイン"
-          }
-        }
-      }
-    },
-    "Sign up with Email" : {
-      "localizations" : {
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "メールでサインアップ"
           }
         }
       }
