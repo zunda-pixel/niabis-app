@@ -1,6 +1,6 @@
 public enum SecretConstants {
-  static public var cloudflareImagesAccountHashId: String = <#CLOUDFLARE_IMAGES_ACCOUNT_HASH_ID#>
-  static public var niabisAPIToken: String = <#NIABIA_API_TOKEN#>
-  static public var sentryDsnUrlString: String = <#SECRET_DSN_URL#>
-  static public var mixpanelApiToken: String = <#MIXPANEL_API_TOKEN#>
+  static public let cloudflareImagesAccountHashId: String = <#CLOUDFLARE_IMAGES_ACCOUNT_HASH_ID#>
+  static public let niabisAPIToken: String = <#NIABIA_API_TOKEN#>
+  static public let sentryDsnUrlString: String = <#SECRET_DSN_URL#>
+  static public let mixpanelApiToken: String = <#MIXPANEL_API_TOKEN#>
 }
