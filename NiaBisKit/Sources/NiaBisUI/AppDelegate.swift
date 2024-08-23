@@ -1,12 +1,17 @@
 import SwiftUI
 import MetricKit
 import Sentry
+import Mixpanel
 
 public final class AppDelegate: NSObject, UIApplicationDelegate {
   public func application(
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
   ) -> Bool {
+    Mixpanel.initialize(
+      token: SecretConstants.mixpanelApiToken,
+      trackAutomaticEvents: true
+    )
     MXMetricManager.shared.add(self)
     let options = Sentry.Options()
     options.dsn = URL(string: SecretConstants.sentryDsnUrlString)!.absoluteString
