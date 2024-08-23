@@ -9,7 +9,7 @@ public final class AppDelegate: NSObject, UIApplicationDelegate {
   ) -> Bool {
     MXMetricManager.shared.add(self)
     let options = Sentry.Options()
-    options.dsn = SecretConstants.sentryDsnURL.absoluteString
+    options.dsn = URL(string: SecretConstants.sentryDsnUrlString)!.absoluteString
     options.tracesSampleRate = 1.0
     options.attachScreenshot = true
     options.attachViewHierarchy = true

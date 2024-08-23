@@ -12,6 +12,7 @@ touch $env_file
 cat > $env_file <<EOL
 niabisAPIToken=${NIABIS_API_TOKEN}
 cloudflareImagesAccountHashId=${CLOUDFLARE_IMAGES_ACCOUNT_HASH_ID}
+sentryDsnUrlString=${SENTRY_DSN_URL}
 EOL
 
 cd NiaBisKit
