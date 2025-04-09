@@ -11,7 +11,9 @@ struct LicensesView: View {
           .navigationTitle(package.name)
           .toolbar {
             ToolbarItem {
-              ShareLink(item: package.location)
+              if case .remoteSourceControl(let location) = package.kind {
+                ShareLink(item: location)
+              }
             }
           }
         }
